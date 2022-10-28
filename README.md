@@ -19,6 +19,28 @@ Track Parth
 Genre Parth
 ```
 
+# Design
+## Main Application
+```
+<MainApplication>
+    <Router>
+        <Routes>
+            #Route <Home> <Login, Signup, Trending tracks, Trending albums, Trending artist>
+            #Route <ArtistPage> <ProfilePage, Followers, Likes, AlbumsList>
+            #Route <AlbumPage> 
+            #Route <LoginComponent> 
+            #Route <SignUpComponent> 
+            #Route <PlaylistPage>
+            #Route <RecordLabelPage> <Sign Artist, View all artists>
+            #Route <SearchResults> <Tracks, username, playlis, artist, Recordlabel>
+            #Route <TrackPage> <MusicPlayer,  Like>
+            #Route <GenrePage> <All Tracks from that genre>
+            #Route <ProfilePage::User> <My Followings, Likes (Artist, tracks, Albums), Change Password>
+            #Route <EventsPage> <Get All events, upcoming events, filters(artsit, country)>
+        <Routes>
+    <Router>
+<MainApplication>
+```
 
 
 
@@ -71,25 +93,3 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-# Design
-## Main Application
-```
-<MainApplication>
-    <Router>
-        <Routes>
-            #Route <Home> <Login, Signup, Trending tracks, Trending albums, Trending artist>
-            #Route <ArtistPage> <ProfilePage, Followers, Likes, AlbumsList>
-            #Route <AlbumPage> 
-            #Route <LoginComponent> 
-            #Route <SignUpComponent> 
-            #Route <PlaylistPage>
-            #Route <RecordLabelPage> <Sign Artist, View all artists>
-            #Route <SearchResults> <Tracks, username, playlis, artist, Recordlabel>
-            #Route <TrackPage> <MusicPlayer,  Like>
-            #Route <GenrePage> <All Tracks from that genre>
-            #Route <ProfilePage::User> <My Followings, Likes (Artist, tracks, Albums), Change Password>
-            #Route <EventsPage> <Get All events, upcoming events, filters(artsit, country)>
-        <Routes>
-    <Router>
-<MainApplication>
-```
