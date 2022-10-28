@@ -1,3 +1,29 @@
+# Frontend Pending
+```
+Navbar Vivek
+Search Vivek
+Home Vivek
+
+Authentication Apoorve <LoginComponent> <SignUpComponent> 
+
+ProfilePages (User, Artist) Amit
+Album Pages Amit
+
+Playlist Soumik
+Album Soumik
+RecordLabelPage Soumik
+
+
+Events Parth
+Track Parth
+Genre Parth
+```
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -44,3 +70,26 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+# Design
+## Main Application
+```
+<MainApplication>
+    <Router>
+        <Routes>
+            #Route <Home> <Login, Signup, Trending tracks, Trending albums, Trending artist>
+            #Route <ArtistPage> <ProfilePage, Followers, Likes, AlbumsList>
+            #Route <AlbumPage> 
+            #Route <LoginComponent> 
+            #Route <SignUpComponent> 
+            #Route <PlaylistPage>
+            #Route <RecordLabelPage> <Sign Artist, View all artists>
+            #Route <SearchResults> <Tracks, username, playlis, artist, Recordlabel>
+            #Route <TrackPage> <MusicPlayer,  Like>
+            #Route <GenrePage> <All Tracks from that genre>
+            #Route <ProfilePage::User> <My Followings, Likes (Artist, tracks, Albums), Change Password>
+            #Route <EventsPage> <Get All events, upcoming events, filters(artsit, country)>
+        <Routes>
+    <Router>
+<MainApplication>
+```
