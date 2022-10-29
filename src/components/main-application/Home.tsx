@@ -19,10 +19,10 @@ const Home = (props: HomeProps) => {
     {text: "Hello Again? .. Login here", link: "/log-in", variant:  undefined}
   ]
 
-  let trackMapper = (track: any) => 
+  let trackMapper = (track: any) =>
     <TrackCard trackname={track.trackname} player_url={track.player_url} album_art_url={track.album_art_url}/>;
 
-  let albumMapper = (album: any) => 
+  let albumMapper = (album: any) =>
     <AlbumCard albumname={album.albumname} album_art_url={album.album_art_url} />;
 
   let artistMapper = (artist: any) =>
@@ -36,7 +36,7 @@ const Home = (props: HomeProps) => {
         </Box>
       <hr />
         <EntityResultBox list={<EntityList mapper = {trackMapper} list = {trendingTracks} />} entityname="Tracks"/>
-      <hr /> 
+      <hr />
         <EntityResultBox list={<EntityList mapper = {albumMapper} list = {trendingAlbums} />} entityname="Albums" />
       <hr />
         <EntityResultBox list={<EntityList mapper = {artistMapper} list = {trendingArtists} />} entityname="Artist" />
