@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEventHandler, MutableRefObject, useRef, useState } from 'react'
 import Stack from '@mui/material/Stack';
 import { Box } from '@mui/system';
 import { AlbumCard, ArtistCard, TrackCard } from './Cards';
@@ -8,14 +8,17 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
 
-const SearchBar = () => (
-      <>
-        <TextField
+interface SearchBarProps {
+  ref:React.RefObject<HTMLDivElement>,
+  onInput:any,
+  onChange:any
+}
+const SearchBar = (props:SearchBarProps) => (
+        <TextField ref={props.ref}
             id="search-bar"
             className="text"
-            onInput={(e) => {
-                
-            }}
+            onInput={props.onInput}
+            onChange={props.onChange}
             label="Search"
             variant="outlined"
             placeholder="Search..."
@@ -23,7 +26,6 @@ const SearchBar = () => (
             color='info'
             style={{backgroundColor:"white", width:"100%", border:"2px white solid", borderRadius:"5px"}}
         />
-      </>
   );
 
 interface SearchProps {
@@ -44,18 +46,55 @@ const Search = (props: SearchProps) => {
   let artistMapper = (artist: any) =>
     <ArtistCard artistname={artist.artistname} artist_photo_url={artist.artist_photo_url} />
 
+  const [searchResults, setSearchResults] = useState([<></>])
+
+  let results_available = [
+    <EntityResultBox list={<EntityList mapper = {trackMapper} list = {matchedTracks} />} entityname="Tracks"/>,
+    <hr />,
+      <EntityResultBox list={<EntityList mapper = {albumMapper} list = {matchedAlbums} />} entityname="Albums" />,
+    <hr />,
+      <EntityResultBox list={<EntityList mapper = {artistMapper} list = {matchedArtists} />} entityname="Artist" />
+  ]
+
+  let results_empty = [
+
+  ]
+
+  let searchStringEmptyResult = [
+    <h1 style={{width:"100%", textAlign:"center"}}> Search your favourites in the search bar... </h1>
+  ]
+
+
+  let searchTextFieldRef: any = useRef();
+
+  let onChange = (e: any) => {
+    console.log("search string changed", )
+    if (e.target.value == "") {
+      console.log("string emptied")
+      setSearchResults(searchStringEmptyResult)
+      return
+    }
+
+    // get results from databse
+
+    setMatchedAlbums([])
+    setMatchedArtists([])
+    setMatchedTracks([])
+    setSearchResults(results_available)
+  }
+
+  let onInput = (e: any) => {
+    console.log("got input")
+  }
+   
   return (
     <Stack display="flex" justifyContent={"center"} alignItems={"stretch"} color="white" direction="column" spacing = {10} >
       <hr />
         <Box bgcolor={"white"} borderRadius={"20px"} padding={"10px 40px"} border={"2px solid white"} margin={"50px 100px"}  display="flex" justifyContent={"center"} >
-          <SearchBar/>
+          <SearchBar ref = {searchTextFieldRef} onInput={onInput} onChange={onChange}/>
         </Box>
       <hr />
-        <EntityResultBox list={<EntityList mapper = {trackMapper} list = {matchedTracks} />} entityname="Tracks"/>
-      <hr /> 
-        <EntityResultBox list={<EntityList mapper = {albumMapper} list = {matchedAlbums} />} entityname="Albums" />
-      <hr />
-        <EntityResultBox list={<EntityList mapper = {artistMapper} list = {matchedArtists} />} entityname="Artist" />
+        {searchResults}
       <hr />
     </Stack>
   )
