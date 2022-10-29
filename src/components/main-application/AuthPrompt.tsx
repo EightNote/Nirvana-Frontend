@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import * as gif from '../../assets/background-active-link.gif'
 
 interface AuthenticationPromptProps {
     buttons: AuthenticationPromptLinkProps[]
@@ -26,8 +27,11 @@ interface AuthenticationPromptProps {
   
  const AuthenticationPrompt = (props: AuthenticationPromptProps) => {
     let buttons = props.buttons
+  
     return (
         <Stack  display="flex" justifyContent={"center"} alignItems={"stretch"} color="red" direction="column" spacing = {5}>
+          <img style={{borderRadius:"50%"}} src={require('../../assets/background-active-link.gif')} alt="" />
+          <h1 style={{color:"white", textAlign:"center"}}>Nirvana</h1>
           {buttons.map((button, idx) =>
             <AuthenticationPromptLink variant={idx % 2 ? "contained" : 'outlined'} text = {button.text} link = {button.link}/>
           )}
