@@ -2,12 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   BrowserRouter as Router,
+  Routes,
   Route,
-  Link,
-  Routes
+  Link
 } from "react-router-dom";
 
 import Home from './Home';
+import { Container } from '@mui/system';
 
 interface mainApplicationProps {
 
@@ -20,26 +21,13 @@ interface mainApplicationProps {
 
 const MainApplication = (props: mainApplicationProps) => {
   return (
-    <Router>
+    <Container>
       <Routes>
-        <Route path='/home'>
-          <Home>
-
-          </Home>
-        </Route>
-        <Route path='/search/q?'>
-
-        </Route>
-        <Route path='/artist/'>
-
-        </Route>
-        <Route path='/album/'>
-            <AlbumPage> <></>
-        </Route>
-        
+            <Route path = "home" element = {<Home/>}/>
+            <Route path = "" element = {<Home/>}/>
       </Routes>
-    </Router>
-  )
+    </Container>
+  );
 }
 
 
