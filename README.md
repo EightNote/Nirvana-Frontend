@@ -1,8 +1,6 @@
 # Frontend Pending
 ```
-Navbar Vivek
 Search Vivek
-Home Vivek
 
 Authentication Apoorve <LoginComponent> <SignUpComponent> 
 
