@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,27 +11,13 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-import { logout, selectAuth } from "../../feature/AuthSlice";
-import { useAppSelector, useAppDispatch } from "../../utilities/hooks";
+import { logout } from "../../feature/AuthSlice";
+import { useAppDispatch } from "../../utilities/hooks";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const pages = ['Artists', 'Playlists', 'Search'];
 const links = ["/artists/", "/playlist", "/search"]
@@ -50,12 +36,13 @@ function NavigationBar() {
   );
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const user = JSON.parse(localStorage.getItem("token") || "{}");
     if (!user.token) {
       setLoggedIn(false);
     } else {
       setLoggedIn(true);
     }
+    console.log(isLoggerIn)
   }, []);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -172,12 +159,10 @@ function NavigationBar() {
               </Button>
             ))}
           </Box>
-
-          {isLoggerIn ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt={"?"} src="/static/images/avatar/2.jpg" /> {/**Add username from store in alt*/}
                 </IconButton>
               </Tooltip>
               <Menu
@@ -207,9 +192,6 @@ function NavigationBar() {
               </Menu>
               {/* <button onClick={handleLogout}>Logout</button> */}
             </Box>
-          ) : (
-            ""
-          )}
         </Toolbar>
       </Container>
     </AppBar>

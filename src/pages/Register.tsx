@@ -13,17 +13,14 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { useState, useEffect } from "react";
-import { useRegisterUserMutation } from "../services/authApi";
+import { useState } from "react";
+// import { useRegisterUserMutation } from "../services/authApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../utilities/hooks";
-import { setUser } from "../feature/AuthSlice";
 
 const initialState = {
-  firstName: "",
-  lastName: "",
-  email: "",
+  username: "",
   password: "",
 };
 
@@ -49,17 +46,17 @@ const theme = createTheme();
 
 export default function SignUp() {
   const [val, setVal] = useState(initialState);
-  const { firstName, lastName, email, password } = val;
+  const { username, password } = val;
 
-  const [
-    RegisterUser,
-    {
-      data: RegisterData,
-      isSuccess: isRegisterSuccess,
-      isError: isRegisterError,
-      error: RegisterError,
-    },
-  ] = useRegisterUserMutation();
+  // const [
+  //   RegisterUser,
+  //   {
+  //     data: RegisterData,
+  //     isSuccess: isRegisterSuccess,
+  //     isError: isRegisterError,
+  //     error: RegisterError,
+  //   },
+  // ] = useRegisterUserMutation();
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -69,12 +66,26 @@ export default function SignUp() {
   };
 
   const handleRegister = async () => {
-    if (firstName && lastName && email && password) {
-      let res = await RegisterUser({ firstName, lastName, email, password });
-      if (res) {
+    console.log("Got username", username, "password:", password)
+    if (username && password) {
+      // let res: any = await RegisterUser({ username:username, password:password });
+      await fetch("http://localhost:8080/user/sign-up/", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode:"cors",
+        body: JSON.stringify({username: username, password: password})
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
         navigate("/sign-in");
-        toast.success("Successfully registered user! Now please sign-in...");
-      }
+        toast.success("Successfully registered user! Now please sign-in...")
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
     } else {
       toast.error("Give all input field before login...");
     }
@@ -100,37 +111,14 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  onChange={handler}
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  onChange={handler}
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   onChange={handler}
                   fullWidth
                   id="email"
-                  label="Email Address"
-                  name="email"
+                  label="Username"
+                  name="username"
                   autoComplete="email"
                 />
               </Grid>

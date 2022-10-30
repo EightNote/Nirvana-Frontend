@@ -13,14 +13,14 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState, useEffect } from "react";
-import { useLoginUserMutation } from "../services/authApi";
+// import { useLoginUserMutation } from "../services/authApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../utilities/hooks";
 import { setUser } from "../feature/AuthSlice";
 
 const initialState = {
-  email: "",
+  username: "",
   password: "",
 };
 
@@ -46,16 +46,16 @@ const theme = createTheme();
 
 export default function Auth() {
   const [val, setVal] = useState(initialState);
-  const { email, password } = val;
-  const [
-    loginUser,
-    {
-      data: loginData,
-      isSuccess: isLoginSuccess,
-      isError: isLoginError,
-      error: loginError,
-    },
-  ] = useLoginUserMutation();
+  const { username, password } = val;
+  // const [
+  //   loginUser,
+  //   {
+  //     data: loginData,
+  //     isSuccess: isLoginSuccess,
+  //     isError: isLoginError,
+  //     error: loginError,
+  //   },
+  // ] = useLoginUserMutation();
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -65,13 +65,31 @@ export default function Auth() {
   };
 
   const handleLogin = async () => {
-    if (email && password) {
-      await loginUser({ email, password });
-      let res = dispatch(setUser({ token: loginData.access_token }));
-      if (res) {
-        navigate("/home");
-        toast.success("Successfully logged in...");
-      }
+    if (username && password) {
+      // await loginUser({ username, password });
+      // let res = dispatch(setUser({ token: loginData.access_token }));
+      // if (res) {
+      //   navigate("/home");
+      //   toast.success("Successfully logged in...");
+      // }
+
+      await fetch("http://localhost:8080/user/sign-in/", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode:"cors",
+        body: JSON.stringify({username: username, password: password})
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+        dispatch(setUser(data));
+        toast.success("Successfully logged in user!")
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
     } else {
       toast.error("Give all input field before login...");
     }
@@ -108,8 +126,8 @@ export default function Auth() {
               required
               fullWidth
               id="email"
-              label="Email Address"
-              name="email"
+              label="Username"
+              name="username"
               autoComplete="email"
               autoFocus
             />
