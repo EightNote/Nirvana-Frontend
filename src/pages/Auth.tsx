@@ -76,20 +76,21 @@ export default function Auth() {
       await fetch("http://localhost:8080/user/sign-in/", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        mode:"cors",
-        body: JSON.stringify({username: username, password: password})
+        mode: "cors",
+        body: JSON.stringify({ username: username, password: password }),
       })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Success:', data);
-        dispatch(setUser(data));
-        toast.success("Successfully logged in user!")
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+          dispatch(setUser(data));
+          navigate("/home");
+          toast.success("Successfully logged in user!");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     } else {
       toast.error("Give all input field before login...");
     }
