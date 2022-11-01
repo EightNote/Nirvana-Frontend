@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import Home from './Home';
@@ -22,7 +21,7 @@ interface mainApplicationProps {
 
 const MainApplication = (props: mainApplicationProps) => {
   return (
-    <Container>
+    <Container >
       <Routes>
             <Route path = "home" element = {<Home/>}/>
             <Route path = "" element = {<Home/>}/>
