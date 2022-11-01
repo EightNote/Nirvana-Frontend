@@ -19,9 +19,9 @@ import { useEffect } from "react";
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
 import { NavLink } from "react-router-dom";
 
-const pages = ["Artists", "Playlists", "Search"];
-const links = ["/artists/", "/playlist", "/search"];
-const settings = ["Profile", "Account", "Dashboard"];
+const pages = ["Artists", "Playlists", "Search", "Albums"];
+const links = ["/artists/", "/playlist", "/search", "/album"]
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function NavigationBar() {
   // const {name}= useAppSelector(selectAuth);
