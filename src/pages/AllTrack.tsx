@@ -13,31 +13,23 @@ const style = {
   justifyContent: "center",
 };
 
-const api = async (token) => {
-  await fetch("http://localhost:8080/tracks/", {
-    method: "GET",
-    headers: {
-      "Authorization": "Bearer " + token,
-      "Content-Type": "application/json",
-    },
-    mode: "cors",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Success:", data);
-    })
-    .catch((err) => {
-      console.log("Error:", err);
-    });
-};
-
 export default function AlignItemsList() {
-  const [token, setToken] = React.useState("");
   const [songs, setSongs] = React.useState([]);
 
   useEffect(() => {
-    setToken(JSON.parse(localStorage.getItem("user")).token);
-    api(token);
+    var user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      user = user.token;
+    }
+    axios
+      .get("http://localhost:8080/tracks/all", {
+        headers: {
+          Authorization: "Bearer " + user, //the token is a variable which holds the token
+        },
+      })
+      .then((response) => {
+        setSongs(response.data);
+      });
   }, []);
 
   const theme = useTheme();
