@@ -14,7 +14,7 @@ const style = {
 };
 
 const api = async (token) => {
-  await fetch("http://localhost:8080/tracks/fev", {
+  await fetch("http://localhost:8080/tracks/", {
     method: "GET",
     headers: {
       "Authorization": "Bearer " + token,
