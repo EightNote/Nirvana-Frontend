@@ -9,7 +9,7 @@ export function AlbumList(props) {
         <ImageList
             cols={3}
             sx={{
-                width: "60vw",
+                width: "100vw",
                 height: "84vh",
                 padding: "10px"
             }}>
@@ -19,12 +19,17 @@ export function AlbumList(props) {
                         padding: '20px',
                         backgroundColor: 'rgba(0, 0, 0, 0.1)',
                         borderRadius: "20px",
+                        height: "30px",
+                        width: "30px"
                     }}>
                     <img
-                        src={`http://127.0.0.1:8000${album.album_logo}`}
-                        srcSet={`http://127.0.0.1:8000${album.album_logo}`}
+                        src={album.album_logo}
+                        srcSet={album.album_logo}
                         alt={album.album_title}
-                        loading="lazy" />
+                        loading="lazy"
+                        height="30"
+                        width="30"
+                    />
                     <ImageListItemBar
                         sx={{
                             background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, ' +
@@ -32,7 +37,7 @@ export function AlbumList(props) {
                             borderRadius: "20px",
                         }}
                         title={album.album_title}
-                        subtitle={album.artist.name}
+                        subtitle={album.artist_id}
                         actionIcon={<AlbumDetails albumid={album.id} />} />
                 </ImageListItem>
             ))}
