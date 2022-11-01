@@ -35,6 +35,7 @@ function NavigationBar() {
     null
   );
 
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     if (!user.token) {
@@ -67,6 +68,13 @@ function NavigationBar() {
       navigate("/sign-in");
     }
     toast.success("User logged out...");
+  };
+
+  const logo=()=>{
+    if(JSON.parse(localStorage.getItem("user"))){
+      return JSON.parse(localStorage.getItem("user")).username
+    }
+    return "?";
   };
 
   return (
@@ -166,7 +174,7 @@ function NavigationBar() {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
-                  alt={JSON.parse(localStorage.getItem("user")).username || "?"}
+                  alt={logo()}
                   src="/static/images/avatar/2.jpg"
                 />
                 {""}
