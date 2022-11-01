@@ -15,6 +15,12 @@ const style = {
   justifyContent: "center",
 };
 
+type compProps = {
+  id: BigInteger;
+  title: string;
+  
+};
+
 export default function TrackCard() {
   const theme = useTheme();
   return (

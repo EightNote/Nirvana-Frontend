@@ -29,6 +29,7 @@ export const authSlice = createSlice({
         );
         state.token = action.payload.token;
       }
+      console.log(action.payload.username);
     },
     logout: (state) => {
       localStorage.clear();

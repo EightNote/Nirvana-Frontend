@@ -20,8 +20,8 @@ import GraphicEqIcon from "@mui/icons-material/GraphicEq";
 import { NavLink } from "react-router-dom";
 
 const pages = ["Artists", "Playlists", "Search", "Albums"];
-const links = ["/artists/", "/playlist", "/search", "/album"]
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const links = ["/artists/", "/playlist", "/search", "/album"];
+const settings = ["Profile", "Account", "Dashboard"];
 
 function NavigationBar() {
   // const {name}= useAppSelector(selectAuth);
@@ -36,7 +36,7 @@ function NavigationBar() {
   );
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("token") || "{}");
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
     if (!user.token) {
       setLoggedIn(false);
     } else {
@@ -165,7 +165,11 @@ function NavigationBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={"?"} src="/static/images/avatar/2.jpg" />{" "}
+                <Avatar
+                  alt={JSON.parse(localStorage.getItem("user")).username || "?"}
+                  src="/static/images/avatar/2.jpg"
+                />
+                {""}
                 {/**Add username from store in alt*/}
               </IconButton>
             </Tooltip>
