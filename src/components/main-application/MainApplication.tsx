@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import User from './UserProfile';
 import {
   BrowserRouter as Router,
   Routes,
@@ -27,6 +28,7 @@ const MainApplication = (props: mainApplicationProps) => {
             <Route path = "home" element = {<Home/>}/>
             <Route path = "" element = {<Home/>}/>
             <Route path = "search" element = {<Search/>}/>
+            <Route path = "username/:username" element = {<User/>}></Route>
             <Route path = "album" element = {<Album/>}/>
       </Routes>
     </Container>
