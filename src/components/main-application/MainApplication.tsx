@@ -9,7 +9,7 @@ import {
 import Home from './Home';
 import { Container } from '@mui/system';
 import Search from './SearchPage';
-import Album from './Album';
+import Album from '../Album/Albums';
 
 interface mainApplicationProps {
 
