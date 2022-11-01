@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import User from './UserProfile';
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,7 +10,7 @@ import {
 import Home from './Home';
 import { Container } from '@mui/system';
 import Search from './SearchPage';
-import Album from './Album';
+import Album from '../Album/Albums';
 
 interface mainApplicationProps {
 
@@ -27,6 +28,7 @@ const MainApplication = (props: mainApplicationProps) => {
             <Route path = "home" element = {<Home/>}/>
             <Route path = "" element = {<Home/>}/>
             <Route path = "search" element = {<Search/>}/>
+            <Route path = "username/:username" element = {<User/>}></Route>
             <Route path = "album" element = {<Album/>}/>
       </Routes>
     </Container>
