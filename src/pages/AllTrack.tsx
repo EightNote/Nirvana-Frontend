@@ -29,15 +29,18 @@ export default function AlignItemsList() {
       })
       .then((response) => {
         setSongs(response.data);
+        console.log(response.data);
       });
   }, []);
 
   const theme = useTheme();
   return (
     <Stack spacing={2} justifyContent={"center"} alignItems={"centre"}>
-      <List sx={style} component="nav" aria-label="mailbox folders">
-        <TrackCard />
-      </List>
+      {songs.map((song) => (
+        <List sx={style} component="nav" aria-label="mailbox folders">
+          <TrackCard  id={song.id} title={song.title} audio_file={song.audio_file} track_length={song.track_length} writer={song.writer}/>
+        </List>
+      ))}
     </Stack>
   );
 }

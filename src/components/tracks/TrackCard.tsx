@@ -16,12 +16,20 @@ const style = {
 };
 
 type compProps = {
-  id: BigInteger;
+  id: number;
   title: string;
-  
+  audio_file: string;
+  track_length: number;
+  writer: string;
 };
 
-export default function TrackCard() {
+export default function TrackCard({
+  id,
+  title,
+  audio_file,
+  track_length,
+  writer,
+}: compProps) {
   const theme = useTheme();
   return (
     <div>
