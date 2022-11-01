@@ -5,7 +5,7 @@ import "./App.css";
 import SideMenu from "./components/side-menu/SideMenu";
 import NavigationBar from "./components/nav-bar/NavigationBar";
 import MainApplication from "./components/main-application/MainApplication";
-import {Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Auth from "./pages/Auth";
 
 import { ToastContainer } from "react-toastify";
@@ -14,6 +14,7 @@ import SignUp from "./pages/Register";
 import { useAppDispatch } from "./utilities/hooks";
 import { useEffect } from "react";
 import { setUser } from "./feature/AuthSlice";
+import AllTrack from "./pages/AllTrack";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ function App() {
         <Route path="/*" element={<MainApplication />} />
         <Route path="/sign-in" element={<Auth />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/tracks" element={<AllTrack />} />
       </Routes>
     </div>
   );

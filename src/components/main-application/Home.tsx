@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import Stack from '@mui/material/Stack';
 import { Box } from '@mui/system';
 import AuthenticationPrompt, { AuthenticationPromptLinkProps } from './AuthPrompt';
-import { AlbumCard, ArtistCard, TrackCard } from './Cards';
+import { SmallTrackCard, AlbumCard, ArtistCard, TrackCard } from './Cards';
 import EntityResultBox, { EntityList } from './EntityResultBox';
+import SuggestionResultBox, { SuggestionList } from './SuggestionBox';
+
+// interface Playlist
 
 interface HomeProps {
 
@@ -20,27 +23,42 @@ const Home = (props: HomeProps) => {
   ]
 
   let trackMapper = (track: any) =>
-    <TrackCard trackname={track.trackname} player_url={track.player_url} album_art_url={track.album_art_url}/>;
+    <TrackCard orientation="horizontal" trackname={track.trackname} player_url={track.player_url} album_art_url={track.album_art_url}/>;
+
+    let trackMapperSuggestion = (track: any) =>(
+      <SmallTrackCard orientation="horizontal" trackname={track.trackname} player_url={track.player_url} album_art_url={track.album_art_url}/>
+    );
 
   let albumMapper = (album: any) =>
-    <AlbumCard albumname={album.albumname} album_art_url={album.album_art_url} />;
+    <AlbumCard orientation="horizontal" albumname={album.albumname} album_art_url={album.album_art_url} />;
 
   let artistMapper = (artist: any) =>
-    <ArtistCard artistname={artist.artistname} artist_photo_url={artist.artist_photo_url} />
+    <ArtistCard orientation="horizontal" artistname={artist.artistname} artist_photo_url={artist.artist_photo_url} />
 
   return (
-    <Stack display="flex" justifyContent={"center"} alignItems={"stretch"} color="white" direction="column" spacing = {10} >
+    <Stack display="flex" justifyContent={"center"} alignItems={"stretch"} color="black" direction="column" spacing = {10} >
       <hr />
-        <Box borderRadius={"20px"} padding={"10px 40px"} border={"2px solid white"} margin={"50px 100px"}  display="flex" justifyContent={"center"}>
+        <Box borderRadius={"20px"} padding={"10px 40px"} border={"2px solid black"} margin={"50px 100px"}  display="flex" justifyContent={"center"}>
           <AuthenticationPrompt buttons={authButtons}/>
         </Box>
       <hr />
-        <EntityResultBox list={<EntityList mapper = {trackMapper} list = {trendingTracks} />} entityname="Tracks"/>
-      <hr />
-        <EntityResultBox list={<EntityList mapper = {albumMapper} list = {trendingAlbums} />} entityname="Albums" />
-      <hr />
-        <EntityResultBox list={<EntityList mapper = {artistMapper} list = {trendingArtists} />} entityname="Artist" />
-      <hr />
+      <Stack maxWidth={"true"} direction={"row"}  display="flex">
+        <Stack direction={"column"} width="100%">
+            <EntityResultBox list={<EntityList mapper = {trackMapper} list = {trendingTracks} />} entityname="Tracks"/>
+          <hr />
+            <EntityResultBox list={<EntityList mapper = {albumMapper} list = {trendingAlbums} />} entityname="Albums" />
+          <hr />
+            <EntityResultBox list={<EntityList mapper = {artistMapper} list = {trendingArtists} />} entityname="Artist" />
+          <hr />
+        </Stack>
+        <hr />
+        <Stack justifyContent={"center"} direction={"column"} width="40%">
+            <SuggestionResultBox list={<SuggestionList mapper = {trackMapperSuggestion} list = {trendingTracks} />} entityname="Tracks"/>
+          <hr />
+            <SuggestionResultBox list={<SuggestionList mapper = {trackMapperSuggestion} list = {[]} />} entityname="Artist" />
+          <hr />
+        </Stack>
+      </Stack>
     </Stack>
   )
 }
