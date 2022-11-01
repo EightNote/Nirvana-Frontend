@@ -9,13 +9,14 @@ import {
 import Home from './Home';
 import { Container } from '@mui/system';
 import Search from './SearchPage';
+import Album from './Album';
 
 interface mainApplicationProps {
 
 }
 
 /*
-  Use <Link> Component instead of <a>  to open another 
+  Use <Link> Component instead of <a>  to open another
 
 */
 
@@ -26,6 +27,7 @@ const MainApplication = (props: mainApplicationProps) => {
             <Route path = "home" element = {<Home/>}/>
             <Route path = "" element = {<Home/>}/>
             <Route path = "search" element = {<Search/>}/>
+            <Route path = "album" element = {<Album/>}/>
       </Routes>
     </Container>
   );

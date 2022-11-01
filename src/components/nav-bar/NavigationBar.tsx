@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -16,12 +16,12 @@ import { useAppDispatch } from "../../utilities/hooks";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
-import GraphicEqIcon from '@mui/icons-material/GraphicEq';
-import { NavLink } from 'react-router-dom';
+import GraphicEqIcon from "@mui/icons-material/GraphicEq";
+import { NavLink } from "react-router-dom";
 
-const pages = ['Artists', 'Playlists', 'Search'];
-const links = ["/artists/", "/playlist", "/search"]
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ["Artists", "Playlists", "Search", "Albums"];
+const links = ["/artists/", "/playlist", "/search", "/album"]
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function NavigationBar() {
   // const {name}= useAppSelector(selectAuth);
@@ -42,7 +42,7 @@ function NavigationBar() {
     } else {
       setLoggedIn(true);
     }
-    console.log(isLoggerIn)
+    console.log(isLoggerIn);
   }, []);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -61,7 +61,6 @@ function NavigationBar() {
   };
 
   const handleLogout = () => {
-    console.log("User");
     setLoggedIn(false);
     let res = dispatch(logout());
     if (res) {
@@ -74,7 +73,7 @@ function NavigationBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <GraphicEqIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <GraphicEqIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -124,12 +123,16 @@ function NavigationBar() {
             >
               {pages.map((page, index) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center"><NavLink style={{color: "black"}} to={links[index]} >{page}</NavLink></Typography>
+                  <Typography textAlign="center">
+                    <NavLink style={{ color: "black" }} to={links[index]}>
+                      {page}
+                    </NavLink>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <GraphicEqIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <GraphicEqIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -148,50 +151,51 @@ function NavigationBar() {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page, index) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                <NavLink to={links[index]} >{page}</NavLink>
+                <NavLink to={links[index]}>{page}</NavLink>
               </Button>
             ))}
           </Box>
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={"?"} src="/static/images/avatar/2.jpg" /> {/**Add username from store in alt*/}
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-                <MenuItem key="logout" onClick={handleLogout}>
-                  <Typography textAlign="center">LogOut</Typography>
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt={"?"} src="/static/images/avatar/2.jpg" />{" "}
+                {/**Add username from store in alt*/}
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-              </Menu>
-              {/* <button onClick={handleLogout}>Logout</button> */}
-            </Box>
+              ))}
+              <MenuItem key="logout" onClick={handleLogout}>
+                <Typography textAlign="center">LogOut</Typography>
+              </MenuItem>
+            </Menu>
+            {/* <button onClick={handleLogout}>Logout</button> */}
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
