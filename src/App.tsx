@@ -15,6 +15,7 @@ import { useAppDispatch } from "./utilities/hooks";
 import { useEffect } from "react";
 import { setUser } from "./feature/AuthSlice";
 import AllTrack from "./pages/AllTrack";
+import AllEvents from './pages/AllEvents';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -34,6 +35,7 @@ function App() {
         <Route path="/sign-in" element={<Auth />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/tracks" element={<AllTrack />} />
+        <Route path="/events" element={<AllEvents/>}/>
       </Routes>
     </div>
   );
