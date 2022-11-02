@@ -13,15 +13,22 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import { useRegisterUserMutation } from "../services/authApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../utilities/hooks";
 
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import axios from "axios";
+
 const initialState = {
   username: "",
   password: "",
+  role: "user",
 };
 
 function Copyright(props: any) {
@@ -45,8 +52,20 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignUp() {
+  const [checked, setChecked] = React.useState(false);
+  const [countries, setCountries] = React.useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/countries/all/").then((response) => {
+      setCountries(response.data);
+      console.log(response.data);
+    });
+  }, []);
+
   const [val, setVal] = useState(initialState);
-  const { username, password } = val;
+  const { username, password, role } = val;
+
+  const [value, setValue] = React.useState("India");
 
   // const [
   //   RegisterUser,
@@ -65,27 +84,48 @@ export default function SignUp() {
     setVal({ ...val, [e.target.name]: e.target.value });
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+
+  useEffect(() => {
+    if (checked) {
+      setVal({ ...val, "role": "artist" });
+    } else {
+      setVal({ ...val, "role": "user" });
+    }
+  }, [checked]);
+
+  const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue((event.target as HTMLInputElement).value);
+    handler(event);
+  };
+
   const handleRegister = async () => {
-    console.log("Got username", username, "password:", password)
+    console.log("Got username", username, "password:", password);
     if (username && password) {
       // let res: any = await RegisterUser({ username:username, password:password });
       await fetch("http://localhost:8080/user/sign-up/", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        mode:"cors",
-        body: JSON.stringify({username: username, password: password})
+        mode: "cors",
+        body: JSON.stringify({
+          username: username,
+          password: password,
+          role: role,
+        }),
       })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Success:', data);
-        navigate("/sign-in");
-        toast.success("Successfully registered user! Now please sign-in...")
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+          navigate("/sign-in");
+          toast.success("Successfully registered user! Now please sign-in...");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     } else {
       toast.error("Give all input field before login...");
     }
@@ -134,14 +174,109 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
+
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
+                    <Checkbox
+                      checked={checked}
+                      onChange={handleChange}
+                      value="artist"
+                      name="role"
+                      color="primary"
+                    />
                   }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="Check if artist"
                 />
               </Grid>
+              {checked ? (
+                <>
+                  <Grid item component="form" noValidate xs={12}>
+                    <TextField
+                      margin="normal"
+                      onChange={handler}
+                      fullWidth
+                      id="email"
+                      label="Email"
+                      required
+                      name="email"
+                      autoComplete="email"
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item component="form" noValidate xs={12}>
+                    <TextField
+                      margin="normal"
+                      onChange={handler}
+                      fullWidth
+                      id="about"
+                      label="About"
+                      name="about"
+                      autoComplete="about"
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item component="form" noValidate xs={12}>
+                    <TextField
+                      margin="normal"
+                      onChange={handler}
+                      fullWidth
+                      id="twitter"
+                      label="Twitter"
+                      name="twitter"
+                      autoComplete="twitter"
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item component="form" noValidate xs={12}>
+                    <TextField
+                      margin="normal"
+                      onChange={handler}
+                      fullWidth
+                      id="facebook"
+                      label="Facebook"
+                      name="facebook"
+                      autoComplete="facebook"
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item component="form" noValidate xs={12}>
+                    <TextField
+                      margin="normal"
+                      onChange={handler}
+                      fullWidth
+                      label="Instagram"
+                      name="instagram"
+                      autoComplete="instagram"
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item component="form" noValidate xs={12}>
+                    <FormControl>
+                      <FormLabel id="demo-controlled-radio-buttons-group">
+                        Country
+                      </FormLabel>
+                      <RadioGroup
+                        aria-labelledby="demo-controlled-radio-buttons-group"
+                        name="controlled-radio-buttons-group"
+                        value={value}
+                        onChange={handleChange1}
+                      >
+                        {countries.map((country) => (
+                          <FormControlLabel
+                            name="nationality_id"
+                            value={country.id}
+                            control={<Radio />}
+                            label={country.name}
+                          />
+                        ))}
+                      </RadioGroup>
+                    </FormControl>
+                  </Grid>
+                </>
+              ) : (
+                ""
+              )}
             </Grid>
             <Button
               // type="submit"

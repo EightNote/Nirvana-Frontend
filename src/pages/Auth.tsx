@@ -47,6 +47,12 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function Auth() {
+  const [checked, setChecked] = React.useState(true);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+
   const [val, setVal] = useState(initialState);
   const { username, password } = val;
   const [loginUser, data] = useLoginUserMutation();
@@ -145,9 +151,18 @@ export default function Auth() {
               autoComplete="current-password"
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              control={
+                <Checkbox
+                  checked={checked}
+                  onChange={handleChange}
+                  value="remember"
+                  color="primary"
+                />
+              }
+              label="Check if artist"
             />
+
+
             <Button
               onClick={handleLogin}
               fullWidth
