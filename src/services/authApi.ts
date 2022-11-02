@@ -10,22 +10,19 @@ export const authApi = createApi({
   }),
   endpoints: (builder) => ({
     loginUser: builder.mutation({
-      query: (body: { "username": string; "password": string }) => {
+      query: (body: { username: string; password: string }) => {
         return {
-          url: "/sign-up/",
+          url: "/sign-in/",
           method: "POST",
           body,
         };
       },
     }),
     RegisterUser: builder.mutation({
-      query: (body: {
-        username: string;
-        password: string;
-      }) => {
-        let jsonbody = JSON.stringify(body)
+      query: (body: { username: string; password: string; }) => {
+        let jsonbody = JSON.stringify(body);
         return {
-          mode: 'no-cors',
+          mode: "no-cors",
           url: "/sign-in/",
           method: "POST",
           jsonbody,
