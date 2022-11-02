@@ -13,6 +13,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
+import { height } from "@mui/system";
 
 const initialState = {
   date: "",
@@ -64,12 +65,15 @@ const AllEvents = () => {
     if (user) {
       user = user.token;
     }
-    console.log(user);
+
+    var str = `?date=${val["date"]}&time=${val["time"]}&venue=${val["venue"]}&poster_url=${val["poster_url"]}&artist=${val["artist"]}&country=${val["country"]}`;
+    console.log(str);
+
     axios
-      .post("http://localhost:8080/event/", {
-        param: val,
+      .post("http://localhost:8080/event/" + str, "", {
         headers: {
           Authorization: "Bearer " + user, //the token is a variable which holds the token
+          "content-type": "text/json",
         },
       })
       .then((response) => {
