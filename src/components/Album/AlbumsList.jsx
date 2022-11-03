@@ -27,13 +27,9 @@ export function AlbumList(props) {
                         loading="lazy"
                     />
                     <ImageListItemBar
-                        sx={{
-                            background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, ' +
-                                'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-                            borderRadius: "20px",
-                        }}
                         title={album.album_title}
                         subtitle={album.artist_id}
+                        position="below"
                         actionIcon={<AlbumDetails albumid={album.id} />} />
                 </ImageListItem>
             ))}
