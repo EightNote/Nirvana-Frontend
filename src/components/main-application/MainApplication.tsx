@@ -11,6 +11,7 @@ import Home from './Home';
 import { Container } from '@mui/system';
 import Search from './SearchPage';
 import Album from '../Album/Albums';
+import AlbumDetails from '../Album/AlbumDetails';
 import Artist from './ArtistProfile'
 
 interface mainApplicationProps {
@@ -30,7 +31,8 @@ const MainApplication = (props: mainApplicationProps) => {
             <Route path = "" element = {<Home/>}/>
             <Route path = "search" element = {<Search/>}/>
             <Route path = "username/:username" element = {<User/>}></Route>
-            <Route path = "album" element = {<Album/>}/>
+            <Route path = "albums" element = {<Album/>}/>
+            <Route path = "albums/album/:title" element = {<AlbumDetails/>} />
             <Route path="artist/:artistname" element = {<Artist/>}/>
       </Routes>
     </Container>
