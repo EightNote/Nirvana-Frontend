@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import TrackCard from "../tracks/TrackCard";
 
-function AlbumDetails() {
+function PlaylistDetails() {
     const { title } = useParams();
     const [tracks, setTracks] = React.useState([]);
     useEffect(() => {
@@ -39,4 +39,4 @@ function AlbumDetails() {
     );
 }
 
-export default AlbumDetails;
+export default PlaylistDetails;

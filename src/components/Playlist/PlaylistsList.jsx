@@ -4,7 +4,7 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { useNavigate } from "react-router-dom";
 
 
-export function AlbumList(props) {
+export function PlaylistsList(props) {
     let navigate = useNavigate();
     const routeChange = (title) => {
         let path = "/albums/album/" + title;
