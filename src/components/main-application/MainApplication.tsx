@@ -13,6 +13,8 @@ import Search from './SearchPage';
 import Album from '../Album/Albums';
 import AlbumDetails from '../Album/AlbumDetails';
 import Artist from './ArtistProfile'
+import Playlist from '../Playlist/Playlists';
+import PlaylistDetails from '../Playlist/PlaylistDetails'
 
 interface mainApplicationProps {
 
@@ -33,6 +35,8 @@ const MainApplication = (props: mainApplicationProps) => {
             <Route path = "username/:username" element = {<User/>}></Route>
             <Route path = "albums" element = {<Album/>}/>
             <Route path = "albums/album/:title" element = {<AlbumDetails/>} />
+            <Route path = "playlists" element = {<Playlist/>}/>
+            <Route path = "playlists/playlist/:title" element = {<PlaylistDetails/>} />
             <Route path="artist/:artistname" element = {<Artist/>}/>
       </Routes>
     </Container>
