@@ -13,6 +13,10 @@ code {
     monospace;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 a {
   color: black;
 }
