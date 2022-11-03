@@ -18,10 +18,12 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../utilities/hooks";
 import { setUser } from "../feature/AuthSlice";
+import { useLoginUserMutation } from "../services/authApi";
 
 const initialState = {
   username: "",
   password: "",
+  role: "",
 };
 
 function Copyright(props: any) {
@@ -45,17 +47,15 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function Auth() {
+  const [checked, setChecked] = React.useState(true);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+
   const [val, setVal] = useState(initialState);
   const { username, password } = val;
-  // const [
-  //   loginUser,
-  //   {
-  //     data: loginData,
-  //     isSuccess: isLoginSuccess,
-  //     isError: isLoginError,
-  //     error: loginError,
-  //   },
-  // ] = useLoginUserMutation();
+  const [loginUser, data] = useLoginUserMutation();
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -66,33 +66,40 @@ export default function Auth() {
 
   const handleLogin = async () => {
     if (username && password) {
-      // await loginUser({ username, password });
-      // let res = dispatch(setUser({ token: loginData.access_token }));
-      // if (res) {
-      //   navigate("/home");
-      //   toast.success("Successfully logged in...");
-      // }
-
-      await fetch("http://localhost:8080/user/sign-in/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        body: JSON.stringify({ username: username, password: password }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Success:", data);
-          dispatch(setUser(data));
-          navigate("/home");
-          toast.success("Successfully logged in user!");
+      var res1: any = await loginUser({ username, password });
+      console.log(res1.data.token);
+      let res = dispatch(
+        setUser({
+          token: res1.data.token,
+          username: res1.data.username,
+          role: res1.data.role,
         })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    } else {
-      toast.error("Give all input field before login...");
+      );
+      if (res) {
+        navigate("/home");
+        toast.success("Successfully logged in...");
+      }
+
+      //     await fetch("http://localhost:8080/user/sign-in/", {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       mode: "cors",
+      //       body: JSON.stringify({ username: username, password: password }),
+      //     })
+      //       .then((response) => response.json())
+      //       .then((data) => {
+      //         console.log("Success:", data);
+      //         dispatch(setUser(data));
+      //         navigate("/home");
+      //         toast.success("Successfully logged in user!");
+      //       })
+      //       .catch((error) => {
+      //         console.error("Error:", error);
+      //       });
+      //   } else {
+      //     toast.error("Give all input field before login...");
     }
   };
 
@@ -144,9 +151,18 @@ export default function Auth() {
               autoComplete="current-password"
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              control={
+                <Checkbox
+                  checked={checked}
+                  onChange={handleChange}
+                  value="remember"
+                  color="primary"
+                />
+              }
+              label="Check if artist"
             />
+
+
             <Button
               onClick={handleLogin}
               fullWidth

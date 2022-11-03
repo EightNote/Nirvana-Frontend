@@ -13,39 +13,40 @@ const style = {
   justifyContent: "center",
 };
 
-const api = async (token) => {
-  await fetch("http://localhost:8080/tracks/", {
-    method: "GET",
-    headers: {
-      "Authorization": "Bearer " + token,
-      "Content-Type": "application/json",
-    },
-    mode: "cors",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Success:", data);
-    })
-    .catch((err) => {
-      console.log("Error:", err);
-    });
-};
-
 export default function AlignItemsList() {
-  const [token, setToken] = React.useState("");
   const [songs, setSongs] = React.useState([]);
 
   useEffect(() => {
-    setToken(JSON.parse(localStorage.getItem("user")).token);
-    api(token);
+    var user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      user = user.token;
+    }
+    axios
+      .get("http://localhost:8080/tracks/all", {
+        headers: {
+          Authorization: "Bearer " + user, //the token is a variable which holds the token
+        },
+      })
+      .then((response) => {
+        setSongs(response.data);
+        console.log(response.data);
+      });
   }, []);
 
   const theme = useTheme();
   return (
     <Stack spacing={2} justifyContent={"center"} alignItems={"centre"}>
-      <List sx={style} component="nav" aria-label="mailbox folders">
-        <TrackCard />
-      </List>
+      {songs.map((song) => (
+        <List sx={style} component="nav" aria-label="mailbox folders">
+          <TrackCard
+            id={song.id}
+            title={song.title}
+            audio_file={song.audio_file}
+            track_length={song.track_length}
+            writer={song.writer}
+          />
+        </List>
+      ))}
     </Stack>
   );
 }
