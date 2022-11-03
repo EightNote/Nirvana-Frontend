@@ -19,16 +19,12 @@ export function AlbumList(props) {
                         padding: '20px',
                         backgroundColor: 'rgba(0, 0, 0, 0.1)',
                         borderRadius: "20px",
-                        height: "30px",
-                        width: "30px"
                     }}>
                     <img
                         src={album.album_logo}
                         srcSet={album.album_logo}
                         alt={album.album_title}
                         loading="lazy"
-                        height="30"
-                        width="30"
                     />
                     <ImageListItemBar
                         sx={{
