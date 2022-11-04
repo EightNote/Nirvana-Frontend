@@ -15,7 +15,10 @@ import { useAppDispatch } from "./utilities/hooks";
 import { useEffect } from "react";
 import { setUser } from "./feature/AuthSlice";
 import AllTrack from "./pages/AllTrack";
-import AllEvents from './pages/AllEvents';
+import AllEvents from "./pages/AllEvents";
+import Navbar from "./new/navbar/Navbar";
+
+import "./pages/new.css";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -26,8 +29,9 @@ function App() {
   }, []);
   return (
     <div>
-      <NavigationBar />
-      <SideMenu></SideMenu>
+      <div className="gradient__bg">
+        <Navbar />
+      </div>
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Navigate to="/sign-in" replace />} />
@@ -35,7 +39,7 @@ function App() {
         <Route path="/sign-in" element={<Auth />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/tracks" element={<AllTrack />} />
-        <Route path="/events" element={<AllEvents/>}/>
+        <Route path="/events" element={<AllEvents />} />
       </Routes>
     </div>
   );
