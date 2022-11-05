@@ -6,7 +6,7 @@ import Main from "../../components/devs/main"
 const Footer = () => (
 
   <div className="gpt3__footer section__padding">
-    <Main/>
+    <br />
     <div className="gpt3__footer-links">
       <div className="gpt3__footer-links_logo">
         <img src={gpt3Logo} alt="gpt3_logo" />
