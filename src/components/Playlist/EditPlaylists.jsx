@@ -32,7 +32,7 @@ export default function EditPlaylist(props) {
           aria-describedby="component-helper-text"
         />
         <FormHelperText id="component-helper-text">
-          Some important helper text
+          Name of the playlist without spaces.
         </FormHelperText>
       </FormControl>
     </Box>
