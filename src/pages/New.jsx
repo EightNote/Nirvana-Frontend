@@ -13,6 +13,7 @@ import Possibility from '../containers/possibility/Possibility';
 import WhatGPT3 from '../containers/whatGPT3/WhatGPT3';
 
 import "./new.css";
+import Main from "../components/devs/main"
 
 const New = () => (
   <div className="App">
@@ -25,6 +26,7 @@ const New = () => (
     <Possibility />
     <CTA />
     <Blog />
+    <Main/>
     <Footer />
   </div>
 );

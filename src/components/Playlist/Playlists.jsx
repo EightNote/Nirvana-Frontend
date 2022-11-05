@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import MyPlaylists from "./MyPlaylists";
 import DiscoverPlaylists from "./DiscoverPlaylists";
+import EditPlaylist from "./EditPlaylists";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -71,7 +72,7 @@ export default function Playlist() {
                 <DiscoverPlaylists/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Item Three
+                <EditPlaylist/>
             </TabPanel>
             <TabPanel value={value} index={3}>
                 Item Four
