@@ -9,6 +9,7 @@ import Hero from "../../components/trendings/Corousel"
 
 const Blog = () => (
   <div className="gpt3__blog section__padding" id="blog">
+
     <div className="gpt3__blog-heading">
       <h1 className="gradient__text">A lot is happening, <br /> So Explore the trendings</h1>
     </div>

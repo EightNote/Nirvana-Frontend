@@ -24,6 +24,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
+import Drop from "./drop";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -44,11 +45,11 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
   '@keyframes ripple': {
     '0%': {
-      transform: 'scale(.8)',
+      transform: 'scale(.9)',
       opacity: 1,
     },
     '100%': {
-      transform: 'scale(2.4)',
+      transform: 'scale(2.9)',
       opacity: 0,
     },
   },
@@ -59,7 +60,7 @@ const Navbar = () => {
   const [isLoggerIn, setLoggedIn] = React.useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state: any) => state.auth.username);
+  const user = useSelector((state) => state.auth.username);
   useEffect(() => {
     if (user) {
       setLoggedIn(true);
@@ -91,11 +92,19 @@ const Navbar = () => {
           <img src={logo} />
         </div>
         <div className="gpt3__navbar-links_container">
-          <p><a href="#home">Home</a></p>
-          <p><a href="#wgpt3">What is GPT3?</a></p>
-          <p><a href="#possibility">Open AI</a></p>
-          <p><a href="#features">Case Studies</a></p>
-          <p onClick={handleLogout}><a href="#blog">LogOut</a></p>
+
+          {
+            isLoggerIn ?
+              <>
+                <p><a href="#home">Home</a></p>
+                <p><a href="#wgpt3">About Us</a></p>
+                <p><a href="#blog">Trendings</a></p>
+                <p><a href="#"><Drop /></a></p>
+                <p onClick={handleLogout}><a href="#blog">LogOut</a></p>
+              </>
+              : ""
+          }
+
         </div>
       </div>
       <div className="gpt3__navbar-sign">
@@ -110,8 +119,8 @@ const Navbar = () => {
             </StyledBadge>
             :
             <>
-              <p>Sign in</p>
-              <button type="button">Sign up</button>
+              <p onClick={() => navigate("/sign-in")}>Sign in</p>
+              <button type="button" onClick={() => navigate("/sign-up")}>Sign up</button>
             </>
         }
 

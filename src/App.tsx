@@ -17,6 +17,7 @@ import { setUser } from "./feature/AuthSlice";
 import AllTrack from "./pages/AllTrack";
 import AllEvents from "./pages/AllEvents";
 import Navbar from "./new/navbar/Navbar";
+// import Player from "./components/Player/PlayerControls"
 
 import "./pages/new.css";
 
