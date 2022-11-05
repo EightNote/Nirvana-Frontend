@@ -8,7 +8,7 @@ const WhatGPT3 = () => (
       <Feature title="What's In It For You" text=" Nirvana is the one-stop solution for all your music needs. Nirvana offers you free, unlimited access to over 30 million Hindi Songs, Bollywood Music, English MP3 songs, Regional Music And Mirchi Play. " />
     </div>
     <div className="gpt3__whatgpt3-heading">
-      <h1 className="gradient__text">Nirvana - The Soul of Music, Explore The Melody Within</h1>
+      <h1 className="gradient__text">Nirvana - The Soul of Music, Explore The Melody Within! </h1>
       <h2 className="gradient__text"> Explore Artists </h2>
     </div>
     <div className="gpt3__whatgpt3-container">
