@@ -13,7 +13,7 @@ export const musicApi = createApi({
             query: (id) => `tracks/${id}/`,
         }),
         getAlbumList: builder.query({
-            query: () => `albums/`
+            query: () => `albums/all/`
         }),
         getSpecificAlbum: builder.query({
             query: (id) => `albums/${id}/`
