@@ -2,6 +2,8 @@ import React from 'react';
 import people from '../../assets/people.png';
 import ai from '../../assets/ai.png';
 import './header.css';
+import ButtonMailto from '../../components/mail/ButtonToMail';
+
 
 const Header = () => (
   <div className="gpt3__header section__padding" id="home">
@@ -10,8 +12,11 @@ const Header = () => (
       <p>Listen to the soundtrack of your life. Enjoy your music from top artists across the world because Music is the wine that fills the cup of silence.</p>
 
       <div className="gpt3__header-content__input">
-        <input type="email" placeholder="Your Email Address" />
-        <button type="button">Get Started</button>
+        {/* <input type="email" placeholder="Your Email Address" /> */}
+        <button type='text' onClick={(e) => {
+          window.location.href = "mailto:apoorve.shukla.cse20@itbhu.ac.in";
+          e.preventDefault();
+        }}>Email Us</button>
       </div>
 
       <div className="gpt3__header-content__people">
