@@ -1,5 +1,5 @@
     body{
-            margin-top:5px!important;
+            margin-top:0px!important;
         }
         .our-team{
             text-align: center;
@@ -7,8 +7,8 @@
             color: #fff;
         }
         .our-team img{
-            width:40%;
-            height: 40%;
+            width:60%;
+            height: 60%;
         }
         .our-team .content{
             background: rgba(0, 0, 0, 0.6);
