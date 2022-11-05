@@ -39,7 +39,7 @@ export default function MenuListComposition() {
     }
 
     setOpen(false);
-    navigate("/tracks")
+    navigate("/tracks");
   };
 
   const handleClose2 = (event: Event | React.SyntheticEvent) => {
@@ -86,7 +86,7 @@ export default function MenuListComposition() {
   }, [open]);
 
   return (
-    <Stack direction="row" spacing={2}>
+    <Stack direction="row" spacing={0}>
       <div>
         <Button
           ref={anchorRef}
@@ -95,7 +95,7 @@ export default function MenuListComposition() {
           aria-expanded={open ? "true" : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
-          style={{ color: "white" }}
+          style={{ color: "white", padding: "0px" }}
         >
           Features
         </Button>
