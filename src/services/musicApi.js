@@ -6,8 +6,11 @@ export const musicApi = createApi({
     baseQuery: axiosInstance,
     tagTypes: ['Like', 'History'],
     endpoints: (builder) => ({
+        getMyPlaylist: builder.query({
+            query: () => `playlist/my`,
+        }),
         getTrackList: builder.query({
-            query: () => `tracks/`,
+            query: () => `tracks/all`,
         }),
         getSpecificTrack: builder.query({
             query: (id) => `tracks/${id}/`,
@@ -101,6 +104,7 @@ export const musicApi = createApi({
 })
 
 export const {
+    useGetMyPlaylistQuery,
     useGetTrackListQuery,
     useGetSpecificTrackQuery,
     useGetAlbumListQuery,

@@ -12,6 +12,8 @@ const setupInterceptors = (store) => {
 
     axiosInstance.interceptors.request.use(
         (request) => {
+            console.log("intercepting")
+
             if (request.url !== API_URL + "token/obtain/" && request.url !== API_URL + "token/refresh/" && request.url !== API_URL + "signup/") {
                 // console.log("intercepted request :-) ", request.url, store.getState().auth.user.access)
                 // setting auth headers only if we are not trying to get tokens

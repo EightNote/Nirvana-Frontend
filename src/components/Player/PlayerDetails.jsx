@@ -3,7 +3,7 @@ import { selectCurrentTrackData } from "../../services/musicSlice";
 import Stack from '@mui/material/Stack';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import styles from './PlayerDetails.module.css'
-import LikeButton from "../buttons/LikeButton";
+import LikeButton from "../Buttons/LikeButton";
 
 function PlayerDetails() {
     const track = useSelector(selectCurrentTrackData)

@@ -9,12 +9,14 @@ import authReducer from "../feature/AuthSlice";
 
 import { authApi } from "../services/authApi";
 import { musicApi } from "../services/musicApi";
+import queueReducer from "../services/musicSlice"
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     [authApi.reducerPath]: authApi.reducer,
     [musicApi.reducerPath]: musicApi.reducer,
+    queue: queueReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authApi.middleware).concat(musicApi.middleware),

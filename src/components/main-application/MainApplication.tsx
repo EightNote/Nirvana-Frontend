@@ -12,6 +12,7 @@ import Artist from "./ArtistProfile";
 import Playlist from "../Playlist/Playlists";
 import PlaylistDetails from "../Playlist/PlaylistDetails";
 import New from "../../pages/New";
+import Player from "../Player/Player";
 
 interface mainApplicationProps {}
 
@@ -33,6 +34,7 @@ const MainApplication = (props: mainApplicationProps) => {
         <Route path="playlists" element={<Playlist />} />
         <Route path="playlists/playlist/:title" element={<PlaylistDetails />} />
         <Route path="artist/:artistname" element={<Artist />} />
+        <Route path="player" element={<Player/>} />
       </Routes>
     </div>
   );
