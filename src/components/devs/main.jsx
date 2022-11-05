@@ -11,7 +11,8 @@ const Main = () => {
         <div class="container" style={{ backgroundColor: "031b34",marginBottom: "25px",paddingTop: "0px"}}>
         <Divider style={{backgroundColor: "#ffff",width:"100%"}}/>
             <div className="gpt3__blog-heading">
-                <h1 className="gradient__text"> Meet <br /> Our Developers</h1>
+                {/* <h1 className="gradient__text"> Meet <br /> Our Developers</h1> */}
+                <h1 className="gradient__text"> Meet <br /> The Developers</h1>
             </div>
             <div class="row" style={{ backgroundColor: "031b34" }}>
                 <div class="col-md-4 col-sm-6" style={{ backgroundColor: "031b34" }}>
