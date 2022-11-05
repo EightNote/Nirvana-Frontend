@@ -22,6 +22,37 @@ import { useEffect } from "react";
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    backgroundColor: '#44b700',
+    color: '#44b700',
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    '&::after': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: 'ripple 1.2s infinite ease-in-out',
+      border: '1px solid currentColor',
+      content: '""',
+    },
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0,
+    },
+  },
+}));
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = React.useState(false);
@@ -68,8 +99,23 @@ const Navbar = () => {
         </div>
       </div>
       <div className="gpt3__navbar-sign">
-        <p>Sign in</p>
-        <button type="button">Sign up</button>
+        {
+          isLoggerIn ?
+            <StyledBadge
+              overlap="circular"
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              variant="dot"
+            >
+              <Avatar sx={{ bgcolor: "#1c2e4a" }}>{Logo[0]}</Avatar>
+            </StyledBadge>
+            :
+            <>
+              <p>Sign in</p>
+              <button type="button">Sign up</button>
+            </>
+        }
+
+
       </div>
       <div className="gpt3__navbar-menu">
         {toggleMenu
@@ -84,10 +130,7 @@ const Navbar = () => {
               <p><a href="#features">Case Studies</a></p>
               <p><a onClick={handleLogout} href="#blog">LogOut</a></p>
             </div>
-            <div className="gpt3__navbar-menu_container-links-sign">
-              <p>Sign in</p>
-              <button type="button">Sign up</button>
-            </div>
+
           </div>
         )}
       </div>
