@@ -159,7 +159,7 @@ export default function Auth() {
                   color="primary"
                 />
               }
-              label="Check if artist"
+              label="Remember Me"
             />
 
 
@@ -174,7 +174,7 @@ export default function Auth() {
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                  Forgot password?
+
                 </Link>
               </Grid>
               <Grid item>
