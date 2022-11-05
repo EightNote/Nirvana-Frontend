@@ -1,20 +1,8 @@
 # Frontend Pending
 ```
-Search Vivek
-
-Authentication Apoorve <LoginComponent> <SignUpComponent> 
-
-ProfilePages (User, Artist) Amit
-Album Pages Amit
-
 Playlist Soumik
 Album Soumik
 RecordLabelPage Soumik
-
-
-Events Parth
-Track Parth
-Genre Parth
 ```
 
 # Design
@@ -39,9 +27,6 @@ Genre Parth
     <Router>
 <MainApplication>
 ```
-
-
-
 
 
 # Getting Started with Create React App
