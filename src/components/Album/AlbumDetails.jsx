@@ -1,4 +1,5 @@
 import * as React from "react";
+import EventImage from "../../assets/events.png"
 import {
   BrowserRouter as Router,
   Link,

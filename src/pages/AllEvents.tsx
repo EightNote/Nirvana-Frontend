@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { useAppDispatch } from "../utilities/hooks";
 import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
-
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -14,6 +13,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import { height } from "@mui/system";
+import eventImage from "../assets/events.png"
 
 const initialState = {
   date: "",
@@ -89,11 +89,20 @@ const AllEvents = () => {
     purple: "#ae63e4",
   };
   return (
-    <div className="container">
-      <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Create New Event
-        </Button>
+    <div className="container" style={{ display:"flex", flexDirection:"column" }} >
+      <div >
+        <div style={{display:"flex", flexDirection:"column"}}>
+
+          <Button variant="outlined" onClick={handleClickOpen} >
+            Create New Event
+          </Button>
+        
+        <img  style={{height:"700px", marginLeft:"0px", marginRight:"100px"}} src={eventImage} alt="Headphone"></img>
+
+        </div>
+
+          {/* <img src={possibilityImage} alt="possibility" /> */}
+        
         <Dialog
           open={open}
           onClose={handleClose}
@@ -181,18 +190,20 @@ const AllEvents = () => {
           </DialogActions>
         </Dialog>
       </div>
-      {events.map((event) => (
-        <Card
-          id={event.id}
-          date={event.date}
-          time={event.time}
-          venue={event.venue}
-          registration={event.registration}
-          poster={event.eventPoster}
-          artist_id={event.artistID}
-          country_id={event.countryID}
-        />
-      ))}
+      <div style={{ display:"flex", flexDirection:"row", overflow:"auto", flexFlow:"column"}}>
+        {events.map((event) => (
+          <Card
+            id={event.id}
+            date={event.date}
+            time={event.time}
+            venue={event.venue}
+            registration={event.registration}
+            poster={event.eventPoster}
+            artist_id={event.artistID}
+            country_id={event.countryID}
+          />
+        ))}
+      </div>
     </div>
   );
 };
