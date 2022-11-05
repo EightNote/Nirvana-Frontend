@@ -5,16 +5,16 @@ import './whatGPT3.css';
 const WhatGPT3 = () => (
   <div className="gpt3__whatgpt3 section__margin" id="wgpt3">
     <div className="gpt3__whatgpt3-feature">
-      <Feature title="What is GPT-3" text="We so opinion friends me message as delight. Whole front do of plate heard oh ought. His defective nor convinced residence own. Connection has put impossible own apartments boisterous. At jointure ladyship an insisted so humanity he. Friendly bachelor entrance to on by." />
+      <Feature title="What's In It For You" text=" Nirvana is the one-stop solution for all your music needs. Nirvana offers you free, unlimited access to over 30 million Hindi Songs, Bollywood Music, English MP3 songs, Regional Music And Mirchi Play. " />
     </div>
     <div className="gpt3__whatgpt3-heading">
-      <h1 className="gradient__text">The possibilities are beyond your imagination</h1>
-      <p>Explore the Library</p>
+      <h1 className="gradient__text">Nirvana - The Soul of Music, Explore The Melody Within</h1>
+      <h2 className="gradient__text"> Explore Artists </h2>
     </div>
     <div className="gpt3__whatgpt3-container">
-      <Feature title="Chatbots" text="We so opinion friends me message as delight. Whole front do of plate heard oh ought." />
-      <Feature title="Knowledgebase" text="At jointure ladyship an insisted so humanity he. Friendly bachelor entrance to on by. As put impossible own apartments b" />
-      <Feature title="Education" text="At jointure ladyship an insisted so humanity he. Friendly bachelor entrance to on by. As put impossible own apartments b" />
+      <Feature title="Trendings" text="Listen what the Worled is loving, Explore the Trending Tracks, Albums and Artists Here! " />
+      <Feature title="All Tracks" text="Music washes away from the soul the dust of everyday life. Explore the latest Songs Here! " />
+      <Feature title="Albums" text="This might be the Album of your life, Explore the Greatest Albums Here! " />
     </div>
   </div>
 );
