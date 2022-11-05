@@ -3,11 +3,11 @@ import './cta.css';
 const CTA = () => (
   <div className="gpt3__cta">
     <div className="gpt3__cta-content">
-      <p>Request Early Access to Get Started</p>
-      <h3>Register Today & start exploring the endless possibilities.</h3>
+      <p>Got A Song To Vibe On?</p>
+      <h3>Create Your Playlist And Save Endless Songs! </h3>
     </div>
     <div className="gpt3__cta-btn">
-      <button type="button">Get Started</button>
+      <button type="button">Create Playlist</button>
     </div>
   </div>
 );
