@@ -59,7 +59,7 @@ const Card = ({
         </div>
       </div>
       <div className="line" style={{ backgroundColor: "blue" }}></div>
-      <p>{venue}</p>                      
+      <p>{venue}</p>                        
       <div className="line" style={{ backgroundColor: "#0ebeff" }}></div>
       <p>{artist}</p>
     </div>

@@ -1,7 +1,6 @@
 import React from 'react'
 import "./main.css"
 import "bootstrap/dist/css/bootstrap.min.css";
-import main1 from "./main1"
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Divider } from '@mui/material';
 import { BsLinkedin, BsGithub, BsInstagram } from 'react-icons/bs';
