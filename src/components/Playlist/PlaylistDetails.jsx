@@ -20,7 +20,7 @@ function PlaylistDetails() {
             console.log(user)
         }
         axios
-            .get("http://localhost:8080/albums/album/" + title, {
+            .get("http://localhost:8080/playlists/playlist/" + title, {
                 headers: {
                     Authorization: "Bearer " + user, //the token is a variable which holds the token
                 },

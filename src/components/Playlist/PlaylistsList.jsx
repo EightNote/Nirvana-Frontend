@@ -1,45 +1,49 @@
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import { useNavigate } from "react-router-dom";
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import FolderIcon from '@mui/icons-material/Folder';
+import EditIcon from '@mui/icons-material/Edit';
 
 
-export function PlaylistsList(props) {
-    let navigate = useNavigate();
-    const routeChange = (title) => {
-        let path = "/albums/album/" + title;
-        navigate(path);
-    }
+const Demo = styled('div')(({ theme }) => ({
+    backgroundColor: theme.palette.background.paper,
+}));
+
+export default function MyPlaylists(props) {
+    const [secondary, setSecondary] = React.useState(props.is_user);
     return (
-        <ImageList
-            cols={3}
-            sx={{
-                width: "100vw",
-                height: "84vh",
-                padding: "10px"
-            }}>
-            {props.albums.map((album) => (
-                <ImageListItem key={album.id}
-                    sx={{
-                        padding: '20px',
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        borderRadius: "20px",
-                    }}>
-                    <img
-                        src={album.album_logo}
-                        srcSet={album.album_logo}
-                        alt={album.album_title}
-                        loading="lazy"
-                        onClick={() => routeChange(album.album_title)}
-                    />
-                    <ImageListItemBar
-                        title={album.album_title}
-                        subtitle={album.artist_id}
-                        position="below"
-                    // actionIcon={<AlbumDetails albumid={album.id} />}
-                    />
-                </ImageListItem>
-            ))}
-        </ImageList>
+        <Box sx={{ flexGrow: 1, display: 'flex', width: "80vh" }}>
+            <Demo>
+                <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                    {props.playlists.map((playlist) => (
+                        <div>
+                            <ListItem
+                                secondaryAction={
+                                    <IconButton edge="end" aria-label="delete">
+                                        <EditIcon />
+                                    </IconButton>
+                                }
+                            >
+                                <ListItemAvatar>
+                                    <Avatar>
+                                        <FolderIcon />
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary="Single-line item"
+                                    secondary={secondary ? 'Secondary text' : null}
+                                />
+                            </ListItem>,
+                        </div>
+                    ))}
+                </List>
+            </Demo>
+        </Box>
     );
 }
