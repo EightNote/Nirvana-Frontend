@@ -115,7 +115,7 @@ const Navbar = () => {
               anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
               variant="dot"
             >
-              <Avatar sx={{ bgcolor: "#1c2e4a" }}>{Logo[0]}</Avatar>
+              <Avatar sx={{ bgcolor: "#1c2e4a" }} onClick={()=>navigate("/user")}>{Logo[0]}</Avatar>
             </StyledBadge>
             :
             <>

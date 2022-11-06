@@ -17,6 +17,7 @@ import { setUser } from "./feature/AuthSlice";
 import AllTrack from "./pages/AllTrack";
 import AllEvents from "./pages/AllEvents";
 import Navbar from "./new/navbar/Navbar";
+import User from "./pages/User";
 // import Player from "./components/Player/PlayerControls"
 
 import "./pages/new.css";
@@ -41,6 +42,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/tracks" element={<AllTrack />} />
         <Route path="/events" element={<AllEvents />} />
+        <Route path="/user" element={<User />} />
       </Routes>
     </div>
   );
