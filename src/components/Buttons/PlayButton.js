@@ -1,5 +1,5 @@
 import { useGetSpecificTrackQuery } from "../../services/musicApi.js";
-import { selectIsPlaying, addPlayTrack, selectCurrentTrackData } from "../../services/musicSlice.js";
+import { selectIsPlaying, addPlayTrack, selectCurrentTrackData } from "../../feature/musicSlice.js";
 import IconButton from '@mui/material/IconButton';
 import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';
 import PauseCircleRoundedIcon from '@mui/icons-material/PauseCircleRounded';

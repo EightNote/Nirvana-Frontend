@@ -9,7 +9,7 @@ import authReducer from "../feature/AuthSlice";
 
 import { authApi } from "../services/authApi";
 import { musicApi } from "../services/musicApi";
-import queueReducer from "../services/musicSlice"
+import queueReducer from "../feature/musicSlice"
 
 export const store = configureStore({
   reducer: {

@@ -5,7 +5,7 @@ import PlayerDetails from "./PlayerDetails";
 import PlayerControls from "./PlayerControls";
 import PlayerQueue from "./PlayerQueue";
 import styles from './Player.module.css'
-import { addMultipleTracks, selectQueue } from "../../services/musicSlice";
+import { addMultipleTracks, selectQueue } from "../../feature/musicSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import shuffle from "../../utils/shuffle";

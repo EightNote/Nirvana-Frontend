@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 import './rhap.css';
 import { useDispatch, useSelector } from "react-redux";
-import { nextTrack, prevTrack, playTrack, pauseTrack, selectCurrentTrackData } from "../../services/musicSlice";
+import { nextTrack, prevTrack, playTrack, pauseTrack, selectCurrentTrackData } from "../../feature/musicSlice";
 import { useAddToHistoryMutation } from "../../services/musicApi";
 import styles from './PlayerControls.module.css'
 
