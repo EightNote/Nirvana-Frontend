@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectCurrentTrackData } from "../../services/musicSlice";
+import { selectCurrentTrackData } from "../../feature/musicSlice";
 import Stack from '@mui/material/Stack';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import styles from './PlayerDetails.module.css'
