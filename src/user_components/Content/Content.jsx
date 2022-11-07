@@ -9,7 +9,8 @@ import Actions from './Actions'
 import Notifications from './Notifications'
 
 const Content = () => {
-  const tabs = ['Liked Songs', 'Liked Albums', 'Liked Artists', 'My Followers', 'My Playlist']
+  const tabs = ['Liked Songs', 'Liked Albums', 'Liked Artists',
+   'My Followers', 'My Playlists']
 
   return (
     <Box
