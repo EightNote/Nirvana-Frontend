@@ -31,17 +31,18 @@ function PlayerDetails() {
         <div className={styles.details}>
             <div className={styles.left}>
                 <div className={styles.verticalcenter}>
-                    <img src={track.album.album_logo} alt="album-art" className={styles.img} />
+                    <img src="https://nicole.express/assets/img/yellow/control.JPEG" alt="album-art" className={styles.img} />
+                    {/* <img src={track.album.album_logo} alt="album-art" className={styles.img} /> */}
                 </div>
             </div>
             <div>
                 <div className={styles.right}>
                     <div className={styles.verticalcenter}>
-                        {track.track_title} <br />
-                        {track.album.artist.name}
+                        {track.title} <br />
+                        {track.writer}
                         <hr />
                         <Stack direction="row" spacing={1}>
-                            <LikeButton trackid={track.id} />
+                            <LikeButton trackid={track.title} />
                         </Stack>
                     </div>
                 </div>

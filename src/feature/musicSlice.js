@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { v4 as uuid4 } from 'uuid';
 
 const storedQueue = JSON.parse(localStorage.getItem("queue"))
 console.log("Getting state")
@@ -19,7 +20,8 @@ export const queueSlice = createSlice({
     initialState,
     reducers: {
         addMultipleTracks: (state, action) => {
-            state.queue.push(...(action.payload[0]))
+            // don't use this, this needs to be fixed
+            state.queue.push(...action.payload)
             //remove duplicates
             state.queue = state.queue.filter((track, title, self) =>
                 title === self.findIndex((t) => (
@@ -61,7 +63,6 @@ export const queueSlice = createSlice({
             state.currentlyPlayingIndex = temp
         },
         addPlayTrack: (state, action) => {
-            console.log(action.payload)
             state.queue.push(action.payload[0])
             state.queue.reverse()
             // remove duplicated

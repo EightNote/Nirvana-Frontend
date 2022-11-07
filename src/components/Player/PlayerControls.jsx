@@ -46,9 +46,9 @@ function PlayerControls() {
         )
     }
     const listenHandler = () => {
-        if (currentTrack.id !== lastHistory) {
-            triggerHistory(currentTrack.id)
-            setLastHistory(currentTrack.id)
+        if (currentTrack.title !== lastHistory) {
+            triggerHistory(currentTrack.title)
+            setLastHistory(currentTrack.title)
         }
     }
     return (
