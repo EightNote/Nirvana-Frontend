@@ -13,15 +13,17 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import { height } from "@mui/system";
-import eventImage from "../assets/events.png"
+import eventImage from "../assets/events.png";
 
 const initialState = {
+  id: 0,
   date: "",
   time: "",
   venue: "",
-  poster_url: "",
-  artist: "",
-  country: "",
+  eventPoster: "",
+  artistID: "",
+  registrationLink: "",
+  countryID: "",
 };
 
 const AllEvents = () => {
@@ -48,7 +50,7 @@ const AllEvents = () => {
       user = user.token;
     }
     axios
-      .get("http://localhost:8080/event/all/", {
+      .get("http://localhost:8080/events/all/", {
         headers: {
           Authorization: "Bearer " + user, //the token is a variable which holds the token
         },
@@ -66,18 +68,20 @@ const AllEvents = () => {
       user = user.token;
     }
 
-    var str = `?date=${val["date"]}&time=${val["time"]}&venue=${val["venue"]}&poster_url=${val["poster_url"]}&artist=${val["artist"]}&country=${val["country"]}`;
-    console.log(str);
-
+    // var str = `?date=${val["date"]}&time=${val["time"]}&venue=${val["venue"]}&registration=${val["registration"]}&event_poster=${val["poster_url"]}&artist_id=${val["artist"]}&country_id=${val["country"]}`;
+    // console.log(str);
+    console.log(val);
+    console.log(user)
     axios
-      .post("http://localhost:8080/event/" + str, "", {
+      .post("http://localhost:8080/events/", val, {
         headers: {
           Authorization: "Bearer " + user, //the token is a variable which holds the token
-          "content-type": "text/json",
+          "Content-Type": "application/json",
         },
       })
       .then((response) => {
-        setEvents(response.data);
+        // setEvents(response.data);
+        window.location.href="http://localhost:3000/events"
         console.log(response.data);
       });
   };
@@ -89,20 +93,25 @@ const AllEvents = () => {
     purple: "#ae63e4",
   };
   return (
-    <div className="container" style={{ display:"flex", flexDirection:"column" }} >
-      <div >
-        <div style={{display:"flex", flexDirection:"column"}}>
-
-          <Button variant="outlined" onClick={handleClickOpen} >
+    <div
+      className="container"
+      style={{ display: "flex", flexDirection: "column" }}
+    >
+      <div style={{ marginTop: "40px" }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Button variant="outlined" onClick={handleClickOpen}>
             Create New Event
           </Button>
-        
-        <img  style={{height:"700px", marginLeft:"0px", marginRight:"100px"}} src={eventImage} alt="Headphone"></img>
 
+          <img
+            style={{ height: "700px", marginLeft: "0px", marginRight: "100px" }}
+            src={eventImage}
+            alt="Headphone"
+          ></img>
         </div>
 
-          {/* <img src={possibilityImage} alt="possibility" /> */}
-        
+        {/* <img src={possibilityImage} alt="possibility" /> */}
+
         <Dialog
           open={open}
           onClose={handleClose}
@@ -155,7 +164,7 @@ const AllEvents = () => {
               autoFocus
               margin="dense"
               id="url"
-              name="poster_url"
+              name="eventPoster"
               label="Poster URL"
               type="text"
               onChange={handler}
@@ -165,10 +174,21 @@ const AllEvents = () => {
             <TextField
               autoFocus
               margin="dense"
-              name="artist"
+              id="id"
+              name="artistID"
+              label="Artist ID"
+              type="text"
+              onChange={handler}
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              name="registrationLink"
               id="name"
-              label="Artist Username"
-              type="email"
+              label="Registration URL"
+              type="text"
               onChange={handler}
               fullWidth
               variant="standard"
@@ -177,6 +197,7 @@ const AllEvents = () => {
               autoFocus
               margin="dense"
               id="country"
+              name="countryID"
               label="Nationality"
               type="email"
               onChange={handler}
@@ -190,7 +211,14 @@ const AllEvents = () => {
           </DialogActions>
         </Dialog>
       </div>
-      <div style={{ display:"flex", flexDirection:"row", overflow:"auto", flexFlow:"column"}}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          overflow: "auto",
+          flexFlow: "column",
+        }}
+      >
         {events.map((event) => (
           <Card
             id={event.id}
