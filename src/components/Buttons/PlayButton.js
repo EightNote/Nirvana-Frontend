@@ -11,13 +11,13 @@ import { useDispatch } from "react-redux";
 
 
 const PlayButton = (props) => {
-    var trackid = props.trackid
-    console.log(trackid)
+    var trackTitle = props.trackTitle
+    console.log(trackTitle)
     const dispatch = useDispatch()
     const isPlaying = useSelector(selectIsPlaying)
     const currentTrack = useSelector(selectCurrentTrackData)
-    const currentTrackId = (currentTrack !== undefined) ? currentTrack.id : -1
-    const { data, isLoading, error } = useGetSpecificTrackQuery(trackid)
+    const currentTrackId = (currentTrack !== undefined) ? currentTrack.title : -1
+    const { data, isLoading, error } = useGetSpecificTrackQuery(trackTitle)
 
     function playHandler() {
         console.log(currentTrackId)
@@ -40,7 +40,7 @@ const PlayButton = (props) => {
 
     return (
         <IconButton aria-label="play" onClick={playHandler}>
-            {(isPlaying && trackid === currentTrackId) ? <PauseCircleRoundedIcon /> : <PlayCircleRoundedIcon />}
+            {(isPlaying && trackTitle === currentTrackId) ? <PauseCircleRoundedIcon /> : <PlayCircleRoundedIcon />}
         </IconButton>
     )
 }

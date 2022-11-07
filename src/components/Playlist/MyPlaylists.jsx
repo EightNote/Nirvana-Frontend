@@ -1,11 +1,11 @@
 import * as React from "react";
-import { useEffect } from "react";
-import axios from "axios";
 import PlaylistDetails from "./PlaylistDetails";
-import { useGetMyPlaylistQuery } from "../../services/musicApi";
+import { useGetUserPlaylistsQuery } from "../../services/musicApi";
+import { useSelector } from "react-redux";
 
 export default function MyPlaylists() {
-    const {data, isLoading, error} = useGetMyPlaylistQuery()
+    const user = useSelector((state) => state.auth.username);
+    const {data, isLoading, error} = useGetUserPlaylistsQuery(user)
 
     return (<PlaylistDetails playlists={data} is_user={true}/>)
 }

@@ -6,9 +6,6 @@ export const musicApi = createApi({
     baseQuery: axiosInstance,
     tagTypes: ['Like', 'History'],
     endpoints: (builder) => ({
-        getMyPlaylist: builder.query({
-            query: () => `playlist/my`,
-        }),
         getTrackList: builder.query({
             query: () => `tracks/all`,
         }),
@@ -32,6 +29,9 @@ export const musicApi = createApi({
         }),
         getSpecificGenre: builder.query({
             query: (id) => `genres/${id}/`
+        }),
+        getUserPlaylists: builder.query({
+            query: (username) => `playlist/user/${username}/`
         }),
         getLikedSongs: builder.query({
             query: () => ({
@@ -104,7 +104,6 @@ export const musicApi = createApi({
 })
 
 export const {
-    useGetMyPlaylistQuery,
     useGetTrackListQuery,
     useGetSpecificTrackQuery,
     useGetAlbumListQuery,
@@ -113,6 +112,7 @@ export const {
     useGetSpecificArtistQuery,
     useGetGenreListQuery,
     useGetSpecificGenreQuery,
+    useGetUserPlaylistsQuery,
     useGetLikedSongsQuery,
     useIsLikedQuery,
     useLikeSongMutation,
