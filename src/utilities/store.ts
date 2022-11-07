@@ -1,8 +1,5 @@
 import {
-  applyMiddleware,
   configureStore,
-  getDefaultMiddleware,
-  MiddlewareArray,
 } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import authReducer from "../feature/AuthSlice";

@@ -30,9 +30,9 @@ const MainApplication = (props: mainApplicationProps) => {
         <Route path="search" element={<Search />} />
         <Route path="username/:username" element={<User />}></Route>
         <Route path="albums" element={<Album />} />
-        <Route path="albums/album/:title" element={<AlbumDetails />} />
+        <Route path="albums/:id" element={<AlbumDetails />} />
         <Route path="playlists" element={<Playlist />} />
-        <Route path="playlists/playlist/:title" element={<PlaylistDetails />} />
+        <Route path="playlists/:id" element={<PlaylistDetails />} />
         <Route path="artist/:artistname" element={<Artist />} />
         <Route path="player" element={<Player/>} />
       </Routes>
