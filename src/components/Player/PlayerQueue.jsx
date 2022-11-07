@@ -4,7 +4,7 @@ import styles from './PlayerQueue.module.css'
 function PlayerQueue(props) {
     console.log(props)
     const queue = props.tracks.map(track => {
-        return <li key={track.id}>{track.track_title}</li>
+        return <li key={track.title}>{track.title}</li>
     })
 
     return (

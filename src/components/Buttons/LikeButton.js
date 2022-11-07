@@ -6,12 +6,12 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 const LikeButton = (props) => {
-    var trackid = props.trackid
+    var title = props.title
     const [like, setLike] = useState(skipToken)
 
     const [triggerLike, resultLike] = useLikeSongMutation()
     const [triggerUnlike, resultUnlike] = useUnlikeSongMutation()
-    const { data: likeStatus, isLoading, isError } = useIsLikedQuery(trackid)
+    const { data: likeStatus, isLoading, isError } = useIsLikedQuery(title)
 
     useEffect(() => {
         if (likeStatus) {
@@ -21,10 +21,10 @@ const LikeButton = (props) => {
 
     function likeHandler() {
         if (like === false) {
-            triggerLike(trackid)
+            triggerLike(title)
             setLike(true)
         } else {
-            triggerUnlike(trackid)
+            triggerUnlike(title)
             setLike(false)
         }
     }

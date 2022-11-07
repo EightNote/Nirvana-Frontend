@@ -33,6 +33,15 @@ export const musicApi = createApi({
         getUserPlaylists: builder.query({
             query: (username) => `playlist/user/${username}/`
         }),
+        getAllPlaylists: builder.query({
+            query: () =>   `playlist/all`
+        }),
+        getSpecificPlaylist: builder.query({
+            query: (id) => `playlist/${id}`
+        }),
+        getSpecificPlaylistTracks: builder.query({
+            query: (id) =>  `playlist/get-tracks/${id}`
+        }),
         getLikedSongs: builder.query({
             query: () => ({
                 method: "get",
@@ -113,6 +122,9 @@ export const {
     useGetGenreListQuery,
     useGetSpecificGenreQuery,
     useGetUserPlaylistsQuery,
+    useGetAllPlaylistsQuery,
+    useGetSpecificPlaylistQuery,
+    useGetSpecificPlaylistTracksQuery,
     useGetLikedSongsQuery,
     useIsLikedQuery,
     useLikeSongMutation,
