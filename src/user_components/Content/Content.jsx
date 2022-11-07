@@ -27,6 +27,8 @@ const Content = () => {
     'My Followers', 'My Playlists']
 
   const [likedTracks, setLikedTracks] = useState([])
+  const [likedAlbums, setLikedAlbums] = useState([])
+  const [likedArtist, setLikedArtist] = useState([])
 
   useEffect(() => {
     var username = ""
@@ -46,6 +48,28 @@ const Content = () => {
         setLikedTracks(response.data);
         console.log(response.data);
       });
+
+    axios
+      .get("http://localhost:8080/albums/likedAlbums/?username=" + username, {
+        headers: {
+          Authorization: "Bearer " + user, //the token is a variable which holds the token
+        },
+      })
+      .then((response) => {
+        setLikedAlbums(response.data);
+        console.log(response.data);
+      });
+
+    //   axios
+    //     .get("http://localhost:8080/tracks/likedTracks/?username=" + username, {
+    //       headers: {
+    //         Authorization: "Bearer " + user, //the token is a variable which holds the token
+    //       },
+    //     })
+    //     .then((response) => {
+    //       setLikedTracks(response.data);
+    //       console.log(response.data);
+    //     });
   }, []);
 
   return (
@@ -84,30 +108,33 @@ const Content = () => {
         <TabPanels px={3} mt={5}>
           <TabPanel>
             <List spacing={3} >
-              {likedTracks?.map((value) =>
-
-
-                <Box borderWidth="1px" rounded="md" overflow="hidden" style={{display:"flex",alignItems:"center"}}>
-                  {likedTracks.map(item => (
-                    <Box key={item.title} width="100%" py={2} bg="white" _odd={{ bg: "gray.100" }}>
-                      <Avatar name={item.title} src="https://bit.ly/broken-link" style={{marginRight:"10px"}} />
-                      {item.title}
-                      <Center height='15px' width="100%" >
-                        <Divider orientation='horizontal' borderColor={'black'} style={{ backgroundColor: "black" }}/>
-                      </Center>
-                    </Box>
-                  ))}
-                </Box>
-
-
-
-
-
-              )}
+              <Box borderWidth="1px" rounded="md" overflow="hidden" style={{ display: "flex", alignItems: "center" }}>
+                {likedTracks.map(item => (
+                  <Box key={item.title} width="100%" py={2} bg="white" _odd={{ bg: "gray.100" }}>
+                    <Avatar name={item.title} src="https://bit.ly/broken-link" style={{ marginRight: "10px" }} />
+                    {item.title}
+                    <Center height='15px' width="100%" >
+                      <Divider orientation='horizontal' borderColor={'black'} style={{ backgroundColor: "black" }} />
+                    </Center>
+                  </Box>
+                ))}
+              </Box>
             </List>
           </TabPanel>
           <TabPanel>
-
+            <List spacing={3} >
+              <Box borderWidth="1px" rounded="md" overflow="hidden" style={{ display: "flex", alignItems: "center" }}>
+                {likedAlbums.map(item => (
+                  <Box key={item.album_title} width="100%" py={2} bg="white" _odd={{ bg: "gray.100" }}>
+                    <Avatar name={item.album_title} src="https://bit.ly/broken-link" style={{ marginRight: "10px" }} />
+                    {item.album_title}
+                    <Center height='15px' width="100%" >
+                      <Divider orientation='horizontal' borderColor={'black'} style={{ backgroundColor: "black" }} />
+                    </Center>
+                  </Box>
+                ))}
+              </Box>
+            </List>
           </TabPanel>
           <TabPanel>
 
