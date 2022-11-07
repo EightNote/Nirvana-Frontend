@@ -8,26 +8,71 @@ import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
 import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function Hero() {
-  const [val, setVal] = useState("tracks");
+  const [grid, setGrid] = useState([]);
+  const [rend,setRend]=useState("trendingTracks");
+  const [data, setData] = useState({ none: false });
+
+  useEffect(() => {
+    var user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      user = user.token;
+    }
+    axios
+      .get("http://localhost:8080/trending/", {
+        headers: {
+          Authorization: "Bearer " + user, //the token is a variable which holds the token
+        },
+      })
+      .then((response) => {
+        setData(response.data);
+        console.log(response.data, "huh");
+        var newArr = Array.from(response.data["trendingTracks"]);
+        var fin = [];
+        while (newArr.length) fin.push(newArr.splice(0, 3));
+        setGrid(fin);
+      });
+  }, []);
+
   const changeApi = (e: any) => {
-    setVal(e.target.name);
+    var newArr = Array.from(data[e.target.name]);
+    setRend(e.target.name);
+    var fin = [];
+    while (newArr.length) fin.push(newArr.splice(0, 3));
+    setGrid(fin);
+    console.log(fin);
   };
+
+  const huh=(item)=>{
+    if(rend==="trendingTracks"){
+      return <Card title={item.album_title} image={item.album_logo} />;
+    }else if(rend==="trendingAlbums"){
+      return <Card title={item.album_title} image={item.album_logo} />;
+    }else{
+      return <Card title={item.username} image={""} />;
+    }
+  }
   return (
     <Box>
       <ButtonGroup
-        style={{ display: "flex", justifyContent: "center", marginBottom:"15px" }}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginBottom: "15px",
+        }}
         variant="outlined"
         aria-label="outlined button group"
       >
-        <Button name="tracks" onClick={changeApi}>
+        <Button name="trendingTracks" onClick={changeApi}>
           Tracks
         </Button>
-        <Button name="album" onClick={changeApi}>
+        <Button name="trendingAlbums" onClick={changeApi}>
           Album
         </Button>
-        <Button name="artist" onClick={changeApi}>
+        <Button name="trendingArtist" onClick={changeApi}>
           Artist
         </Button>
       </ButtonGroup>
@@ -44,16 +89,13 @@ export default function Hero() {
         style={{ display: "flex", justifyContent: "center" }}
         subheader={<li />}
       >
-        {[0, 1, 2, 3, 4].map((sectionId) => (
-          <li key={`section-${sectionId}`}>
+        {grid.map((par) => (
+          <li>
             <ul>
               {/* <ListSubheader>{``}</ListSubheader> */}
-              {[0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
-                <ListItem key={`item-${sectionId}-${item}`}>
-                  <Card
-                    title="atyachar"
-                    image="https://cdn.britannica.com/85/182085-050-EB0D9C57/Taylor-Swift-2013.jpg"
-                  />
+              {par.map((item) => (
+                <ListItem>
+                  <Card title={""} image={""} />
                 </ListItem>
               ))}
             </ul>
