@@ -31,7 +31,7 @@ export default function Tracks(data) {
                                 backgroundColor: 'rgba(0, 0, 0, 0.1)',
                                 borderRadius: "20px",
                             }}>
-                            <PlayButton trackid={track.title} edge="start" aria-label="play" />
+                            <PlayButton title={track.title} edge="start" aria-label="play" />
                             <ListItemText
                                 // className={styles.list}
                                 primary={track.title}

@@ -6,7 +6,7 @@ import CompanySettings from './CompanySettings'
 import Notifications from './Notifications'
 
 const Content = () => {
-  const tabs = ['Account Settings', 'Company Settings', 'Notifications']
+  const tabs = ['Liked Songs', 'Liked Albums', 'Liked Artists', 'My Followers', 'My Playlist']
 
   return (
     <Box
@@ -41,17 +41,6 @@ const Content = () => {
           ))}
         </TabList>
 
-        <TabPanels px={3} mt={5}>
-          <TabPanel>
-            <AccountSettings />
-          </TabPanel>
-          <TabPanel>
-            <CompanySettings />
-          </TabPanel>
-          <TabPanel>
-            <Notifications />
-          </TabPanel>
-        </TabPanels>
       </Tabs>
 
       <Actions />
