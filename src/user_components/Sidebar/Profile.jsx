@@ -92,9 +92,6 @@ function Profile() {
         <Heading as="h3" fontSize="xl" color="brand.dark">
           Tim Cook
         </Heading>
-        <Text color="brand.gray" fontSize="sm">
-          CEO of Apple
-        </Text>
       </VStack>
     </VStack>
   )
