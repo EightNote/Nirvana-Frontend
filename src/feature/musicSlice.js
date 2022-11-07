@@ -20,7 +20,7 @@ export const queueSlice = createSlice({
     reducers: {
         addMultipleTracks: (state, action) => {
             console.log(action.payload)
-            state.queue.push(...action.payload)
+            state.queue.push(...(action.payload)[0])
             //remove duplicates
             state.queue = state.queue.filter((track, title, self) =>
                 title === self.findIndex((t) => (
@@ -33,11 +33,11 @@ export const queueSlice = createSlice({
             console.log(action.payload)
             state.queue.push(action.payload)
             //remove duplicated
-            state.queue = state.queue.filter((track, title, self) =>
-                title === self.findIndex((t) => (
-                    t.title === track.title
-                ))
-            )
+            // state.queue = state.queue.filter((track, title, self) =>
+            //     title === self.findIndex((t) => (
+            //         t.title === track.title
+            //     ))
+            // )
             localStorage.setItem("queue", JSON.stringify(state.queue))
         },
         removeTrack: (state, action) => {
@@ -67,11 +67,11 @@ export const queueSlice = createSlice({
             state.queue.push(action.payload)
             state.queue.reverse()
             //remove duplicated
-            state.queue = state.queue.filter((track, title, self) =>
-                title === self.findIndex((t) => (
-                    t.title === track.title
-                ))
-            )
+            // state.queue = state.queue.filter((track, title, self) =>
+            //     id === self.findIndex((t) => (
+            //         t.title === track.title
+            //     ))
+            // )
             state.queue.reverse()
             state.currentlyPlayingIndex = state.queue.findIndex(t => t.title=== action.payload.title)
             localStorage.setItem("queue", JSON.stringify(state.queue))
