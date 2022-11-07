@@ -3,22 +3,34 @@ import { Box, Text, VStack } from '@chakra-ui/react'
 const list = [
   {
     id: 1,
-    name: 'Opportunities applied',
+    name: 'My Tracks',
     value: 32,
     color: 'yellow',
   },
   {
     id: 2,
-    name: 'Opportunities won',
+    name: 'Liked Albums',
     value: 26,
     color: 'green',
   },
   {
     id: 3,
-    name: 'Current opportunities',
+    name: 'Liked Artists',
     value: 6,
-    color: 'cadet',
+    color: 'blue',
   },
+  {
+    id: 4,
+    name: 'My Followers',
+    value: 32,
+    color: 'orange',
+  },
+  {
+    id: 5,
+    name: 'My Playlists',
+    value: 32,
+    color: 'cadet',
+  }
 ]
 
 function Data() {
