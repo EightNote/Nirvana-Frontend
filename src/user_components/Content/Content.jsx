@@ -60,16 +60,16 @@ const Content = () => {
         console.log(response.data);
       });
 
-    //   axios
-    //     .get("http://localhost:8080/tracks/likedTracks/?username=" + username, {
-    //       headers: {
-    //         Authorization: "Bearer " + user, //the token is a variable which holds the token
-    //       },
-    //     })
-    //     .then((response) => {
-    //       setLikedTracks(response.data);
-    //       console.log(response.data);
-    //     });
+      axios
+        .get("http://localhost:8080/user/likedArtists/?username=" + username, {
+          headers: {
+            Authorization: "Bearer " + user, //the token is a variable which holds the token
+          },
+        })
+        .then((response) => {
+          setLikedArtist(response.data);
+          console.log(response.data);
+        });
   }, []);
 
   return (
@@ -137,7 +137,19 @@ const Content = () => {
             </List>
           </TabPanel>
           <TabPanel>
-
+            <List spacing={3} >
+              <Box borderWidth="1px" rounded="md" overflow="hidden" style={{ display: "flex", alignItems: "center" }}>
+                {likedArtist.map(item => (
+                  <Box key={item.username} width="100%" py={2} bg="white" _odd={{ bg: "gray.100" }}>
+                    <Avatar name={item.username} src="https://bit.ly/broken-link" style={{ marginRight: "10px" }} />
+                    {item.username}
+                    <Center height='15px' width="100%" >
+                      <Divider orientation='horizontal' borderColor={'black'} style={{ backgroundColor: "black" }} />
+                    </Center>
+                  </Box>
+                ))}
+              </Box>
+            </List>
           </TabPanel>
           <TabPanel>
 
