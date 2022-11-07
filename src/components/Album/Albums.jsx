@@ -1,6 +1,4 @@
 import * as React from "react";
-import { useEffect } from "react";
-import axios from "axios";
 import { AlbumList } from './AlbumsList.jsx';
 import { useGetAlbumListQuery } from "../../services/musicApi.js";
 
