@@ -6,23 +6,22 @@ import MenuItem from "@mui/material/MenuItem";
 import { Button, InputLabel } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import { useCreatePlaylistMutation } from "../../services/musicApi";
+import { useNavigate } from "react-router-dom";
 
 export default function CreatePlaylist() {
+  let navigate = useNavigate();
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [visibility, setVisibility] = React.useState("");
-  const [triggerCreate, resultCreate] = useCreatePlaylistMutation();
+  const [triggerCreate, {data}] = useCreatePlaylistMutation();
 
   const createPlaylist = (e) => {
     e.preventDefault();
     let body = { name: name, description: description, visibility: visibility, type: "user" };
-    console.log(body)
-    triggerCreate(body)
-      .unwrap()
-      .then(() => {})
-      .then((error) => {
-        console.log(error);
-      });
+    triggerCreate(body).then((data) => {
+      let path = "/playlists/" + data.data.id;
+      navigate(path)
+    })
   };
 
   return (
