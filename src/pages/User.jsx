@@ -9,10 +9,8 @@ export default function User() {
     return (
         <SimpleBar style={{ maxHeight: '100vh', backgroundColor:"#042c59" }}>
             <ChakraProvider theme={theme} style={{backgroundColor:"black"}}>
-
                 <Cover />
                 <Main />
-
             </ChakraProvider>
         </SimpleBar>
     )

@@ -29,6 +29,7 @@ const Content = () => {
   const [likedTracks, setLikedTracks] = useState([])
   const [likedAlbums, setLikedAlbums] = useState([])
   const [likedArtist, setLikedArtist] = useState([])
+  const [followers, setFollowers] = useState([])
 
   useEffect(() => {
     var username = ""
@@ -70,6 +71,17 @@ const Content = () => {
           setLikedArtist(response.data);
           console.log(response.data);
         });
+
+    axios
+      .get("http://localhost:8080/follow/followers/"  + username, {
+        headers: {
+          Authorization: "Bearer " + user, //the token is a variable which holds the token
+        },
+      })
+      .then((response) => {
+        setFollowers(response.data);
+        console.log(response.data);
+      });
   }, []);
 
   return (

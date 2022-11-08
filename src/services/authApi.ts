@@ -19,17 +19,48 @@ export const authApi = createApi({
       },
     }),
     RegisterUser: builder.mutation({
-      query: (body: { username: string; password: string; }) => {
+      query: (body: { username: string; password: string; role: string }) => {
+        let jsonbody = JSON.stringify(body);
+        return {
+          mode: "cors",
+          url: "/sign-up/",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: jsonbody,
+        };
+      },
+    }),
+    RegisterArtist: builder.mutation({
+      query: (body: {
+        username: string;
+        password: string;
+        about: string;
+        twitter: string;
+        facebook: string;
+        instagram: string;
+        record_label_id: string;
+        nationality_id: number;
+        role: string;
+      }) => {
         let jsonbody = JSON.stringify(body);
         return {
           mode: "no-cors",
-          url: "/sign-in/",
+          url: "/sign-up/artist/",
           method: "POST",
-          jsonbody,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: jsonbody,
         };
       },
     }),
   }),
 });
 
-export const { useLoginUserMutation, useRegisterUserMutation } = authApi;
+export const {
+  useLoginUserMutation,
+  useRegisterUserMutation,
+  useRegisterArtistMutation,
+} = authApi;

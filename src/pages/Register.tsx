@@ -24,11 +24,27 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import axios from "axios";
+import {
+  useRegisterUserMutation,
+  useRegisterArtistMutation,
+} from "../services/authApi";
 
 const initialState = {
   username: "",
   password: "",
   role: "user",
+};
+
+const initialState1 = {
+  username: "",
+  password: "",
+  about: "",
+  twitter: "",
+  facebook: "",
+  instagram: "",
+  record_label_id: "",
+  nationality_id: 1,
+  role: "artist",
 };
 
 function Copyright(props: any) {
@@ -63,6 +79,8 @@ export default function SignUp() {
   }, []);
 
   const [val, setVal] = useState(initialState);
+  const [val1, setVal1] = useState(initialState1);
+
   const { username, password, role } = val;
 
   const [value, setValue] = React.useState("India");
@@ -77,11 +95,9 @@ export default function SignUp() {
   //   },
   // ] = useRegisterUserMutation();
 
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
   const handler = (e: any) => {
     setVal({ ...val, [e.target.name]: e.target.value });
+    setVal1({ ...val1, [e.target.name]: e.target.value });
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,11 +106,13 @@ export default function SignUp() {
 
   useEffect(() => {
     if (checked) {
-      setVal({ ...val, "role": "artist" });
+      setVal({ ...val, role: "artist" });
     } else {
-      setVal({ ...val, "role": "user" });
+      setVal({ ...val, role: "user" });
     }
   }, [checked]);
+  const [registerUser, data] = useRegisterUserMutation();
+  const [registerArtist, data1] = useRegisterArtistMutation();
 
   const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
@@ -104,30 +122,36 @@ export default function SignUp() {
   const handleRegister = async () => {
     console.log("Got username", username, "password:", password);
     if (username && password) {
+      if (role === "user") {
+        registerUser({ username, password, role });
+      } else {
+        registerArtist({ ...val1 });
+      }
+
       // let res: any = await RegisterUser({ username:username, password:password });
-      await fetch("http://localhost:8080/user/sign-up/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        body: JSON.stringify({
-          username: username,
-          password: password,
-          role: role,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Success:", data);
-          navigate("/sign-in");
-          toast.success("Successfully registered user! Now please sign-in...");
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+      //   await fetch("http://localhost:8080/user/sign-up/", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     mode: "cors",
+      //     body: JSON.stringify({
+      //       username: username,
+      //       password: password,
+      //       role: role,
+      //     }),
+      //   })
+      //     .then((response) => response.json())
+      //     .then((data) => {
+      //       console.log("Success:", data);
+      //       navigate("/sign-in");
+      //       toast.success("Successfully registered user! Now please sign-in...");
+      //     })
+      //     .catch((error) => {
+      //       console.error("Error:", error);
+      //     });
     } else {
-      toast.error("Give all input field before login...");
+      toast.error("Give all input field before register...");
     }
   };
 

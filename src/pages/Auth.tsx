@@ -23,7 +23,7 @@ import { useLoginUserMutation } from "../services/authApi";
 const initialState = {
   username: "",
   password: "",
-  role: "",
+  role: "user",
 };
 
 function Copyright(props: any) {
