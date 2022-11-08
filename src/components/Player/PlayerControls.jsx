@@ -55,7 +55,7 @@ function PlayerControls() {
         <div className={styles.player}>
             <AudioPlayer
                 autoPlay={false}
-                src={currentTrack.audio_file}
+                src={"http://localhost:8080/" + currentTrack.audio_file}
                 showJumpControls={false}
                 showSkipControls={true}
                 listenInterval={60000}
