@@ -16,18 +16,29 @@ export default function AllArtist() {
   const [allArtists, setAllArtists] = useState([]);
   const followFunc = (e: any) => {
     console.log(e.target.name);
-    var user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      user = user.token;
+    var ok = JSON.parse(localStorage.getItem("user"));
+    if (ok) {
+      ok = ok.token;
     }
     axios
-      .post("http://localhost:8080/follow?followed_artist=" + e.target.name, {
-        headers: {
-          Authorization: "Bearer " + user, //the token is a variable which holds the token
-        },
-      })
+      .post(
+        "http://localhost:8080/follow?followed_artist=" + e.target.name,
+        "",
+        {
+          headers: {
+            Authorization: "Bearer " + ok, //the token is a variable which holds the token
+          },
+        }
+      )
       .then((response) => {
         toast("Follow success! ", e.target.name);
+        var arr = [];
+        allArtists.map((item) => {
+          if (item.username != e.target.name) {
+            arr.push(item);
+          }
+        });
+        setAllArtists(arr);
       });
   };
   useEffect(() => {
