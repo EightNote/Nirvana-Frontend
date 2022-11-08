@@ -64,8 +64,7 @@ export default function CreatePlaylist() {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={"all"}>All</MenuItem>
-            <MenuItem value={"followers_only"}>Followers Only</MenuItem>
+            <MenuItem value={"public"}>Public</MenuItem>
             <MenuItem value={"private"}>Private</MenuItem>
           </Select>
         </FormControl>

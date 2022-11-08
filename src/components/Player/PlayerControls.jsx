@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { nextTrack, prevTrack, playTrack, pauseTrack, selectCurrentTrackData } from "../../feature/musicSlice";
 import { useAddToHistoryMutation } from "../../services/musicApi";
 import styles from './PlayerControls.module.css'
+import { TextField, Typography } from "@mui/material";
 
 const RhapEmpty = (src) => {
     return (
@@ -51,14 +52,20 @@ function PlayerControls() {
             setLastHistory(currentTrack.title)
         }
     }
+
     return (
-        <div className={styles.player}>
-            <AudioPlayer
+        <div style={{display:"flex", alignItems:"center", flexDirection:"column", width:"100%"}}>
+            <div className={styles.player} style={{display:"flex", justifyContent:"center", flexDirection:"row",margin:"0px 20px 10px 20px", width: "80%"}}>
+            <Typography style={{wordWrap:"normal", flexBasis:"1", width:"fit-content", textAlign:"center"}}>
+                {currentTrack.title}
+            </Typography>
+            <AudioPlayer 
+                style={{flexBasis:'3'}}
                 autoPlay={false}
                 src={"http://localhost:8080/" + currentTrack.audio_file}
                 showJumpControls={false}
                 showSkipControls={true}
-                listenInterval={60000}
+                listenInterval={currentTrack.track_length}
                 customAdditionalControls={
                     [
                         RHAP_UI.CURRENT_TIME
@@ -81,6 +88,7 @@ function PlayerControls() {
                 onEnded={() => dispatch(nextTrack())}
                 onListen={listenHandler}
             />
+            </div>
         </div>
     )
 }
