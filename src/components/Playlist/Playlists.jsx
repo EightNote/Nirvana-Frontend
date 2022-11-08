@@ -63,7 +63,7 @@ export default function Playlist() {
                 <Tab label="My Playlists" {...a11yProps(0)} />
                 <Tab label="Discover Playlists" {...a11yProps(1)} />
                 <Tab label="Create Playlist" {...a11yProps(2)} />
-                <Tab label="Collaborative Playlists" {...a11yProps(3)} />
+                {/* <Tab label="Collaborative Playlists" {...a11yProps(3)} /> */}
             </Tabs>
             <TabPanel value={value} index={0}>
                 <MyPlaylists/>
