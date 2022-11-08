@@ -19,11 +19,19 @@ export const authApi = createApi({
       },
     }),
     RegisterUser: builder.mutation({
-      query: (body: { username: string; password: string; role: string }) => {
+      query: (body: {
+        username: string;
+        password: string;
+        firstName: string;
+        lastName: string;
+        dateOfBirth: string;
+        gender: string;
+        interests: Array<number>;
+      }) => {
         let jsonbody = JSON.stringify(body);
         return {
           mode: "cors",
-          url: "/sign-up/",
+          url: "/sign-up/user/",
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -46,7 +54,7 @@ export const authApi = createApi({
       }) => {
         let jsonbody = JSON.stringify(body);
         return {
-          mode: "no-cors",
+          mode: "cors",
           url: "/sign-up/artist/",
           method: "POST",
           headers: {
@@ -56,7 +64,6 @@ export const authApi = createApi({
         };
       },
     }),
-    
   }),
 });
 

@@ -25,7 +25,7 @@ export default function Tracks(data) {
         }}>
             {data.data.map((track) => {
                 return (
-                    <ListItem>
+                    <ListItem key={track.title}>
                         <ListItemButton role={undefined} dense
                             sx={{
                                 backgroundColor: 'rgba(0, 0, 0, 0.1)',

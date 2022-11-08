@@ -22,6 +22,7 @@ import User from "./pages/User";
 
 import "./pages/new.css";
 import Artist from "./pages/AllArtist";
+import PlayerControls from "./components/Player/PlayerControls";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -46,6 +47,7 @@ function App() {
         <Route path="/user" element={<User />} />
         <Route path="/artists" element={<Artist />} />
       </Routes>
+      <PlayerControls/>
     </div>
   );
 }

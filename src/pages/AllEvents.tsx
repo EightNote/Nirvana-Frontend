@@ -13,7 +13,14 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import { height } from "@mui/system";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import eventImage from "../assets/events.png";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
 
 const initialState = {
   id: 0,
@@ -32,6 +39,7 @@ const AllEvents = () => {
 
   const [open, setOpen] = React.useState(false);
   const [val, setVal] = useState(initialState);
+  const [countries, setCountries] = React.useState([]);
   const handler = (e: any) => {
     setVal({ ...val, [e.target.name]: e.target.value });
   };
@@ -59,6 +67,11 @@ const AllEvents = () => {
         setEvents(response.data);
         console.log(response.data);
       });
+
+    axios.get("http://localhost:8080/countries/all/").then((response) => {
+      setCountries(response.data);
+      console.log(response.data);
+    });
   }, []);
 
   const handlePost = () => {
@@ -71,7 +84,7 @@ const AllEvents = () => {
     // var str = `?date=${val["date"]}&time=${val["time"]}&venue=${val["venue"]}&registration=${val["registration"]}&event_poster=${val["poster_url"]}&artist_id=${val["artist"]}&country_id=${val["country"]}`;
     // console.log(str);
     console.log(val);
-    console.log(user)
+    console.log(user);
     axios
       .post("http://localhost:8080/events/", val, {
         headers: {
@@ -81,7 +94,7 @@ const AllEvents = () => {
       })
       .then((response) => {
         // setEvents(response.data);
-        window.location.href="/events"
+        window.location.href = "/events";
         console.log(response.data);
       });
   };
@@ -125,13 +138,13 @@ const AllEvents = () => {
           <DialogTitle>Event</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Provide required data for new event 
+              Provide required data for new event
             </DialogContentText>
             <TextField
               autoFocus
               margin="normal"
               id="date"
-              // label="Date" 
+              // label="Date"
               name="date"
               type="date"
               onChange={handler}
@@ -143,7 +156,7 @@ const AllEvents = () => {
               margin="dense"
               id="time"
               // label="Time"
-              type="time"
+              type="text"
               name="time"
               color="primary"
               // autoFocus
@@ -195,23 +208,29 @@ const AllEvents = () => {
               fullWidth
               variant="outlined"
             />
-            
-            <TextField
-              autoFocus
-              margin="dense"
-              id="country"
-              name="countryID"
-              label="Nationality"
-              type="email"
-              onChange={handler}
-              fullWidth
-              variant="outlined"
-            />
 
-
-
-            
-
+            <Grid item component="form" noValidate xs={12}>
+              <FormControl>
+                <FormLabel id="demo-controlled-radio-buttons-group">
+                  Country
+                </FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  // value={value}
+                >
+                  {countries.map((country) => (
+                    <FormControlLabel
+                      name="countryID"
+                      value={country.id}
+                      control={<Radio />}
+                      label={country.name}
+                      onChange={handler}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
+            </Grid>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
@@ -225,8 +244,8 @@ const AllEvents = () => {
           flexDirection: "row",
           overflow: "auto",
           flexFlow: "column",
-          margin:'20px',
-          padding:'20px'
+          margin: "20px",
+          padding: "20px",
         }}
       >
         {events.map((event) => (
