@@ -13,7 +13,7 @@ export default function CreatePlaylist() {
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [visibility, setVisibility] = React.useState("");
-  const [triggerCreate, {data}] = useCreatePlaylistMutation();
+  const [triggerCreate, { data }] = useCreatePlaylistMutation();
 
   const createPlaylist = (e) => {
     e.preventDefault();
@@ -64,8 +64,8 @@ export default function CreatePlaylist() {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={"public"}>Public</MenuItem>
-            <MenuItem value={"private"}>Private</MenuItem>
+            <MenuItem value={"pb"}>Public</MenuItem>
+            <MenuItem value={"pr"}>Private</MenuItem>
           </Select>
         </FormControl>
       </Box>
