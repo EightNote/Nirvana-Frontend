@@ -6,6 +6,8 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import pic from "../../assets/ai.png"
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { toast } from "react-toastify"
 
 import {
   List,
@@ -61,19 +63,19 @@ const Content = () => {
         console.log(response.data);
       });
 
-      axios
-        .get("http://localhost:8080/user/likedArtists/?username=" + username, {
-          headers: {
-            Authorization: "Bearer " + user, //the token is a variable which holds the token
-          },
-        })
-        .then((response) => {
-          setLikedArtist(response.data);
-          console.log(response.data);
-        });
+    axios
+      .get("http://localhost:8080/user/likedArtists/?username=" + username, {
+        headers: {
+          Authorization: "Bearer " + user, //the token is a variable which holds the token
+        },
+      })
+      .then((response) => {
+        setLikedArtist(response.data);
+        console.log(response.data);
+      });
 
     axios
-      .get("http://localhost:8080/follow/followers/"  + username, {
+      .get("http://localhost:8080/follow/followers/" + username, {
         headers: {
           Authorization: "Bearer " + user, //the token is a variable which holds the token
         },
@@ -83,6 +85,34 @@ const Content = () => {
         console.log(response.data);
       });
   }, []);
+
+  const unfollowFunc = (e) => {
+    var ok = JSON.parse(localStorage.getItem("user"));
+    if (ok) {
+      ok = ok.token;
+    }
+    axios
+      .post(
+        "http://localhost:8080/unfollow?followed_artist=" + e,
+        "",
+        {
+          headers: {
+            Authorization: "Bearer " + ok, //the token is a variable which holds the token
+          },
+        }
+      )
+      .then((response) => {
+        toast("UnLike success! ", e);
+        var arr = [];
+        likedArtist.map((item) => {
+          if (item.username != e) {
+            arr.push(item);
+          }
+        });
+        setLikedArtist(arr);
+      });
+
+  }
 
   return (
     <Box
@@ -152,13 +182,18 @@ const Content = () => {
             <List spacing={3} >
               <Box borderWidth="1px" rounded="md" overflow="hidden" style={{ display: "flex", alignItems: "center" }}>
                 {likedArtist.map(item => (
-                  <Box key={item.username} width="100%" py={2} bg="white" _odd={{ bg: "gray.100" }}>
-                    <Avatar name={item.username} src="https://bit.ly/broken-link" style={{ marginRight: "10px" }} />
-                    {item.username}
-                    <Center height='15px' width="100%" >
-                      <Divider orientation='horizontal' borderColor={'black'} style={{ backgroundColor: "black" }} />
-                    </Center>
-                  </Box>
+
+                  <>
+                    <Box key={item.username} width="100%" py={2} bg="white" _odd={{ bg: "gray.100" }}>
+                      <Avatar name={item.username} src="https://bit.ly/broken-link" style={{ marginRight: "10px" }} />
+                      {item.username}
+                      <Center height='15px' width="100%" >
+                        <Divider orientation='horizontal' borderColor={'black'} style={{ backgroundColor: "black" }} />
+                      </Center>
+
+                    </Box>
+                    <DeleteIcon onClick={() => unfollowFunc(item.username)} style={{ cursor: "pointer", marginRight: "10px" }} />
+                  </>
                 ))}
               </Box>
             </List>
