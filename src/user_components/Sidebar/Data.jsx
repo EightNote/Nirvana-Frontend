@@ -10,7 +10,7 @@ import { Badge } from '@chakra-ui/react'
 const GenreTag = (props) => {
   return (
     <a >
-      <Button style={{ margin: "10px 5px"}} size="xs" colorScheme='teal' variant='outline'>
+      <Button style={{ margin: "10px 5px" }} size="xs" colorScheme='teal' variant='outline'>
         {props.genre_name}
         <Badge ml='1' fontSize='0.8em' colorScheme='green'>
           {props.track_count}
@@ -27,27 +27,30 @@ const GenreTag = (props) => {
 // }
 
 function Data() {
-  const [interests, setInterests] = useState([{name: "Punjabi", "track_count":22, "id": 1}])
+  const [interests, setInterests] = useState([{ name: "Punjabi", "track_count": 22, "id": 1 }])
   const role = JSON.parse(localStorage.getItem("user")).role
   const user = JSON.parse(localStorage.getItem("user"))
+  const [userDetail, setUserDetail] = useState({});
+  const [artistDetail, setArtistDetail] = useState({});
+  const [playlist, setPlaylist] = useState([])
 
   const user_list = [
     {
       id: 1,
       name: 'First Name',
-      value: "",
+      value: userDetail.firstName ? userDetail.firstName : "",
       color: 'yellow',
     },
     {
       id: 2,
       name: 'Last Name',
-      value: "",
+      value: userDetail.lastName ? userDetail.lastName : "",
       color: 'green',
     },
     {
       id: 4,
       name: 'My Playlists',
-      value: 0,
+      value: playlist.length,
       color: 'cadet',
     }
   ]
@@ -56,37 +59,32 @@ function Data() {
     {
       id: 1,
       name: 'About',
-      value: "",
+      value: artistDetail.about ? artistDetail.about : "",
       color: 'yellow',
     },
     {
       id: 2,
       name: 'Twitter',
-      value: "",
+      value: artistDetail.twitter ? artistDetail.twitter : "",
       color: 'green',
     },
     {
       id: 3,
       name: 'Faceboook',
-      value: 0,
+      value: artistDetail.facebook ? artistDetail.facebook : "",
       color: 'blue',
     },
     {
       id: 4,
       name: 'Instagram',
-      value: 0,
+      value: artistDetail.instagram ? artistDetail.instagram : "",
       color: 'cadet',
     },
-    {
-      id: 5,
-      name: 'Nationality',
-      value: 0,
-      color: 'cadet',
-    },
+
     {
       id: 5,
       name: 'Record label',
-      value: 0,
+      value: artistDetail.record_label_id ? artistDetail.record_label_id : "",
       color: 'cadet',
     }
   ]
@@ -96,16 +94,29 @@ function Data() {
 
   useEffect(() => {
     if (role === "user") {
-        axios.get('http://localhost:8080/user/get-user-detail/' + user.username).then((res) => {
+      axios.get('http://localhost:8080/user/get-user-detail/' + user.username).then((res) => {
         console.log("User details", res.data)
+        setUserDetail(res.data)
         setInterests(res.data.interests)
-      }).catch((error) => console.log(error)) 
+      }).catch((error) => console.log(error))
+
+
     } else if (role === "artist") {
       axios.get('http://localhost:8080/user/get-artist-detail/' + user.username).then((res) => {
         console.log("Artist details", res.data)
-
-      }).catch((error) => console.log(error)) 
+        setArtistDetail(res.data);
+      }).catch((error) => console.log(error))
     }
+
+
+
+  }, [])
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/playlist/all').then((res) => {
+      console.log(res.data)
+      setPlaylist(res.data)
+    })
   }, [])
 
   return (
@@ -129,9 +140,9 @@ function Data() {
           </Text>
         </Box>
       ))}
-      {(role == "user") &&  
-        <div style={{ display:"flex", flexDirection:"row", flexWrap:"wrap" }}>
-          {interests.map((genre) => <GenreTag id = {genre.id} track_count = {genre.track_count} genre_name={genre.name}/>)}
+      {(role == "user") &&
+        <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+          {interests.map((genre) => <GenreTag id={genre.id} track_count={genre.track_count} genre_name={genre.name} />)}
         </div>
       }
 

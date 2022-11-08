@@ -12,6 +12,13 @@ export const musicApi = createApi({
         getSpecificTrack: builder.query({
             query: (id) => `tracks/${id}/`,
         }),
+        createTrack: builder.mutation({
+            query: (payload) => ({
+                method: "POST",
+                url: `tracks/`,
+                data: payload,
+            })
+        }),
         getAlbumList: builder.query({
             query: () => `albums/all/`
         }),
@@ -120,6 +127,7 @@ export const musicApi = createApi({
 export const {
     useGetTrackListQuery,
     useGetSpecificTrackQuery,
+    useCreateTrackMutation,
     useGetAlbumListQuery,
     useGetSpecificAlbumQuery,
     useGetArtistListQuery,
