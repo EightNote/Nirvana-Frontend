@@ -75,7 +75,7 @@ const Content = () => {
       });
 
     axios
-      .get("http://localhost:8080/follow/followers/" + username, {
+      .get("http://localhost:8080/followers/" + username, {
         headers: {
           Authorization: "Bearer " + user, //the token is a variable which holds the token
         },
@@ -199,7 +199,24 @@ const Content = () => {
             </List>
           </TabPanel>
           <TabPanel>
+            <List spacing={3} >
+              <Box borderWidth="1px" rounded="md" overflow="hidden" style={{ display: "flex", alignItems: "center" }}>
+                {followers.map(item => (
 
+                  <>
+                    <Box key={item} width="100%" py={2} bg="white" _odd={{ bg: "gray.100" }}>
+                      <Avatar name={item} src="https://bit.ly/broken-link" style={{ marginRight: "10px" }} />
+                      {item}
+                      <Center height='15px' width="100%" >
+                        <Divider orientation='horizontal' borderColor={'black'} style={{ backgroundColor: "black" }} />
+                      </Center>
+
+                    </Box>
+                    {/* <DeleteIcon onClick={() => unfollowFunc(item)} style={{ cursor: "pointer", marginRight: "10px" }} /> */}
+                  </>
+                ))}
+              </Box>
+            </List>
           </TabPanel>
           <TabPanel>
             <Notifications />
