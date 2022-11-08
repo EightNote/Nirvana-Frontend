@@ -68,25 +68,16 @@ export const musicApi = createApi({
             // id here refers to the id of track in json data, so it is uniquely tagged
         }),
         isLiked: builder.query({
-            query: (trackid) => ({
-                method: "put",
-                url: `likedsongs/`,
-                data: { track: trackid },
-            })
-        }),
-        likeSong: builder.mutation({
-            query: (trackid) => ({
-                method: "post",
-                url: `likedsongs/`,
-                data: { track: trackid },
+            query: (title) => ({
+                method: "get",
+                url: `tracks/is-liked-by/${title}`,
             }),
-            invalidatesTags: (result, error, arg) => [{ type: 'Like', id: arg }],
+            providesTags: (result, error, title) => [{ type: 'Like', title }],
         }),
-        unlikeSong: builder.mutation({
-            query: (trackid) => ({
-                method: "delete",
-                url: `likedsongs/`,
-                data: { track: trackid },
+        toggleLikeSong: builder.mutation({
+            query: (title) => ({
+                method: "post",
+                url: `tracks/toggle-like/${title}`,
             }),
             invalidatesTags: (result, error, arg) => [{ type: 'Like', id: arg }],
         }),
@@ -143,8 +134,7 @@ export const {
     useAddTrackToPlaylistMutation,
     useGetLikedSongsQuery,
     useIsLikedQuery,
-    useLikeSongMutation,
-    useUnlikeSongMutation,
+    useToggleLikeSongMutation,
     useGetHistoryQuery,
     useAddToHistoryMutation,
     useSearchTrackQuery,

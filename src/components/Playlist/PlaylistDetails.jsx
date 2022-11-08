@@ -27,7 +27,7 @@ const AddTracksToPlaylist = (props) => {
   console.log(data);
   const handleSubmit = (e) => {
     e.preventDefault()
-    let body = {"tracklist":[track,], playlistID: parseInt(props.id)}
+    let body = {"trackList":[track,], playlistID: parseInt(props.id)}
     console.log(body)
     triggerAddToPlaylist(body)
   };

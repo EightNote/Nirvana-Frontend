@@ -41,7 +41,7 @@ export default function Tracks(data) {
 
                             <ListItemIcon>
                                 <LikeButton
-                                    trackid={track.title}
+                                    title={track.title}
                                     edge="end"
                                 />
                                 {/* <TrackActions/> */}

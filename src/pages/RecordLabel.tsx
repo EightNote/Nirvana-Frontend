@@ -12,15 +12,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
-import { height } from "@mui/system";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import eventImage from "../assets/events.png";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
+
 
 const initialState = {
   username: "",
@@ -112,7 +105,7 @@ const AllEvents = () => {
       <div style={{ marginTop: "40px" }}>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <Button variant="outlined" onClick={handleClickOpen}>
-            Create New Event
+            Create New Record Label
           </Button>
 
           <img
@@ -134,7 +127,7 @@ const AllEvents = () => {
             },
           }}
         >
-          <DialogTitle>Event</DialogTitle>
+          <DialogTitle>Record Label</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Provide required data for new Record Label
