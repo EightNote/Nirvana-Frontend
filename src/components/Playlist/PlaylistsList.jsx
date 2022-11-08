@@ -6,21 +6,12 @@ import { useNavigate } from "react-router-dom";
 import FolderIcon from '@mui/icons-material/Folder';
 import Avatar from '@mui/material/Avatar';
 import ListItemText from '@mui/material/ListItemText';
-import { styled } from '@mui/material/styles';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import IconButton from '@mui/material/IconButton';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 function PlaylistsList(props) {
   let navigate = useNavigate();
     const routeChange = (id) => {
-        let path = "/playlist/" + id;
+        let path = "/playlists/" + id;
         navigate(path);
     }
   return (
