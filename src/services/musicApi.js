@@ -71,21 +71,13 @@ export const musicApi = createApi({
             query: (title) => ({
                 method: "get",
                 url: `tracks/is-liked-by/${title}`,
-            })
-        }),
-        likeSong: builder.mutation({
-            query: (trackid) => ({
-                method: "post",
-                url: `likedsongs/`,
-                data: { track: trackid },
             }),
-            invalidatesTags: (result, error, arg) => [{ type: 'Like', id: arg }],
+            providesTags: (result, error, title) => [{ type: 'Like', title }],
         }),
-        unlikeSong: builder.mutation({
-            query: (trackid) => ({
-                method: "delete",
-                url: `likedsongs/`,
-                data: { track: trackid },
+        toggleLikeSong: builder.mutation({
+            query: (title) => ({
+                method: "post",
+                url: `tracks/toggle-like/${title}`,
             }),
             invalidatesTags: (result, error, arg) => [{ type: 'Like', id: arg }],
         }),
@@ -142,8 +134,7 @@ export const {
     useAddTrackToPlaylistMutation,
     useGetLikedSongsQuery,
     useIsLikedQuery,
-    useLikeSongMutation,
-    useUnlikeSongMutation,
+    useToggleLikeSongMutation,
     useGetHistoryQuery,
     useAddToHistoryMutation,
     useSearchTrackQuery,
