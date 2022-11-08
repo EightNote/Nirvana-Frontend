@@ -16,7 +16,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState, useEffect } from "react";
 // import { useRegisterUserMutation } from "../services/authApi";
 import { toast } from "react-toastify";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { useAppDispatch } from "../utilities/hooks";
 
 import Radio from "@mui/material/Radio";
@@ -76,6 +76,7 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const [checked, setChecked] = React.useState(false);
   const [countries, setCountries] = React.useState([]);
   const [genre, setGenres] = React.useState([]);
@@ -197,7 +198,7 @@ export default function SignUp() {
     console.log(val1);
     if (username && password) {
       if (!checked) {
-        registerUser({
+        var res1 = await registerUser({
           username,
           password,
           firstName,
@@ -206,8 +207,12 @@ export default function SignUp() {
           gender,
           interests,
         });
+        if (res1) {
+          navigate("/sign-in");
+          toast("Successfully created User!")
+        }
       } else {
-        registerArtist({
+        var res2=await registerArtist({
           username,
           password,
           about,
@@ -218,6 +223,11 @@ export default function SignUp() {
           nationality_id,
           role,
         });
+
+        if (res2) {
+          navigate("/sign-in");
+          toast("Successfully created Artist!");
+        }
       }
 
       // let res: any = await RegisterUser({ username:username, password:password });

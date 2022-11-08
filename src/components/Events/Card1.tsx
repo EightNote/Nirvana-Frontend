@@ -5,23 +5,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
 
 const Card = ({
-  id,
-  date,
-  time,
-  venue,
-  registration,
-  poster,
-  artist_id,
-  country_id,
+  username,
+  name,
+  description,
+  logo,
+  twitter,
+  facebook,
+  instagram,
 }: {
-  id: number;
-  date: any;
-  time: any;
-  venue: string;
-  registration: string;
-  poster: string;
-  artist_id: number;
-  country_id: number;
+  username: string;
+  name: string;
+  description: string;
+  logo: string;
+  twitter: string;
+  facebook: string;
+  instagram: string;
 }) => {
   var artist = "";
   var country = "";
@@ -38,30 +36,30 @@ const Card = ({
         console.log(response.data);
       });
 
-      axios
-        .get("http://localhost:8080/country/all", {
-          headers: {
-            Authorization: "Bearer " + token, //the token is a variable which holds the token
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
-        });
+    axios
+      .get("http://localhost:8080/country/all", {
+        headers: {
+          Authorization: "Bearer " + token, //the token is a variable which holds the token
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
   }, []);
 
   return (
     <div className="card">
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <Avatar alt={venue} src={poster} sx={{ width: 56, height: 56 }} />
+        <Avatar alt={username} src={logo} sx={{ width: 56, height: 56 }} />
         <div>
-          <h4>{date}</h4>
-          <h4>{time}</h4>
+          <h4>{username}</h4>
+          <h4>{name}</h4>
         </div>
       </div>
       <div className="line" style={{ backgroundColor: "blue" }}></div>
-      <p>{venue}</p>
+      <p>{description}</p>
       <div className="line" style={{ backgroundColor: "#0ebeff" }}></div>
-      <p>{artist}</p>
+      <p>@{twitter}</p>
     </div>
   );
 };

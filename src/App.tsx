@@ -18,6 +18,7 @@ import AllTrack from "./pages/AllTrack";
 import AllEvents from "./pages/AllEvents";
 import Navbar from "./new/navbar/Navbar";
 import User from "./pages/User";
+import RecordLabel from "./../src/pages/RecordLabel";
 // import Player from "./components/Player/PlayerControls"
 
 import "./pages/new.css";
@@ -46,8 +47,9 @@ function App() {
         <Route path="/events" element={<AllEvents />} />
         <Route path="/user" element={<User />} />
         <Route path="/artists" element={<Artist />} />
+        <Route path="/records" element={<RecordLabel />} />
       </Routes>
-      <PlayerControls/>
+      <PlayerControls />
     </div>
   );
 }
