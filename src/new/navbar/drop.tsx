@@ -39,7 +39,7 @@ export default function MenuListComposition() {
     }
 
     setOpen(false);
-    navigate("/tracks")
+    navigate("/tracks");
   };
 
   const handleClose2 = (event: Event | React.SyntheticEvent) => {
@@ -86,7 +86,7 @@ export default function MenuListComposition() {
   }, [open]);
 
   return (
-    <Stack direction="row" spacing={2}>
+    <Stack direction="row" spacing={2} style={{ position: "static", zIndex:"100px" }}>
       <div>
         <Button
           ref={anchorRef}

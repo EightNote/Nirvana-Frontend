@@ -70,10 +70,10 @@ const CheckIsOwnedByuser = (props) => {
   const user = useSelector((state) => state.auth.username);
   const { data, isLoading, error } = useGetSpecificPlaylistQuery(props.id);
   if (isLoading) {
-    return <p>Loading...</p>;
+    return;
   }
   if (error) {
-    return <p>Some error</p>;
+    return;
   }
 
   if (data.createdByUser === user) {
