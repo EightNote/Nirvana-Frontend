@@ -72,7 +72,7 @@ export const queueSlice = createSlice({
                 ))
             )
             state.queue.reverse()
-            state.currentlyPlayingIndex = state.queue.findIndex(t => t.title=== action.payload.title)
+            state.currentlyPlayingIndex = state.queue.findIndex(t => t.title=== action.payload[0].title)
             localStorage.setItem("queue", JSON.stringify(state.queue))
         },
         playTrack: (state) => {
