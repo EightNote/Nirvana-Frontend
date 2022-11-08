@@ -11,7 +11,6 @@ import Footer from '../containers/footer/Footer';
 import Header from '../containers/header/Header';
 import Possibility from '../containers/possibility/Possibility';
 import WhatGPT3 from '../containers/whatGPT3/WhatGPT3';
-import PlayerControls from "../components/Player/PlayerControls";
 import "./new.css";
 import Main from "../components/devs/main"
 
@@ -19,7 +18,6 @@ const New = () => (
   <div className="App">
     <div className="gradient__bg">
       <Header />
-      <PlayerControls/>
     </div>
     <Brand />
     <WhatGPT3 />

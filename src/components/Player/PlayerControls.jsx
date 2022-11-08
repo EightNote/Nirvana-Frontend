@@ -54,9 +54,9 @@ function PlayerControls() {
     }
 
     return (
-        <div className={styles.player} style={{display:"flex", justifyContent:"center", flexDirection:"row",margin:"0px 20px 10px 20px", width: "100%"}}>
-            <div style={{display:"flex", justifyContent:"center", flexDirection:"row", width:"80%"}}>
-            <Typography style={{wordWrap:"normal", flexBasis:"1", width:"100%", textAlign:"center", padding:"10px"}}>
+        <div style={{display:"flex", alignItems:"center", flexDirection:"column", width:"100%"}}>
+            <div className={styles.player} style={{display:"flex", justifyContent:"center", flexDirection:"row",margin:"0px 20px 10px 20px", width: "80%"}}>
+            <Typography style={{wordWrap:"normal", flexBasis:"1", width:"fit-content", textAlign:"center"}}>
                 {currentTrack.title}
             </Typography>
             <AudioPlayer 
