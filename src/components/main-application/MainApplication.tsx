@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import User from "./UserProfile";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./Home";
@@ -13,6 +12,14 @@ import Playlist from "../Playlist/Playlists";
 import PlaylistDetails from "../Playlist/PlaylistDetails";
 import New from "../../pages/New";
 import Player from "../Player/Player";
+import PlayerControls from "../Player/PlayerControls";
+import AllTrack from "../../pages/AllTrack";
+import AllEvents from "../../pages/AllEvents";
+
+import User from "../../pages/User";
+import RecordLabel from "../../../src/pages/RecordLabel";
+import { useSelector } from "react-redux";
+import Login from "../../pages/Auth";
 
 interface mainApplicationProps {}
 
@@ -22,22 +29,129 @@ interface mainApplicationProps {}
 */
 
 const MainApplication = (props: mainApplicationProps) => {
+  const RequireAuth: any = ({ children }) => {
+    const userIsLogged = useSelector((state: any) => state.auth.username); // Your hook to get login status
+
+    if (!userIsLogged) {
+      return <Login />;
+    }
+    return children;
+  };
+
+  const userIsLogged = useSelector((state: any) => state.auth.username); // Your hook to get login statu
   return (
-    <div >
+    <div>
       <Routes>
-        <Route path="home" element={<New />} />
-        <Route path="" element={<New />} />
-        <Route path="search" element={<Search />} />
-        <Route path="username/:username" element={<User />}></Route>
-        <Route path="albums" element={<Album />} />
-        <Route path="albums/:id" element={<AlbumDetails />} />
-        <Route path="playlists" element={<Playlist />} />
-        <Route path="playlists/:id" element={<PlaylistDetails />} />
+        <Route
+          path="home"
+          element={
+            <RequireAuth>
+              <New />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="search"
+          element={
+            <RequireAuth>
+              <Search />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="username/:username"
+          element={
+            <RequireAuth>
+              <User />
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="albums"
+          element={
+            <RequireAuth>
+              <Album />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="albums/:id"
+          element={
+            <RequireAuth>
+              <AlbumDetails />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="playlists"
+          element={
+            <RequireAuth>
+              <Playlist />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="playlists/:id"
+          element={
+            <RequireAuth>
+              <PlaylistDetails />
+            </RequireAuth>
+          }
+        />
         {/* <Route path="artist/:artistname" element={<Artist />} /> */}
-        <Route path="player" element={<Player/>} />
+        <Route
+          path="player"
+          element={
+            <RequireAuth>
+              <Player />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/tracks"
+          element={
+            <RequireAuth>
+              <AllTrack />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/events"
+          element={
+            <RequireAuth>
+              <AllEvents />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/user"
+          element={
+            <RequireAuth>
+              <User />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/artists"
+          element={
+            <RequireAuth>
+              <Artist />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/records"
+          element={
+            <RequireAuth>
+              <RecordLabel />
+            </RequireAuth>
+          }
+        />
       </Routes>
+
+      {userIsLogged ? <PlayerControls /> : ""}
     </div>
   );
-};
+};;
 
 export default MainApplication;
