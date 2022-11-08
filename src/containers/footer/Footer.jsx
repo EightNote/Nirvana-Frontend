@@ -1,4 +1,8 @@
 import React from 'react';
+import Icon from '@mui/material/Icon';
+import EmailIcon from '@mui/icons-material/Email';
+import CallIcon from '@mui/icons-material/Call';
+import HeadsetIcon from '@mui/icons-material/Headset';
 
 import gpt3Logo from '../../assets/logo1.png'
 
@@ -17,10 +21,32 @@ const Footer = () => (
       </div>
       <div className="gpt3__footer-links_div" style={{marginRight:"40%"}}>
         <hr style={{color:"white" , marginBottom:"10%"}}/>
-        <h4>Get in touch</h4>
-        <p>Apoorve Bhosdika</p>
-        <p>812389109</p>
-        <p>apoorvebhadwa@gmail.com</p>
+        
+        <h3 style={{marginBottom:"10%", color:"white"}}>Get in touch</h3>
+        <div style={{ display: 'flex', flexDirection:'row', height:'fit-content'}}>
+          <Icon>
+          <HeadsetIcon style={{color:"white", fontSize:'large', marginBottom:'85%'}}></HeadsetIcon>
+            {/* <CallIcon  ></CallIcon> */}
+          </Icon>
+          <h4 style={{marginLeft:'10px'}}>Nirvana Community</h4>
+        </div> 
+        
+        <div style={{ display: 'flex', flexDirection:'row', height:'fit-content'}}>
+          <Icon>
+            <CallIcon style={{color:"white", fontSize:'large', marginBottom:'25%'}}></CallIcon>
+          </Icon>
+          <p style={{marginLeft:'10px'}}>9990622361</p>
+        </div>
+        <div style={{ display: 'flex', flexDirection:'row'}}>
+        <Icon >
+          <EmailIcon style={{color:'white'}}></EmailIcon>
+        </Icon>
+        <p style={{marginLeft:'10px' }} onClick={(e) => {
+          window.location.href = "mailto:nirvana.music.soul@gmail.com";
+          e.preventDefault();
+        }}>nirvana.music.soul@gmail.com</p>
+        </div>
+        
       </div>
       
     </div>

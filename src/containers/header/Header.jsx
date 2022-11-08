@@ -12,9 +12,8 @@ const Header = () => (
       <p>Listen to the soundtrack of your life. Enjoy your music from top artists across the world because Music is the wine that fills the cup of silence.</p>
 
       <div className="gpt3__header-content__input">
-        {/* <input type="email" placeholder="Your Email Address" /> */}
         <button type='text' onClick={(e) => {
-          window.location.href = "mailto:apoorve.shukla.cse20@itbhu.ac.in";
+          window.location.href = "mailto:nirvana.music.soul@gmail.com";
           e.preventDefault();
         }}>Email Us</button>
       </div>
