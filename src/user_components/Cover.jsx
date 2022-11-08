@@ -15,6 +15,7 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
+import pic from "../assets/cover.jpg"
 
 export default function Cover() {
   const [coverImage, setCoverImage] = useState(null)
@@ -44,7 +45,7 @@ export default function Cover() {
         w="full"
         h="full"
         objectFit="cover"
-        src={coverImage ? coverImage : "https://i0.wp.com/babylonradio.com/wp-content/uploads/2020/06/rsz_people-in-concert-1763075.jpg?resize=1024%2C731&ssl=1"}
+        src={pic}
         alt="Cover"
       />
       {/* <Button
