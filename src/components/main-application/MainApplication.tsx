@@ -33,7 +33,7 @@ const MainApplication = (props: mainApplicationProps) => {
         <Route path="albums/:id" element={<AlbumDetails />} />
         <Route path="playlists" element={<Playlist />} />
         <Route path="playlists/:id" element={<PlaylistDetails />} />
-        <Route path="artist/:artistname" element={<Artist />} />
+        {/* <Route path="artist/:artistname" element={<Artist />} /> */}
         <Route path="player" element={<Player/>} />
       </Routes>
     </div>
