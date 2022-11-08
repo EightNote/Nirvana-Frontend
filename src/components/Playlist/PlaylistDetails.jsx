@@ -1,4 +1,5 @@
 import {
+  useAddTrackToPlaylistMutation,
   useGetSpecificPlaylistQuery,
   useGetSpecificPlaylistTracksQuery,
   useGetTrackListQuery,
@@ -13,9 +14,10 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { Box } from "@mui/system";
 
-const AddTracksToPlaylist = () => {
-  const [track, setTrack] = React.useState(0);
+const AddTracksToPlaylist = (props) => {
+  const [track, setTrack] = React.useState("");
   const { data, isLoading, error } = useGetTrackListQuery();
+  const [triggerAddToPlaylist, resutltAdd] = useAddTrackToPlaylistMutation();
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -23,9 +25,13 @@ const AddTracksToPlaylist = () => {
     return <p>Some error</p>;
   }
   console.log(data);
-  const handleSubmit = () => {
-    console.log(track);
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    let body = {"tracklist":[track,], playlistID: parseInt(props.id)}
+    console.log(body)
+    triggerAddToPlaylist(body)
   };
+
   return (
     <Box
       sx={{
@@ -42,13 +48,16 @@ const AddTracksToPlaylist = () => {
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
           label="Visibility"
-          onChange={(event) => setTrack(event.target.value.title)}
+          onChange={(event) => {
+            console.log(event.target.value)
+            setTrack(event.target.value.title)
+          }}
         >
-          <MenuItem value="">
+          <MenuItem key="0" value="">
             <em>None</em>
           </MenuItem>
           {data.map((track) => {
-            return <MenuItem value={track}>{track.title}</MenuItem>;
+            return <MenuItem key={track.title} value={track}>{track.title}</MenuItem>;
           })}
         </Select>
       </FormControl>
@@ -68,7 +77,7 @@ const CheckIsOwnedByuser = (props) => {
   }
 
   if (data.createdByUser === user) {
-    return <AddTracksToPlaylist />;
+    return <AddTracksToPlaylist id={props.id}/>;
   } else {
     return;
   }

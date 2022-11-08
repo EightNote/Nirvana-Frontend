@@ -49,6 +49,13 @@ export const musicApi = createApi({
                 data: payload,
             })
         }),
+        addTrackToPlaylist: builder.mutation({
+            query: (payload) => ({
+                method: "POST",
+                url: `playlist/tracks/`,
+                data: payload,
+            })
+        }),
         getLikedSongs: builder.query({
             query: () => ({
                 method: "get",
@@ -133,6 +140,7 @@ export const {
     useGetSpecificPlaylistQuery,
     useGetSpecificPlaylistTracksQuery,
     useCreatePlaylistMutation,
+    useAddTrackToPlaylistMutation,
     useGetLikedSongsQuery,
     useIsLikedQuery,
     useLikeSongMutation,
