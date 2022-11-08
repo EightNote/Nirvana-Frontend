@@ -37,7 +37,7 @@ export const musicApi = createApi({
             query: () => `playlist/all`
         }),
         getSpecificPlaylist: builder.query({
-            query: (id) => `playlist/${id}`
+            query: (id) => `playlist/id/${id}`
         }),
         getSpecificPlaylistTracks: builder.query({
             query: (id) => `playlist/${id}/tracks/`
