@@ -6,25 +6,25 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 const LikeButton = (props) => {
-    var title = props.title
     const [like, setLike] = useState(skipToken)
 
     const [triggerLike, resultLike] = useLikeSongMutation()
     const [triggerUnlike, resultUnlike] = useUnlikeSongMutation()
-    const { data: likeStatus, isLoading, isError } = useIsLikedQuery(title)
+    const { data: likeStatus, isLoading, isError } = useIsLikedQuery(props.title)
 
     useEffect(() => {
+        console.log(props.title + " " + likeStatus)
         if (likeStatus) {
-            setLike(likeStatus["isLiked"])
+            setLike(true)
         }
-    }, [likeStatus])
+    }, [likeStatus, props])
 
     function likeHandler() {
         if (like === false) {
-            triggerLike(title)
+            triggerLike(props.title)
             setLike(true)
         } else {
-            triggerUnlike(title)
+            triggerUnlike(props.title)
             setLike(false)
         }
     }
