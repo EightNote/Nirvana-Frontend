@@ -43,10 +43,10 @@ export const musicApi = createApi({
             query: (id) => `playlist/${id}/tracks/`
         }),
         createPlaylist: builder.mutation({
-            query: (name, description, visibility) => ({
-                method: "post",
+            query: (payload) => ({
+                method: "POST",
                 url: `playlist/`,
-                body: { name: name, description: description, visibility: visibility },
+                data: payload,
             })
         }),
         getLikedSongs: builder.query({
