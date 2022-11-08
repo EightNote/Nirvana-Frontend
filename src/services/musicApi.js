@@ -68,10 +68,9 @@ export const musicApi = createApi({
             // id here refers to the id of track in json data, so it is uniquely tagged
         }),
         isLiked: builder.query({
-            query: (trackid) => ({
-                method: "put",
-                url: `likedsongs/`,
-                data: { track: trackid },
+            query: (title) => ({
+                method: "get",
+                url: `tracks/is-liked-by/${title}`,
             })
         }),
         likeSong: builder.mutation({
