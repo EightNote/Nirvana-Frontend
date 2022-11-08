@@ -43,13 +43,9 @@ function App() {
         <Route path="/*" element={<MainApplication />} />
         <Route path="/sign-in" element={<Auth />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/tracks" element={<AllTrack />} />
-        <Route path="/events" element={<AllEvents />} />
-        <Route path="/user" element={<User />} />
-        <Route path="/artists" element={<Artist />} />
-        <Route path="/records" element={<RecordLabel />} />
+
       </Routes>
-      <PlayerControls />
+
     </div>
   );
 }
