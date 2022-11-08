@@ -81,7 +81,7 @@ const AllEvents = () => {
       })
       .then((response) => {
         // setEvents(response.data);
-        window.location.href="http://localhost:3000/events"
+        window.location.href="/events"
         console.log(response.data);
       });
   };
@@ -125,29 +125,31 @@ const AllEvents = () => {
           <DialogTitle>Event</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Provide required data for new event
+              Provide required data for new event 
             </DialogContentText>
             <TextField
               autoFocus
-              margin="dense"
+              margin="normal"
               id="date"
-              label="Date"
+              // label="Date" 
               name="date"
-              type="text"
+              type="date"
               onChange={handler}
               fullWidth
-              variant="standard"
+              variant="outlined"
             />
             <TextField
               autoFocus
               margin="dense"
               id="time"
-              label="Time"
-              type="text"
+              // label="Time"
+              type="time"
               name="time"
+              color="primary"
+              // autoFocus
               onChange={handler}
               fullWidth
-              variant="standard"
+              variant="outlined"
             />
             <TextField
               autoFocus
@@ -158,7 +160,7 @@ const AllEvents = () => {
               type="text"
               onChange={handler}
               fullWidth
-              variant="standard"
+              variant="outlined"
             />
             <TextField
               autoFocus
@@ -169,7 +171,7 @@ const AllEvents = () => {
               type="text"
               onChange={handler}
               fullWidth
-              variant="standard"
+              variant="outlined"
             />
             <TextField
               autoFocus
@@ -180,7 +182,7 @@ const AllEvents = () => {
               type="text"
               onChange={handler}
               fullWidth
-              variant="standard"
+              variant="outlined"
             />
             <TextField
               autoFocus
@@ -191,8 +193,9 @@ const AllEvents = () => {
               type="text"
               onChange={handler}
               fullWidth
-              variant="standard"
+              variant="outlined"
             />
+            
             <TextField
               autoFocus
               margin="dense"
@@ -202,8 +205,13 @@ const AllEvents = () => {
               type="email"
               onChange={handler}
               fullWidth
-              variant="standard"
+              variant="outlined"
             />
+
+
+
+            
+
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
@@ -217,6 +225,8 @@ const AllEvents = () => {
           flexDirection: "row",
           overflow: "auto",
           flexFlow: "column",
+          margin:'20px',
+          padding:'20px'
         }}
       >
         {events.map((event) => (
