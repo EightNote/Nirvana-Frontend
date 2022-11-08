@@ -1,6 +1,6 @@
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import * as React from "react";
-import logo from '../../logo.svg';
+import logo from '../../assets/logo1.png';
 import './navbar.css';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -89,7 +89,7 @@ const Navbar = () => {
     <div className="gpt3__navbar">
       <div className="gpt3__navbar-links">
         <div className="gpt3__navbar-links_logo">
-          <img src={logo} />
+          <img style={{ height: '2%', borderRadius:'100%'}} src={logo} />
         </div>
         <div className="gpt3__navbar-links_container">
 
