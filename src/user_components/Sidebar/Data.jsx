@@ -1,5 +1,6 @@
 import { Box, Text, VStack } from '@chakra-ui/react'
 
+
 const list = [
   {
     id: 1,

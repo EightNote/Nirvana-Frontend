@@ -17,6 +17,8 @@ import {
   useDisclosure,
   VStack,
 } from '@chakra-ui/react'
+import pic from "../../assets/profile.png"
+import { useSelector } from "react-redux"
 
 function Profile() {
   const [userProfile, setUserProfile] = useState(null)
@@ -41,23 +43,19 @@ function Profile() {
     onOpen()
   }
 
+  const user = useSelector((state) => state.auth.username);
+
   return (
     <VStack spacing={3} py={5} borderBottomWidth={1} borderColor="brand.light">
       <Avatar
         size="2xl"
         name="Tim Cook"
         cursor="pointer"
-        onClick={openChooseImage}
-        src={userProfile ? userProfile : '/img/tim-cook.jpg'}
+
+        src={pic}
       >
         <AvatarBadge bg="brand.blue" boxSize="1em">
-          <svg width="0.4em" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z"
-            />
-          </svg>
+
         </AvatarBadge>
       </Avatar>
       <input
@@ -90,7 +88,7 @@ function Profile() {
       </Modal>
       <VStack spacing={1}>
         <Heading as="h3" fontSize="xl" color="brand.dark">
-          Tim Cook
+          {user}
         </Heading>
       </VStack>
     </VStack>
