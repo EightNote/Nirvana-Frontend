@@ -1,42 +1,10 @@
 import { Box, Text, VStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 import { Button } from '@chakra-ui/react'
 import { Badge } from '@chakra-ui/react'
 
-const list = [
-  {
-    id: 1,
-    name: 'My Tracks',
-    value: 32,
-    color: 'yellow',
-  },
-  {
-    id: 2,
-    name: 'Liked Albums',
-    value: 26,
-    color: 'green',
-  },
-  {
-    id: 3,
-    name: 'Liked Artists',
-    value: 6,
-    color: 'blue',
-  },
-  {
-    id: 4,
-    name: 'My Followers',
-    value: 32,
-    color: 'orange',
-  },
-  {
-    id: 5,
-    name: 'My Playlists',
-    value: 32,
-    color: 'cadet',
-  }
-]
+
 
 
 const GenreTag = (props) => {
@@ -60,20 +28,89 @@ const GenreTag = (props) => {
 
 function Data() {
   const [interests, setInterests] = useState([{name: "Punjabi", "track_count":22, "id": 1}])
-  const username = useSelector((state) => state.auth.username)
-  const role = useSelector((state) => state.auth.role)
+  const role = JSON.parse(localStorage.getItem("user")).role
   const user = JSON.parse(localStorage.getItem("user"))
 
+  const user_list = [
+    {
+      id: 1,
+      name: 'First Name',
+      value: "",
+      color: 'yellow',
+    },
+    {
+      id: 2,
+      name: 'Last Name',
+      value: "",
+      color: 'green',
+    },
+    {
+      id: 4,
+      name: 'My Playlists',
+      value: 0,
+      color: 'cadet',
+    }
+  ]
+
+  const artist_list = [
+    {
+      id: 1,
+      name: 'About',
+      value: "",
+      color: 'yellow',
+    },
+    {
+      id: 2,
+      name: 'Twitter',
+      value: "",
+      color: 'green',
+    },
+    {
+      id: 3,
+      name: 'Faceboook',
+      value: 0,
+      color: 'blue',
+    },
+    {
+      id: 4,
+      name: 'Instagram',
+      value: 0,
+      color: 'cadet',
+    },
+    {
+      id: 5,
+      name: 'Nationality',
+      value: 0,
+      color: 'cadet',
+    },
+    {
+      id: 5,
+      name: 'Record label',
+      value: 0,
+      color: 'cadet',
+    }
+  ]
+
+
+  // const [list, setList] = useState()
+
   useEffect(() => {
-    axios.get('http://localhost:8080/user/get-user-detail/' + user.username).then((res) => {
+    if (role === "user") {
+        axios.get('http://localhost:8080/user/get-user-detail/' + user.username).then((res) => {
         console.log("User details", res.data)
         setInterests(res.data.interests)
-    }).catch((error) => console.log(error))
+      }).catch((error) => console.log(error)) 
+    } else if (role === "artist") {
+      axios.get('http://localhost:8080/user/get-artist-detail/' + user.username).then((res) => {
+        console.log("Artist details", res.data)
+
+      }).catch((error) => console.log(error)) 
+    }
   }, [])
 
   return (
     <VStack as="ul" spacing={0} listStyleType="none">
-      {list.map(item => (
+      {(role === "user" ? user_list : artist_list).map(item => (
         <Box
           key={item.id}
           as="li"
