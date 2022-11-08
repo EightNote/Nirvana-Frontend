@@ -54,7 +54,7 @@ export const authApi = createApi({
       }) => {
         let jsonbody = JSON.stringify(body);
         return {
-          mode: "no-cors",
+          mode: "cors",
           url: "/sign-up/artist/",
           method: "POST",
           headers: {

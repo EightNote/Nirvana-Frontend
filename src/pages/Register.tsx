@@ -24,7 +24,6 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import axios from "axios";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
 import {
   useRegisterUserMutation,
   useRegisterArtistMutation,
@@ -33,7 +32,6 @@ import Divider from "@mui/material/Divider";
 
 import FormHelperText from "@mui/material/FormHelperText";
 import FormGroup from "@mui/material/FormGroup";
-import axiosInstance from "../axiosInstance";
 
 const initialState = {
   username: "",
@@ -82,6 +80,7 @@ export default function SignUp() {
   const [countries, setCountries] = React.useState([]);
   const [genre, setGenres] = React.useState([]);
   const [state, setState] = useState({});
+  const [record, setRecord] = useState([]);
 
   const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({
@@ -102,6 +101,11 @@ export default function SignUp() {
       genre.map((item) => {
         setState({ ...state, [item.id]: false });
       });
+    });
+
+    axios.get("http://localhost:8080/record-label/").then((response) => {
+      setRecord(response.data);
+      // console.log("a", response.data);
     });
   }, []);
 
@@ -128,7 +132,18 @@ export default function SignUp() {
     interests,
   } = val;
 
+  const {
+    about,
+    twitter,
+    facebook,
+    instagram,
+    record_label_id,
+    nationality_id,
+    role,
+  } = val1;
+
   const [value, setValue] = React.useState("India");
+  const [value1, setValue1] = React.useState("");
 
   // const [
   //   RegisterUser,
@@ -145,11 +160,8 @@ export default function SignUp() {
       setVal({ ...val, [e.target.name]: e.target.value });
       setVal1({ ...val1, [e.target.name]: e.target.value });
     } else {
-      if (checked) {
-        setVal1({ ...val1, [e.target.name]: e.target.value });
-      } else {
-        setVal({ ...val, [e.target.name]: e.target.value });
-      }
+      setVal({ ...val, [e.target.name]: e.target.value });
+      setVal1({ ...val1, [e.target.name]: e.target.value });
     }
   };
 
@@ -167,9 +179,14 @@ export default function SignUp() {
   const [registerUser, data] = useRegisterUserMutation();
   const [registerArtist, data1] = useRegisterArtistMutation();
 
-  const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
-    handler(event);
+  const handleChange1 = (e: any) => {
+    setValue((e.target as HTMLInputElement).value);
+    handler(e);
+  };
+
+  const huh = (e: any) => {
+    setValue1((e.target as HTMLInputElement).value);
+    handler(e);
   };
 
   const handleGender = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -177,17 +194,31 @@ export default function SignUp() {
   };
 
   const handleRegister = async () => {
-    console.log(val);
+    console.log(val1);
     if (username && password) {
-      registerUser({
-        username,
-        password,
-        firstName,
-        lastName,
-        dateOfBirth,
-        gender,
-        interests,
-      });
+      if (!checked) {
+        registerUser({
+          username,
+          password,
+          firstName,
+          lastName,
+          dateOfBirth,
+          gender,
+          interests,
+        });
+      } else {
+        registerArtist({
+          username,
+          password,
+          about,
+          twitter,
+          facebook,
+          instagram,
+          record_label_id,
+          nationality_id,
+          role,
+        });
+      }
 
       // let res: any = await RegisterUser({ username:username, password:password });
       //   await fetch("http://localhost:8080/user/sign-up/", {
@@ -259,99 +290,6 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  onChange={handler}
-                  fullWidth
-                  name="firstName"
-                  label="First Name"
-                  type="text"
-                  id="password"
-                  autoComplete="firstName"
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  onChange={handler}
-                  fullWidth
-                  name="lastName"
-                  label="Last Name"
-                  type="text"
-                  id="password"
-                  autoComplete="lastName"
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  onChange={handler}
-                  fullWidth
-                  name="dateOfBirth"
-                  type="date"
-                  id="password"
-                  autoComplete="lastName"
-                />
-              </Grid>
-              <Divider />
-
-              <FormControl style={{ margin: "18px" }}>
-                <FormLabel id="demo-radio-buttons-group-label">
-                  Gender
-                </FormLabel>
-                <RadioGroup
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="female"
-                  name="radio-buttons-group"
-                  onChange={handleGender}
-                >
-                  <FormControlLabel
-                    value="female"
-                    control={<Radio />}
-                    label="Female"
-                  />
-                  <FormControlLabel
-                    value="male"
-                    control={<Radio />}
-                    label="Male"
-                  />
-                </RadioGroup>
-              </FormControl>
-
-              <Divider style={{ backgroundColor: "black" }} />
-
-              <Box sx={{ display: "flex" }}>
-                <FormControl
-                  sx={{ m: 3 }}
-                  component="fieldset"
-                  variant="standard"
-                >
-                  <FormLabel component="legend">Interests</FormLabel>
-
-                  {genre.map((item) => {
-                    return (
-                      <FormGroup>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={state[item.id]}
-                              onChange={handleChange2}
-                              name={item.id}
-                            />
-                          }
-                          label={item.name}
-                        />
-                      </FormGroup>
-                    );
-                  })}
-
-                  <FormHelperText>Genre</FormHelperText>
-                </FormControl>
-              </Box>
 
               <Grid item xs={12}>
                 <FormControlLabel
@@ -451,9 +389,125 @@ export default function SignUp() {
                       </RadioGroup>
                     </FormControl>
                   </Grid>
+
+                  <Grid item component="form" noValidate xs={12}>
+                    <FormControl>
+                      <FormLabel id="demo-controlled-radio-buttons-group">
+                        Record Label
+                      </FormLabel>
+                      <RadioGroup
+                        aria-labelledby="demo-controlled-radio-buttons-group"
+                        name="controlled-radio-buttons-group"
+                        value={value1}
+                        onChange={huh}
+                      >
+                        {record.map((item: any) => (
+                          <FormControlLabel
+                            name="record_label_id"
+                            value={item.username}
+                            control={<Radio />}
+                            label={item.username}
+                          />
+                        ))}
+                      </RadioGroup>
+                    </FormControl>
+                  </Grid>
                 </>
               ) : (
-                ""
+                <>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      onChange={handler}
+                      fullWidth
+                      name="firstName"
+                      label="First Name"
+                      type="text"
+                      id="password"
+                      autoComplete="firstName"
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      onChange={handler}
+                      fullWidth
+                      name="lastName"
+                      label="Last Name"
+                      type="text"
+                      id="password"
+                      autoComplete="lastName"
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      onChange={handler}
+                      fullWidth
+                      name="dateOfBirth"
+                      type="date"
+                      id="password"
+                      autoComplete="lastName"
+                    />
+                  </Grid>
+                  <Divider />
+
+                  <FormControl style={{ margin: "18px" }}>
+                    <FormLabel id="demo-radio-buttons-group-label">
+                      Gender
+                    </FormLabel>
+                    <RadioGroup
+                      aria-labelledby="demo-radio-buttons-group-label"
+                      defaultValue="female"
+                      name="radio-buttons-group"
+                      onChange={handleGender}
+                    >
+                      <FormControlLabel
+                        value="female"
+                        control={<Radio />}
+                        label="Female"
+                      />
+                      <FormControlLabel
+                        value="male"
+                        control={<Radio />}
+                        label="Male"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+
+                  <Divider style={{ backgroundColor: "black" }} />
+
+                  <Box sx={{ display: "flex" }}>
+                    <FormControl
+                      sx={{ m: 3 }}
+                      component="fieldset"
+                      variant="standard"
+                    >
+                      <FormLabel component="legend">Interests</FormLabel>
+
+                      {genre.map((item) => {
+                        return (
+                          <FormGroup>
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  checked={state[item.id]}
+                                  onChange={handleChange2}
+                                  name={item.id}
+                                />
+                              }
+                              label={item.name}
+                            />
+                          </FormGroup>
+                        );
+                      })}
+
+                      <FormHelperText>Genre</FormHelperText>
+                    </FormControl>
+                  </Box>
+                </>
               )}
             </Grid>
             <Button
