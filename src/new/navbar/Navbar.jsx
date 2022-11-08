@@ -89,16 +89,16 @@ const Navbar = () => {
     <div className="gpt3__navbar">
       <div className="gpt3__navbar-links">
         <div className="gpt3__navbar-links_logo">
-          <img style={{ height: '2%', borderRadius:'100%'}} src={logo} />
+          <img style={{ height: '2%', borderRadius: '100%' }} src={logo} />
         </div>
         <div className="gpt3__navbar-links_container">
 
           {
             isLoggerIn ?
               <>
-                <p><a href="#home">Home</a></p>
-                <p><a href="#wgpt3">About Us</a></p>
-                <p><a href="#blog">Trendings</a></p>
+                <p><a href="home#home">Home</a></p>
+                <p><a href="home#wgpt3">About Us</a></p>
+                <p><a href="home#blog">Trendings</a></p>
                 <p><a href="#"><Drop /></a></p>
                 <p onClick={handleLogout}><a href="#blog">LogOut</a></p>
               </>
@@ -115,7 +115,7 @@ const Navbar = () => {
               anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
               variant="dot"
             >
-              <Avatar sx={{ bgcolor: "#1c2e4a" }} onClick={()=>navigate("/user")}>{Logo[0]}</Avatar>
+              <Avatar sx={{ bgcolor: "#1c2e4a" }} onClick={() => navigate("/user")}>{Logo[0]}</Avatar>
             </StyledBadge>
             :
             <>
