@@ -16,23 +16,33 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState, useEffect } from "react";
 // import { useRegisterUserMutation } from "../services/authApi";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../utilities/hooks";
+// import { useNavigate } from "react-router-dom";
+// import { useAppDispatch } from "../utilities/hooks";
 
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import axios from "axios";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
 import {
   useRegisterUserMutation,
   useRegisterArtistMutation,
 } from "../services/authApi";
+import Divider from "@mui/material/Divider";
+
+import FormHelperText from "@mui/material/FormHelperText";
+import FormGroup from "@mui/material/FormGroup";
+import axiosInstance from "../axiosInstance";
 
 const initialState = {
   username: "",
   password: "",
-  role: "user",
+  firstName: "",
+  lastName: "",
+  dateOfBirth: "",
+  gender: "",
+  interests: [],
 };
 
 const initialState1 = {
@@ -70,18 +80,53 @@ const theme = createTheme();
 export default function SignUp() {
   const [checked, setChecked] = React.useState(false);
   const [countries, setCountries] = React.useState([]);
+  const [genre, setGenres] = React.useState([]);
+  const [state, setState] = useState({});
+
+  const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+  };
 
   useEffect(() => {
     axios.get("http://localhost:8080/countries/all/").then((response) => {
       setCountries(response.data);
       console.log(response.data);
     });
+
+    axios.get("http://localhost:8080/genre/").then((response) => {
+      setGenres(response.data);
+      // console.log(response.data);
+      genre.map((item) => {
+        setState({ ...state, [item.id]: false });
+      });
+    });
   }, []);
 
   const [val, setVal] = useState(initialState);
   const [val1, setVal1] = useState(initialState1);
 
-  const { username, password, role } = val;
+  useEffect(() => {
+    var newArr = Array.from([]);
+    for (var key in state) {
+      newArr.push(parseInt(key));
+    }
+    setVal({ ...val, ["interests"]: newArr });
+
+    // setVal1(...val1,["interests"]:)
+  }, [state]);
+
+  const {
+    username,
+    password,
+    firstName,
+    lastName,
+    dateOfBirth,
+    gender,
+    interests,
+  } = val;
 
   const [value, setValue] = React.useState("India");
 
@@ -96,8 +141,16 @@ export default function SignUp() {
   // ] = useRegisterUserMutation();
 
   const handler = (e: any) => {
-    setVal({ ...val, [e.target.name]: e.target.value });
-    setVal1({ ...val1, [e.target.name]: e.target.value });
+    if (e.target.name === "username" || e.target.name === "password") {
+      setVal({ ...val, [e.target.name]: e.target.value });
+      setVal1({ ...val1, [e.target.name]: e.target.value });
+    } else {
+      if (checked) {
+        setVal1({ ...val1, [e.target.name]: e.target.value });
+      } else {
+        setVal({ ...val, [e.target.name]: e.target.value });
+      }
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,9 +159,9 @@ export default function SignUp() {
 
   useEffect(() => {
     if (checked) {
-      setVal({ ...val, role: "artist" });
+      setVal1({ ...val1 });
     } else {
-      setVal({ ...val, role: "user" });
+      setVal({ ...val });
     }
   }, [checked]);
   const [registerUser, data] = useRegisterUserMutation();
@@ -119,14 +172,22 @@ export default function SignUp() {
     handler(event);
   };
 
+  const handleGender = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setVal({ ...val, ["gender"]: (event.target as HTMLInputElement).value });
+  };
+
   const handleRegister = async () => {
-    console.log("Got username", username, "password:", password);
+    console.log(val);
     if (username && password) {
-      if (role === "user") {
-        registerUser({ username, password, role });
-      } else {
-        registerArtist({ ...val1 });
-      }
+      registerUser({
+        username,
+        password,
+        firstName,
+        lastName,
+        dateOfBirth,
+        gender,
+        interests,
+      });
 
       // let res: any = await RegisterUser({ username:username, password:password });
       //   await fetch("http://localhost:8080/user/sign-up/", {
@@ -198,6 +259,99 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  onChange={handler}
+                  fullWidth
+                  name="firstName"
+                  label="First Name"
+                  type="text"
+                  id="password"
+                  autoComplete="firstName"
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  onChange={handler}
+                  fullWidth
+                  name="lastName"
+                  label="Last Name"
+                  type="text"
+                  id="password"
+                  autoComplete="lastName"
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  onChange={handler}
+                  fullWidth
+                  name="dateOfBirth"
+                  type="date"
+                  id="password"
+                  autoComplete="lastName"
+                />
+              </Grid>
+              <Divider />
+
+              <FormControl style={{ margin: "18px" }}>
+                <FormLabel id="demo-radio-buttons-group-label">
+                  Gender
+                </FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="female"
+                  name="radio-buttons-group"
+                  onChange={handleGender}
+                >
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio />}
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio />}
+                    label="Male"
+                  />
+                </RadioGroup>
+              </FormControl>
+
+              <Divider style={{ backgroundColor: "black" }} />
+
+              <Box sx={{ display: "flex" }}>
+                <FormControl
+                  sx={{ m: 3 }}
+                  component="fieldset"
+                  variant="standard"
+                >
+                  <FormLabel component="legend">Interests</FormLabel>
+
+                  {genre.map((item) => {
+                    return (
+                      <FormGroup>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={state[item.id]}
+                              onChange={handleChange2}
+                              name={item.id}
+                            />
+                          }
+                          label={item.name}
+                        />
+                      </FormGroup>
+                    );
+                  })}
+
+                  <FormHelperText>Genre</FormHelperText>
+                </FormControl>
+              </Box>
 
               <Grid item xs={12}>
                 <FormControlLabel
