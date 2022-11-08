@@ -9,6 +9,7 @@ import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from "react-toastify"
 
+
 import {
   List,
   ListItem,
@@ -24,6 +25,9 @@ import {
 
 import Notifications from './Notifications'
 import { useSelector } from 'react-redux'
+import { RedoRounded } from '@mui/icons-material'
+
+
 
 const Content = () => {
   const tabs = ['Liked Songs', 'Liked Albums', 'Liked Artists',
@@ -64,6 +68,19 @@ const Content = () => {
         setLikedAlbums(response.data);
         console.log(response.data);
       });
+
+
+      axios
+      .get("http://localhost:8080/albums/likedAlbums/?username=" + username, {
+        headers: {
+          Authorization: "Bearer " + user, //the token is a variable which holds the token
+        },
+      })
+      .then((response) => {
+        setLikedAlbums(response.data);
+        console.log(response.data);
+      });
+
 
     axios
       .get("http://localhost:8080/user/likedArtists/?username=" + username, {
