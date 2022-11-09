@@ -33,6 +33,7 @@ function Data() {
   const [interests, setInterests] = useState([{ name: "Punjabi", "track_count": 22, "id": 1 }])
   const role = JSON.parse(localStorage.getItem("user")).role
   const user = JSON.parse(localStorage.getItem("user"))
+  const token = JSON.parse(localStorage.getItem("user")).token
   const [userDetail, setUserDetail] = useState({});
   const [artistDetail, setArtistDetail] = useState({});
   const [playlist, setPlaylist] = useState([])
@@ -97,7 +98,9 @@ function Data() {
 
   useEffect(() => {
     if (role === "user") {
-      axios.get('http://localhost:8080/user/get-user-detail/' + user.username).then((res) => {
+      axios.get('http://localhost:8080/user/get-user-detail/' + user.username, {
+        headers:{"Authorization":"Bearer " + token}
+      }).then((res) => {
         console.log("User details", res.data)
         setUserDetail(res.data)
         setInterests(res.data.interests)
@@ -105,7 +108,9 @@ function Data() {
 
 
     } else if (role === "artist") {
-      axios.get('http://localhost:8080/user/get-artist-detail/' + user.username).then((res) => {
+      axios.get('http://localhost:8080/user/get-artist-detail/' + user.username, {
+        headers:{"Authorization":"Bearer " + token}
+      }).then((res) => {
         console.log("Artist details", res.data)
         setArtistDetail(res.data);
       }).catch((error) => console.log(error))
@@ -113,7 +118,9 @@ function Data() {
 
     if (id) {
       role = "artist"
-      axios.get('http://localhost:8080/user/get-artist-detail/' + id).then((res) => {
+      axios.get('http://localhost:8080/user/get-artist-detail/' + id, {
+        headers:{"Authorization":"Bearer " + token}
+      }).then((res) => {
         setArtistDetail(res.data);
       }).catch((error) => console.log(error))
     }
