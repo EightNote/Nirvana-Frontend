@@ -61,7 +61,7 @@ const AddTracksToPlaylist = (props) => {
           })}
         </Select>
       </FormControl>
-      <Button onClick={handleSubmit}>Add To Playlist</Button>
+      <Button style={{marginTop:"1%"}} onClick={handleSubmit}>Add To Playlist</Button>
     </Box>
   );
 };
@@ -94,8 +94,17 @@ const PlaylistDetails = () => {
   }
   return (
     <div>
-      <CheckIsOwnedByuser id={id} />
-      <Tracks data={data} />
+      <div>
+        <CheckIsOwnedByuser id={id} />
+        <div style={{display:"flex", marginLeft:"20%", marginTop:"2%", marginBottom:"0px"}}>
+        <h1 style={{color:'white'}}> NAME </h1>
+        <h5 style={{color:'orange', marginTop:"1.3%", marginLeft:"2%"}}>By Username</h5>
+        </div>
+        <div style={{display:"flex",justifyContent:"center", alignItems:"center", margin:"2%", marginTop:"0px", marginBottom : '5%'}}>
+          <Tracks data={data} />
+        </div>
+        
+      </div>
     </div>
   );
 };

@@ -7,8 +7,8 @@ export default function Albums() {
     const { data, isLoading, error } = useGetAlbumListQuery()
     if (isLoading) {
         return (<div>Loading...</div>)
-    }
-    if (error) {
+
+     }   if (error) {
         return (<div>Some error</div>)
     }
     return (<AlbumList albums={data} />)
