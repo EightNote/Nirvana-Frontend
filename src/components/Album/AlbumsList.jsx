@@ -2,7 +2,18 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { useNavigate } from "react-router-dom";
+import CreateAlbum from './CreateAlbum';
+import { Box } from '@mui/material';
+import { useSelector } from 'react-redux';
 
+const CheckIsArtist = () => {
+    const role = useSelector((state) => state.auth.role);
+    if (role === "artist") {
+      return <CreateAlbum/>;
+    } else {
+      return;
+    }
+  };
 
 export function AlbumList(props) {
     let navigate = useNavigate();
@@ -10,6 +21,8 @@ export function AlbumList(props) {
         navigate("/albums/" + title);
     }
     return (
+        <Box sx={{ background: "white" }}>
+            <CheckIsArtist/>
         <ImageList
             cols={3}
             sx={{
@@ -40,5 +53,6 @@ export function AlbumList(props) {
                 </ImageListItem>
             ))}
         </ImageList>
+        </Box>
     );
 }
