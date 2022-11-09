@@ -22,37 +22,37 @@ export function AlbumList(props) {
     }
     return (
         <Box sx={{ background: "white" }}>
-            <CheckIsArtist />
-            <ImageList
-                cols={3}
-                sx={{
-                    width: "100vw",
-                    height: "84vh",
-                    padding: "10px"
-                }}>
-                {props.albums.map((album) => (
-                    <ImageListItem key={album.id}
-                        sx={{
-                            padding: '20px',
-                            backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                            borderRadius: "20px",
-                        }}>
-                        <img
-                            src={album.album_logo}
-                            srcSet={album.album_logo}
-                            alt={album.album_title}
-                            loading="lazy"
-                            onClick={() => routeChange(album.id)}
-                        />
-                        <ImageListItemBar
-                            title={album.album_title}
-                            subtitle={album.artist_id}
-                            position="below"
-                        // actionIcon={<AlbumDetails albumid={album.id} />}
-                        />
-                    </ImageListItem>
-                ))}
-            </ImageList>
+            <CheckIsArtist/>
+        <ImageList
+            cols={3}
+            sx={{
+                width: "100vw",
+                height: "84vh",
+                padding: "10px"
+            }}>
+            {props.albums.map((album) => (
+                <ImageListItem key={album.id}
+                    sx={{
+                        padding: '20px',
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                        borderRadius: "20px",
+                    }}>
+                    <img
+                        src={"http://localhost:8080/Images/Albums/" + album.album_logo}
+                        srcSet={"http://localhost:8080/Images/Albums/" + album.album_logo}
+                        alt={album.album_title}
+                        loading="lazy"
+                        onClick={() => routeChange(album.id)}
+                    />
+                    <ImageListItemBar
+                        title={album.album_title}
+                        subtitle={album.artist_id}
+                        position="below"
+                    // actionIcon={<AlbumDetails albumid={album.id} />}
+                    />
+                </ImageListItem>
+            ))}
+        </ImageList>
         </Box>
     );
 }
