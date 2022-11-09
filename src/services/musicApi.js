@@ -19,6 +19,13 @@ export const musicApi = createApi({
                 data: payload,
             })
         }),
+        createAlbum: builder.mutation({
+            query: (payload) => ({
+                method: "POST",
+                url: `albums/`,
+                data: payload,
+            })
+        }),
         getAlbumList: builder.query({
             query: () => `albums/all/`
         }),
@@ -35,7 +42,7 @@ export const musicApi = createApi({
             query: (id) => `artists/${id}/`
         }),
         getGenreList: builder.query({
-            query: () => `genres/`
+            query: () => `genre/`
         }),
         getSpecificGenre: builder.query({
             query: (id) => `genres/${id}/`
@@ -135,6 +142,7 @@ export const {
     useGetSpecificAlbumQuery,
     useGetArtistListQuery,
     useGetSpecificArtistQuery,
+    useCreateAlbumMutation,
     useGetAlbumDetailsQuery,
     useGetGenreListQuery,
     useGetSpecificGenreQuery,
