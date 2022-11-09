@@ -7,8 +7,7 @@ import { useNavigate } from "react-router-dom";
 export function AlbumList(props) {
     let navigate = useNavigate();
     const routeChange = (title) => {
-        let path = "/albums/album/" + title;
-        navigate(path);
+        navigate("/albums/" + title);
     }
     return (
         <ImageList
@@ -30,7 +29,7 @@ export function AlbumList(props) {
                         srcSet={album.album_logo}
                         alt={album.album_title}
                         loading="lazy"
-                        onClick={() => routeChange(album.album_title)}
+                        onClick={() => routeChange(album.id)}
                     />
                     <ImageListItemBar
                         title={album.album_title}

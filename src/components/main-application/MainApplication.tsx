@@ -7,7 +7,7 @@ import { Container } from "@mui/system";
 import Search from "./SearchPage";
 import Album from "../Album/Albums";
 import AlbumDetails from "../Album/AlbumDetails";
-import Artist from "./ArtistProfile";
+import Artist from "../../pages/AllArtist";
 import Playlist from "../Playlist/Playlists";
 import PlaylistDetails from "../Playlist/PlaylistDetails";
 import New from "../../pages/New";
@@ -140,6 +140,14 @@ const MainApplication = (props: mainApplicationProps) => {
           }
         />
         <Route
+          path="/artists:id"
+          element={
+            <RequireAuth>
+              <User />
+            </RequireAuth>
+          }
+        />
+        <Route
           path="/records"
           element={
             <RequireAuth>
@@ -152,6 +160,6 @@ const MainApplication = (props: mainApplicationProps) => {
       {userIsLogged ? <PlayerControls /> : ""}
     </div>
   );
-};;
+};
 
 export default MainApplication;

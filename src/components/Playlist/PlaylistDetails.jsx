@@ -27,9 +27,10 @@ const AddTracksToPlaylist = (props) => {
   console.log(data);
   const handleSubmit = (e) => {
     e.preventDefault()
-    let body = {"trackList":[track,], playlistID: parseInt(props.id)}
+    let body = { "trackList": [track,], playlistID: parseInt(props.id) }
     console.log(body)
     triggerAddToPlaylist(body)
+    window.location.reload()
   };
 
   return (
@@ -77,7 +78,7 @@ const CheckIsOwnedByuser = (props) => {
   }
 
   if (data.createdByUser === user) {
-    return <AddTracksToPlaylist id={props.id}/>;
+    return <AddTracksToPlaylist id={props.id} />;
   } else {
     return;
   }
