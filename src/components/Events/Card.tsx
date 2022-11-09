@@ -54,7 +54,7 @@ const Card = ({
   return (
     <div className="card">
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <Avatar alt={artist} src={poster} sx={{ width: 56, height: 56 }} />
+        {/* <Avatar alt={artist} src={poster} sx={{ width: 56, height: 56 }} /> */}
         <div>
           <h4>{date}</h4>
           <h4>{time}</h4>
