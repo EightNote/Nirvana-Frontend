@@ -10,10 +10,13 @@ import Box from "@mui/material/Box";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import pic1 from "../../assets/dummy.jpg";
+import pic2 from "../../assets/song.jpg";
+import pic3 from "../../assets/album.jpg";
 
 export default function Hero() {
   const [grid, setGrid] = useState([]);
-  const [rend,setRend]=useState("trendingTracks");
+  const [rend, setRend] = useState("trendingTracks");
   const [data, setData] = useState({ none: false });
 
   useEffect(() => {
@@ -46,15 +49,18 @@ export default function Hero() {
     console.log(fin);
   };
 
-  const huh=(item)=>{
-    if(rend==="trendingTracks"){
+
+
+  const huh = (item) => {
+    console.log(item)
+    if (rend === "trendingTracks") {
+      return <Card title={item.title} image={pic2} />;
+    } else if (rend === "trendingAlbums") {
       return <Card title={item.album_title} image={item.album_logo} />;
-    }else if(rend==="trendingAlbums"){
-      return <Card title={item.album_title} image={item.album_logo} />;
-    }else{
-      return <Card title={item.username} image={""} />;
+    } else {
+      return <Card title={item.username} image={pic1} />;
     }
-  }
+  };
   return (
     <Box>
       <ButtonGroup
@@ -94,9 +100,7 @@ export default function Hero() {
             <ul>
               {/* <ListSubheader>{``}</ListSubheader> */}
               {par.map((item) => (
-                <ListItem>
-                  <Card title={""} image={""} />
-                </ListItem>
+                <ListItem>{huh(item)}</ListItem>
               ))}
             </ul>
           </li>

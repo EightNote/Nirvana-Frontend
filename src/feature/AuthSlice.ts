@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../utilities/store";
+import { toast } from "react-toastify";
 
 export interface AuthState {
   token: string | null;
@@ -19,7 +20,7 @@ export const authSlice = createSlice({
   reducers: {
     setUser: (
       state,
-      action: PayloadAction<{ token: string; username: string; role: string; }>
+      action: PayloadAction<{ token: string; username: string; role: string }>
     ) => {
       if (action.payload.token) {
         localStorage.setItem(
