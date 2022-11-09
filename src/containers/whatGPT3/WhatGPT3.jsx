@@ -12,9 +12,9 @@ const WhatGPT3 = () => (
       <h2 className="gradient__text"> Explore Artists </h2>
     </div>
     <div className="gpt3__whatgpt3-container">
-      <Feature title="Trendings" text="Listen what the Worled is loving, Explore the Trending Tracks, Albums and Artists Here! " />
-      <Feature title="All Tracks" text="Music washes away from the soul the dust of everyday life. Explore the latest Songs Here! " />
-      <Feature title="Albums" text="This might be the Album of your life, Explore the Greatest Albums Here! " />
+      <Feature title="Trendings" linkk="home#blog" text="Listen what the Worled is loving, Explore the Trending Tracks, Albums and Artists Here! " />
+      <Feature title="All Tracks" linkk="home#blog" text="Music washes away from the soul the dust of everyday life. Explore the latest Songs Here! " />
+      <Feature title="Albums" linkk="home#blog" text="This might be the Album of your life, Explore the Greatest Albums Here! " />
     </div>
   </div>
 );
