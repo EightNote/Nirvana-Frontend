@@ -17,9 +17,8 @@ const CheckIsArtist = () => {
 
 export function AlbumList(props) {
     let navigate = useNavigate();
-    const routeChange = (id) => {
-        let path = "/albums/" + id;
-        navigate(path);
+    const routeChange = (title) => {
+        navigate("/albums/" + title);
     }
     return (
         <Box sx={{ background: "white" }}>

@@ -11,13 +11,16 @@ import Button from "@mui/material/Button";
 
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 export default function AllArtist() {
   const [allArtists, setAllArtists] = useState([]);
   const followFunc = (e: any) => {
     console.log(e.target.name);
     var ok = JSON.parse(localStorage.getItem("user"));
+    var role = null;
     if (ok) {
+      role = ok.role;
       ok = ok.token;
     }
     axios
@@ -57,6 +60,7 @@ export default function AllArtist() {
         console.log(response.data);
       });
   }, []);
+  const role = useSelector((state:any) => state.auth.role);
   return (
     <div
       style={{
@@ -95,16 +99,20 @@ export default function AllArtist() {
                   </React.Fragment>
                 }
               />
-              <Button
-                style={{ position: "relative", right: "0" }}
-                variant="outlined"
-                size="small"
-                color="primary"
-                name={item.username}
-                onClick={followFunc}
-              >
-                Follow
-              </Button>
+              {role === "user" ? (
+                <Button
+                  style={{ position: "relative", right: "0" }}
+                  variant="outlined"
+                  size="small"
+                  color="primary"
+                  name={item.username}
+                  onClick={followFunc}
+                >
+                  Follow
+                </Button>
+              ) : (
+                ""
+              )}
             </ListItem>
             <Divider variant="inset" component="li" />
           </>

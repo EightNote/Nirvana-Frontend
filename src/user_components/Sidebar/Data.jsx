@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button } from '@chakra-ui/react'
 import { Badge } from '@chakra-ui/react'
+import { useParams } from 'react-router-dom'
+
 
 
 
@@ -27,6 +29,7 @@ const GenreTag = (props) => {
 // }
 
 function Data() {
+  let { id } = useParams();
   const [interests, setInterests] = useState([{ name: "Punjabi", "track_count": 22, "id": 1 }])
   const role = JSON.parse(localStorage.getItem("user")).role
   const user = JSON.parse(localStorage.getItem("user"))
@@ -104,6 +107,13 @@ function Data() {
     } else if (role === "artist") {
       axios.get('http://localhost:8080/user/get-artist-detail/' + user.username).then((res) => {
         console.log("Artist details", res.data)
+        setArtistDetail(res.data);
+      }).catch((error) => console.log(error))
+    }
+
+    if (id) {
+      role = "artist"
+      axios.get('http://localhost:8080/user/get-artist-detail/' + id).then((res) => {
         setArtistDetail(res.data);
       }).catch((error) => console.log(error))
     }

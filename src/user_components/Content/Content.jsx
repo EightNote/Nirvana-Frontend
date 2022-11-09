@@ -31,7 +31,7 @@ import { RedoRounded } from '@mui/icons-material'
 
 const Content = () => {
   const tabs = ['Liked Songs', 'Liked Albums', 'Liked Artists',
-    'My Followers', 'My Playlists']
+    'My Followers']
 
   const [likedTracks, setLikedTracks] = useState([])
   const [likedAlbums, setLikedAlbums] = useState([])
@@ -70,7 +70,7 @@ const Content = () => {
       });
 
 
-      axios
+    axios
       .get("http://localhost:8080/albums/likedAlbums/?username=" + username, {
         headers: {
           Authorization: "Bearer " + user, //the token is a variable which holds the token
@@ -150,7 +150,7 @@ const Content = () => {
       <Tabs>
         <TabList px={5}>
           {tabs?.map(tab => (
-            ((tab != 'Liked Artists' && tab != 'My Followers') || (tab === 'Liked Artists' && role === "user") || (tab === 'My Followers' && role === "artist"))&&
+            ((tab != 'Liked Artists' && tab != 'My Followers') || (tab === 'Liked Artists' && role === "user") || (tab === 'My Followers' && role === "artist")) &&
             <Tab
               key={tab}
               mx={3}
@@ -161,7 +161,7 @@ const Content = () => {
               borderBottomWidth={1}
               _active={{ bg: 'transparent' }}
               _selected={{ color: 'brand.dark', borderColor: 'brand.blue' }}
-              >
+            >
               {tab}
             </Tab>
           ))}
@@ -219,12 +219,12 @@ const Content = () => {
             </List>
           </TabPanel>)}
           {
-            (role === "artist") && 
+            (role === "artist") &&
             <TabPanel>
               <List spacing={3} >
                 <Box borderWidth="1px" rounded="md" overflow="hidden" style={{ display: "flex", alignItems: "center" }}>
                   {followers.map(item => (
-                    
+
                     <>
                       <Box key={item} width="100%" py={2} bg="white" _odd={{ bg: "gray.100" }}>
                         <Avatar name={item} src="https://bit.ly/broken-link" style={{ marginRight: "10px" }} />
