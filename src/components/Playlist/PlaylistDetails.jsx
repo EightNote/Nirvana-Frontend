@@ -26,11 +26,10 @@ const AddTracksToPlaylist = (props) => {
   }
   console.log(data);
   const handleSubmit = (e) => {
-    e.preventDefault()
-    let body = { "trackList": [track,], playlistID: parseInt(props.id) }
-    console.log(body)
-    triggerAddToPlaylist(body)
-    window.location.reload()
+    // e.preventDefault();
+    let body = { trackList: [track], playlistID: parseInt(props.id) };
+    console.log(body);
+    triggerAddToPlaylist(body);
   };
 
   return (
@@ -50,19 +49,25 @@ const AddTracksToPlaylist = (props) => {
           id="demo-simple-select-helper"
           label="Visibility"
           onChange={(event) => {
-            console.log(event.target.value)
-            setTrack(event.target.value.title)
+            console.log(event.target.value);
+            setTrack(event.target.value.title);
           }}
         >
           <MenuItem key="0" value="">
             <em>None</em>
           </MenuItem>
           {data.map((track) => {
-            return <MenuItem key={track.title} value={track}>{track.title}</MenuItem>;
+            return (
+              <MenuItem key={track.title} value={track}>
+                {track.title}
+              </MenuItem>
+            );
           })}
         </Select>
       </FormControl>
-      <Button style={{marginTop:"1%"}} onClick={handleSubmit}>Add To Playlist</Button>
+      <Button style={{ marginTop: "1%" }} onClick={handleSubmit}>
+        Add To Playlist
+      </Button>
     </Box>
   );
 };
@@ -84,6 +89,29 @@ const CheckIsOwnedByuser = (props) => {
   }
 };
 
+const PlaylistHeader = (props) => {
+  const { data, isLoading, error } = useGetSpecificPlaylistQuery(props.id);
+  if (isLoading) return;
+  if (error) return;
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        p: 1,
+        m: 1,
+        bgcolor: "background.paper",
+        borderRadius: 1,
+      }}
+    >
+      <p>
+        <h1 style={{ color: "white" }}> {data.name}</h1>
+        <h5 style={{ color: "orange" }}>{data.description}</h5>
+      </p>
+    </Box>
+  );
+};
+
 const PlaylistDetails = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetSpecificPlaylistTracksQuery(id);
@@ -95,17 +123,20 @@ const PlaylistDetails = () => {
   }
   return (
     <div>
-      <div>
+      <PlaylistHeader id={id}/>
         <CheckIsOwnedByuser id={id} />
-        <div style={{display:"flex", marginLeft:"20%", marginTop:"2%", marginBottom:"0px"}}>
-        <h1 style={{color:'white'}}> NAME </h1>
-        <h5 style={{color:'orange', marginTop:"1.3%", marginLeft:"2%"}}>By Username</h5>
-        </div>
-        <div style={{display:"flex",justifyContent:"center", alignItems:"center", margin:"2%", marginTop:"0px", marginBottom : '5%'}}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            margin: "2%",
+            marginTop: "0px",
+            marginBottom: "5%",
+          }}
+        >
           <Tracks data={data} />
         </div>
-        
-      </div>
     </div>
   );
 };

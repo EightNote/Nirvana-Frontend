@@ -36,21 +36,13 @@ const RhapEmpty = (src) => {
 }
 
 function PlayerControls() {
-    const [lastHistory, setLastHistory] = useState(-1)
     const currentTrack = useSelector(selectCurrentTrackData)
     const dispatch = useDispatch()
-    const [triggerHistory, resultHistory] = useAddToHistoryMutation()
 
     if (typeof currentTrack === 'undefined') {
         return (
             <RhapEmpty src={null} />
         )
-    }
-    const listenHandler = () => {
-        if (currentTrack.title !== lastHistory) {
-            triggerHistory(currentTrack.title)
-            setLastHistory(currentTrack.title)
-        }
     }
 
     return (
@@ -59,7 +51,7 @@ function PlayerControls() {
             <Typography style={{wordWrap:"normal", flexBasis:"1", width:"fit-content", textAlign:"center"}}>
                 {currentTrack.title}
             </Typography>
-            <AudioPlayer 
+            <AudioPlayer
                 style={{flexBasis:'3'}}
                 autoPlay={false}
                 src={"http://localhost:8080/" + currentTrack.audio_file}
@@ -86,7 +78,6 @@ function PlayerControls() {
                 onClickPrevious={() => dispatch(prevTrack())}
                 onClickNext={() => dispatch(nextTrack())}
                 onEnded={() => dispatch(nextTrack())}
-                onListen={listenHandler}
             />
             </div>
         </div>
