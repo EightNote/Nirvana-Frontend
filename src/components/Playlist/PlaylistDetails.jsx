@@ -28,8 +28,9 @@ const AddTracksToPlaylist = (props) => {
   const handleSubmit = (e) => {
     // e.preventDefault();
     let body = { trackList: [track], playlistID: parseInt(props.id) };
-    console.log(body);
-    triggerAddToPlaylist(body);
+    triggerAddToPlaylist(body).then((data)=> {
+      window.location.reload()
+    });
   };
 
   return (

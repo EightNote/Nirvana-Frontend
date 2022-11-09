@@ -33,8 +33,9 @@ export default function CreateTrack(props) {
       lyrics: lyrics,
       album_id: album_id,
     };
-    triggerCreateTrack(body);
-    window.location.reload();
+    triggerCreateTrack(body).then((data) => {
+      window.location.reload();
+    });
   };
 
   return (
