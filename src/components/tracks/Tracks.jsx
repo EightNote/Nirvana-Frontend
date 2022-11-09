@@ -11,6 +11,8 @@ export default function Tracks(data) {
     // pass data as list of tracks
     console.log(data)
     return (
+        <div style={{display:"flex",justifyContent:"center",flexDirection:"column", alignItems:"center", margin:"2%", marginTop:"0px", marginBottom : '5%'}}>
+        <h1 style={{color:"white", marginBottom:"0px",width:"53%",textAlign:"center", borderRadius:"5px", padding:"1%"}}>All Tracks</h1>
         <Box sx={{
             bgcolor: 'white',
             boxShadow: 1,
@@ -25,6 +27,7 @@ export default function Tracks(data) {
         }}>
             {data.data.map((track) => {
                 return (
+                    <div>
                     <ListItem key={track.title}>
                         <ListItemButton role={undefined} dense
                             sx={{
@@ -48,9 +51,11 @@ export default function Tracks(data) {
                             </ListItemIcon>
                         </ListItemButton>
                     </ListItem>
+                    </div>
                 );
             })}
         </List>
         </Box>
+        </div>
     );
 }
