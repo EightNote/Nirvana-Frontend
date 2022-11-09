@@ -34,6 +34,7 @@ export default function CreateTrack(props) {
       album_id: album_id,
     };
     triggerCreateTrack(body);
+    window.location.reload();
   };
 
   return (

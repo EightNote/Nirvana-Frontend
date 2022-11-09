@@ -78,6 +78,18 @@ export default function MenuListComposition() {
     navigate("/artists");
   };
 
+  const handleClose5 = (event: Event | React.SyntheticEvent) => {
+    if (
+      anchorRef.current &&
+      anchorRef.current.contains(event.target as HTMLElement)
+    ) {
+      return;
+    }
+
+    setOpen(false);
+    navigate("/events");
+  };
+
   function handleListKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Tab") {
       event.preventDefault();
@@ -131,7 +143,7 @@ export default function MenuListComposition() {
                   placement === "bottom-start" ? "left top" : "left bottom",
               }}
             >
-              <Paper style={{ zIndex:"5000000" }}>
+              <Paper style={{ zIndex: "5000000" }}>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList
                     autoFocusItem={open}
@@ -144,6 +156,7 @@ export default function MenuListComposition() {
                     <MenuItem onClick={handleClose2}>Albums</MenuItem>
                     <MenuItem onClick={handleClose3}>Playlists</MenuItem>
                     <MenuItem onClick={handleClose4}>Artists</MenuItem>
+                    <MenuItem onClick={handleClose5}>Events</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

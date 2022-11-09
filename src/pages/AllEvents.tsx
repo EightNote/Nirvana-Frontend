@@ -33,15 +33,28 @@ const initialState = {
   countryID: "",
 };
 
+const initialState1 = {
+  date: "",
+  time: "",
+  venue: "",
+  registrationLink: "",
+};
+
 const AllEvents = () => {
   const [events, setEvents] = useState([]);
   const dispatch = useAppDispatch();
 
   const [open, setOpen] = React.useState(false);
+  const [open1, setOpen1] = React.useState(false);
   const [val, setVal] = useState(initialState);
+  const [val1, setVal1] = useState(initialState1);
   const [countries, setCountries] = React.useState([]);
   const handler = (e: any) => {
     setVal({ ...val, [e.target.name]: e.target.value });
+  };
+
+  const handler1 = (e: any) => {
+    setVal1({ ...val1, [e.target.name]: e.target.value });
   };
 
   const handleClickOpen = () => {
@@ -50,6 +63,14 @@ const AllEvents = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleClickOpen1 = () => {
+    setOpen1(true);
+  };
+
+  const handleClose1 = () => {
+    setOpen1(false);
   };
 
   useEffect(() => {
@@ -65,7 +86,7 @@ const AllEvents = () => {
       })
       .then((response) => {
         setEvents(response.data);
-        console.log(response.data);
+        console.log(response.data,"aaa");
       });
 
     axios.get("http://localhost:8080/countries/all/").then((response) => {
@@ -99,6 +120,39 @@ const AllEvents = () => {
       });
   };
 
+  const handlePost1 = () => {
+    handleClose1();
+    var user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      user = user.token;
+    }
+
+    console.log(val1);
+
+    fetch("http://localhost:8080/events/", {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + user,
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify({ ...val1 }),
+    }).then((response) => window.location.reload());
+
+    // axios
+    //   .put("http://localhost:8080/events/", val1, {
+    //     headers: {
+    //       Authorization: "Bearer " + user, //the token is a variable which holds the token
+    //     },
+    //   })
+    //   .then((response) => {
+    //     // setEvents(response.data);
+    //     window.location.href = "/events";
+    //     console.log(response.data);
+    //   })
+    //   .catch((err) => console.log(err));
+  };
+
   const state = {
     yellow: "#fcd000",
     blue: "#0ebeff",
@@ -112,8 +166,12 @@ const AllEvents = () => {
     >
       <div style={{ marginTop: "40px" }}>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <Button variant="outlined" onClick={handleClickOpen}>
+          <Button variant="outlined" onClick={handleClickOpen} style={{marginBottom:"20px"}}>
             Create New Event
+          </Button>
+
+          <Button variant="outlined" onClick={handleClickOpen1}>
+            Update Event
           </Button>
 
           <img
@@ -237,6 +295,76 @@ const AllEvents = () => {
             <Button onClick={handlePost}>Submit</Button>
           </DialogActions>
         </Dialog>
+
+        <Dialog
+          open={open1}
+          onClose={handleClose}
+          PaperProps={{
+            sx: {
+              width: "50%",
+              maxHeight: 600,
+            },
+          }}
+        >
+          <DialogTitle>Update Event</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Provide required data for update event
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="normal"
+              id="date"
+              // label="Date"
+              name="date"
+              type="date"
+              onChange={handler1}
+              fullWidth
+              variant="outlined"
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="time"
+              // label="Time"
+              type="text"
+              name="time"
+              color="primary"
+              // autoFocus
+              onChange={handler1}
+              fullWidth
+              variant="outlined"
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="venue"
+              name="venue"
+              label="Venue"
+              type="text"
+              onChange={handler1}
+              fullWidth
+              variant="outlined"
+            />
+
+            <TextField
+              autoFocus
+              margin="dense"
+              name="registrationLink"
+              id="name"
+              label="Registration URL"
+              type="text"
+              onChange={handler1}
+              fullWidth
+              variant="outlined"
+              // disabled={true}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose1}>Cancel</Button>
+            <Button onClick={handlePost1}>Submit</Button>
+          </DialogActions>
+        </Dialog>
       </div>
       <div
         style={{
@@ -254,7 +382,7 @@ const AllEvents = () => {
             date={event.date}
             time={event.time}
             venue={event.venue}
-            registration={event.registration}
+            registration={event.registrationLink}
             poster={event.eventPoster}
             artist_id={event.artistID}
             country_id={event.countryID}

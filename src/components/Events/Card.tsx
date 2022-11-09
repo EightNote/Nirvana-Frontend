@@ -38,16 +38,18 @@ const Card = ({
         console.log(response.data);
       });
 
-      axios
-        .get("http://localhost:8080/country/all", {
-          headers: {
-            Authorization: "Bearer " + token, //the token is a variable which holds the token
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
-        });
+    axios
+      .get("http://localhost:8080/country/all", {
+        headers: {
+          Authorization: "Bearer " + token, //the token is a variable which holds the token
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
   }, []);
+
+  console.log(registration);
 
   return (
     <div className="card">
@@ -62,6 +64,7 @@ const Card = ({
       <p>{venue}</p>
       <div className="line" style={{ backgroundColor: "#0ebeff" }}></div>
       <p>{artist}</p>
+      <a href={registration}>{registration}</a>
     </div>
   );
 };
