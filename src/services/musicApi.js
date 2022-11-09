@@ -25,6 +25,9 @@ export const musicApi = createApi({
         getSpecificAlbum: builder.query({
             query: (id) => `albums/album/${id}`
         }),
+        getAlbumDetails: builder.query({
+            query: (id) => `albums/details/${id}`
+        }),
         getArtistList: builder.query({
             query: () => `artists/`
         }),
@@ -132,6 +135,7 @@ export const {
     useGetSpecificAlbumQuery,
     useGetArtistListQuery,
     useGetSpecificArtistQuery,
+    useGetAlbumDetailsQuery,
     useGetGenreListQuery,
     useGetSpecificGenreQuery,
     useGetUserPlaylistsQuery,

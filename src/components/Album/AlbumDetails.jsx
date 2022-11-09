@@ -5,12 +5,14 @@ import Tracks from "../tracks/Tracks";
 import { useGetSpecificAlbumQuery } from "../../services/musicApi";
 import { useSelector } from "react-redux";
 import CreateTrack from "../tracks/CreateTrack";
-
-
+import { useGetAlbumDetailsQuery } from "../../services/musicApi";
 
 const CheckIsArtist = (props) => {
-  const user = useSelector((state) => state.auth.role);
-  if (user === "artist") {
+  const user = useSelector((state) => state.auth.username);
+  const { data, isLoading, error } = useGetAlbumDetailsQuery(props.id);
+  if (isLoading) return;
+  if (error) return;
+  if (user === data.artist_id) {
     return <CreateTrack album_id={props.id} />;
   } else {
     return;
