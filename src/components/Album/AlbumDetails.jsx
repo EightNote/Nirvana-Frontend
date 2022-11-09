@@ -1,11 +1,16 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-
+import { useState, useEffect, skipToken } from "react";
+import axios from "axios";
 import Tracks from "../tracks/Tracks";
-import { useGetSpecificAlbumQuery } from "../../services/musicApi";
+import { useGetSpecificAlbumQuery, useIsAlbumLikedQuery, useToggleLikeAlbumMutation } from "../../services/musicApi";
 import { useSelector } from "react-redux";
 import CreateTrack from "../tracks/CreateTrack";
 import { useGetAlbumDetailsQuery } from "../../services/musicApi";
+import { Box } from "@mui/system";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import IconButton from "@mui/material/IconButton";
 
 const CheckIsArtist = (props) => {
   const user = useSelector((state) => state.auth.username);
@@ -19,6 +24,65 @@ const CheckIsArtist = (props) => {
   }
 };
 
+const AlbumLike = (props) => {
+  const [like, setLike] = useState(skipToken);
+  useEffect(() => {
+    axios.get("http://localhost:8080/albums/is-liked-by/" + props.id).then((res) => {
+      setLike(res.data);
+    });
+    console.log(props.id);
+  }, []);
+
+  const [toggleLike, resultLike] = useToggleLikeAlbumMutation();
+  const { data: likeStatus, isLoading, isError } = useIsAlbumLikedQuery(props.id);
+
+  useEffect(() => {
+    console.log(props.id + " " + likeStatus);
+    if (likeStatus) {
+      setLike(true);
+    }
+  }, [likeStatus, props]);
+
+  function likeHandler() {
+    if (like === false) {
+      setLike(true);
+    } else {
+      setLike(false);
+    }
+    toggleLike(props.id);
+  }
+
+  return (
+    <IconButton aria-label="like" onClick={likeHandler}>
+      {like ? <FavoriteIcon style={{color:"white"}} /> : <FavoriteBorderOutlinedIcon style={{color:"white"}} />}
+    </IconButton>
+  );
+};
+
+const AlbumHeader = (props) => {
+  const { data, isLoading, error } = useGetAlbumDetailsQuery(props.id);
+  if (isLoading) return;
+  if (error) return;
+  return (
+    <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          p: 1,
+          m: 1,
+          bgcolor: 'background.paper',
+          borderRadius: 1,
+        }}>
+      <p>
+        <h1 style={{ color: "white" }}> {data.album_title}</h1>
+        <h5 style={{ color: "orange" }}>{data.artist_id}</h5>
+      </p>
+
+        <AlbumLike id={props.id} />
+    </Box>
+  );
+};
+
 function AlbumDetails() {
   const { id } = useParams();
   const { data, isLoading, error } = useGetSpecificAlbumQuery(id);
@@ -29,18 +93,13 @@ function AlbumDetails() {
     return <p>Some error</p>;
   }
   return (
-    <div>
-      <div style={{display:"flex", marginLeft:"20%", marginTop:"2%", marginBottom:"0px"}}>
-        <h1 style={{color:'white'}}> Name </h1>
-        <h5 style={{color:'orange', marginTop:"1.3%", marginLeft:"2%"}}>By Artist</h5>
-      </div>
-      <div style={{display:"flex",justifyContent:"center", alignItems:"center", margin:"2%", marginTop:"0px", marginBottom : '5%'}}>
-    
-        <CheckIsArtist id={id} />
+    <Box>
+      <AlbumHeader id={id} />
 
-        <Tracks data={data} />
-      </div>
-    </div>
+      <CheckIsArtist id={id} />
+
+      <Tracks data={data} />
+    </Box>
   );
 }
 

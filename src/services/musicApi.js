@@ -35,6 +35,15 @@ export const musicApi = createApi({
         getAlbumDetails: builder.query({
             query: (id) => `albums/details/${id}`
         }),
+        isAlbumLiked: builder.query({
+            query: (id) => `albums/is-liked-by/${id}`
+        }),
+        toggleLikeAlbum: builder.mutation({
+            query: (id) => ({
+                method: "POST",
+                url: `albums/toggle-like/${id}`,
+            }),
+        }),
         getArtistList: builder.query({
             query: () => `artists/`
         }),
@@ -140,6 +149,8 @@ export const {
     useCreateTrackMutation,
     useGetAlbumListQuery,
     useGetSpecificAlbumQuery,
+    useIsAlbumLikedQuery,
+    useToggleLikeAlbumMutation,
     useGetArtistListQuery,
     useGetSpecificArtistQuery,
     useCreateAlbumMutation,
