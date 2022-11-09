@@ -56,9 +56,9 @@ export default function Hero() {
     if (rend === "trendingTracks") {
       return <Card title={item.title} image={pic2} />;
     } else if (rend === "trendingAlbums") {
-      return <Card title={item.album_title} image={item.album_logo} />;
+      return <Card title={item.album_title} image={"http://localhost:8080/Images/Albums/" + item.album_logo}   />
     } else {
-      return <Card title={item.username} image={pic1} />;
+      return <Card title={item.username} image={"http://localhost:8080/Images/Artists/" + item.username} />;
     }
   };
   return (
